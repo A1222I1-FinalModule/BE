@@ -27,7 +27,7 @@ CREATE TABLE customer_type (
 
 CREATE TABLE discount (
     discount_code VARCHAR(255) NOT NULL,
-    `description` LONGTEXT DEFAULT NULL,
+    `name` LONGTEXT DEFAULT NULL,
     reward_point INT DEFAULT 0,
     `condition` LONGTEXT DEFAULT NULL,
     begin_date DATETIME NOT NULL,
