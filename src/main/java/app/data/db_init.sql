@@ -92,8 +92,11 @@ CREATE TABLE bill_detail (
     id VARCHAR(255) NOT NULL,
     quantity INT DEFAULT 0,
     product_id VARCHAR(255) NOT NULL,
+    bill_id VARCHAR(255) NOT NULL,
     FOREIGN KEY (product_id)
         REFERENCES product (product_code),
+    FOREIGN KEY (bill_id)
+        REFERENCES bill (id),
     PRIMARY KEY (id)
 );
 
