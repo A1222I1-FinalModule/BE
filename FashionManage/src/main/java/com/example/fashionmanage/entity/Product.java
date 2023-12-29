@@ -33,7 +33,7 @@ public class Product {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "size_id", nullable = false)
-    private com.example.fashionmanage.model.Size size;
+    private com.example.fashionmanage.entity.Size size;
 
 }
 
