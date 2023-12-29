@@ -1,4 +1,4 @@
-package com.example.fashionmanage.model;
+package com.example.fashionmanage.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
