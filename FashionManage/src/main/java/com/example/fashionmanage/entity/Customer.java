@@ -1,3 +1,4 @@
+
 package com.example.fashionmanage.model;
 
 import jakarta.persistence.*;
@@ -57,3 +58,5 @@ public class Customer {
     private Set<Bill> bills = new LinkedHashSet<>();
 
 }
+
+

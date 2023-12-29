@@ -1,3 +1,4 @@
+
 package com.example.fashionmanage.model;
 
 import jakarta.persistence.*;

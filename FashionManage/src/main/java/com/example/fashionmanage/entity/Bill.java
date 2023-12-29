@@ -1,3 +1,4 @@
+
 package com.example.fashionmanage.model;
 
 import jakarta.persistence.*;
@@ -17,7 +18,7 @@ import java.util.Set;
 public class Bill {
     @Id
     @Size(max = 255)
-    @Column(name = "id", nullable = false)
+    @Column(name ="id", nullable = false)
     private String id;
 
     @NotNull

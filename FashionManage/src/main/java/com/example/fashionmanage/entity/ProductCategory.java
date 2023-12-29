@@ -1,3 +1,4 @@
+
 package com.example.fashionmanage.model;
 
 import jakarta.persistence.*;
@@ -27,3 +28,4 @@ public class ProductCategory {
     private Set<Product> products = new LinkedHashSet<>();
 
 }
+

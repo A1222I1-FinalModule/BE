@@ -1,4 +1,4 @@
-This is FrontEnd 
+This is BackEnd
 B1: tạo 1 branche cho mình tại đây.
 vd: git checkout -b your_name_branch.
 B2: mọi người khi code phải checkout qua branche của mình.

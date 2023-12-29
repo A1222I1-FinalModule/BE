@@ -1,3 +1,4 @@
+
 package com.example.fashionmanage.model;
 
 import jakarta.persistence.*;
@@ -35,3 +36,4 @@ public class Product {
     private com.example.fashionmanage.model.Size size;
 
 }
+

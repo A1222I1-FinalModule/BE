@@ -1,3 +1,4 @@
+
 package com.example.fashionmanage.model;
 
 import jakarta.persistence.*;
@@ -31,3 +32,4 @@ public class Notification {
     private Role role;
 
 }
+

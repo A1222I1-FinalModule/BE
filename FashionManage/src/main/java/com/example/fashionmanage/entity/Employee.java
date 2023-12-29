@@ -1,3 +1,4 @@
+
 package com.example.fashionmanage.model;
 
 import jakarta.persistence.*;
@@ -43,3 +44,4 @@ public class Employee {
     private User user;
 
 }
+
