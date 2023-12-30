@@ -26,7 +26,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -41,45 +40,34 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         return new UserDetailServiceImp();
     }
-
-    /**
-     * Cors configuration source
-     * Author: AiPV
-     * @return the cors configuration source
-     */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Collections.singletonList("*"));
+        configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT","DELETE"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http = http.csrf(crf->crf.disable());
-        http = http.sessionManagement((sessionManagement) ->
-                sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        );
-        http = http.exceptionHandling((exc)->exc.authenticationEntryPoint((req,res,ex)->{
-            res.sendError(HttpServletResponse.SC_NOT_FOUND,ex.getMessage());
-        }));
-        http = http.authorizeHttpRequests((author)->author.requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/staff/**").hasRole("STAFF")
-                .requestMatchers("/api/warehouse/**").hasRole("WAREHOUSE")
-                .anyRequest().authenticated());
-        http = http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+         http = http.csrf(crf->crf.disable());
+         http = http.sessionManagement((sessionManagement) ->
+        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+               );
+         http = http.exceptionHandling((exc)->exc.authenticationEntryPoint((req,res,ex)->{
+             res.sendError(HttpServletResponse.SC_NOT_FOUND,ex.getMessage());
+         }));
+         http = http.authorizeHttpRequests((author)->author.requestMatchers("/api/auth/**").permitAll()
+                 .requestMatchers("/api/admin").hasRole("ADMIN")
+                 .requestMatchers("/api/staff").hasRole("STAFF")
+                 .requestMatchers("/api/warehouse").hasRole("WAREHOUSE")
+                 .anyRequest().authenticated());
+         http = http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
-    /**
-     *  Password encoder.
-     *  create a bean PasswordEncoder using the BCrypt password encoder
-     * @author: AiPV
-     * @return the password encoder
-     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

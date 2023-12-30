@@ -15,10 +15,6 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-/**
- * JWT Class
- * @author Internet
- */
 @Component
 public class JwtUtil implements Serializable {
     private static final long serialVersionUID = -2550185165626007488L;

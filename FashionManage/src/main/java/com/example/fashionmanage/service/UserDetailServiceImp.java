@@ -1,5 +1,6 @@
 package com.example.fashionmanage.service;
 
+
 import com.example.fashionmanage.entity.User;
 import com.example.fashionmanage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,6 @@ public class UserDetailServiceImp implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    /**
-     *  Check user has username . If exists return it else return NotFoundException
-     * @param username
-     * @return UserDetails
-     * @throws UsernameNotFoundException
-     * @author AiPV
-     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> fUser = userRepository.findByUsername(username);
