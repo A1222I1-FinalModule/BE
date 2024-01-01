@@ -24,8 +24,6 @@ public class Role {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "role")
-    private Set<Notification> notifications = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "role")
     private Set<User> users = new LinkedHashSet<>();

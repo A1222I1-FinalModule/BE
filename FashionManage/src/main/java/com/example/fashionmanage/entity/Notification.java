@@ -5,8 +5,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.aspectj.weaver.ast.Not;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.Instant;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -15,21 +17,35 @@ import java.time.Instant;
 public class Notification {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue
     private Integer id;
 
     @NotNull
     @Column(name = "start_date", nullable = false)
-    private Instant startDate;
+    @DateTimeFormat
+    private Date startDate;
 
     @NotNull
-    @Lob
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", nullable = false,columnDefinition = "text")
     private String content;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
 
+    private  int target;
+
+    private Boolean status;
+
+
+
+    public Notification(){
+
+    }
+
+    public Notification(Integer id, Date startDate, String content,int target,boolean status) {
+        this.id = id;
+        this.startDate = startDate;
+        this.content = content;
+        this.target = target;
+        this.status = status;
+    }
 }
 
