@@ -19,7 +19,15 @@ public class UserDetailServiceImp implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> fUser = userRepository.findByUsername(username);
-        return fUser.orElseThrow(()-> new UsernameNotFoundException("Invalid credentials"));
+        return fUser.orElseThrow(() -> new UsernameNotFoundException("Invalid credentials"));
 
+    }
+
+    public String findPasswordByUsername(String username) {
+        return userRepository.findPasswordByUsername(username);
+    }
+
+    public <S extends User> S save(S entity) {
+        return userRepository.save(entity);
     }
 }
