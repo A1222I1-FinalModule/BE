@@ -1,4 +1,3 @@
-
 package com.example.fashionmanage.entity;
 
 import jakarta.persistence.*;
@@ -31,4 +30,3 @@ public class Role {
     private Set<User> users = new LinkedHashSet<>();
 
 }
-
