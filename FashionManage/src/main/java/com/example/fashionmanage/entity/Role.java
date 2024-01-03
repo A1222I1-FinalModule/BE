@@ -19,7 +19,7 @@ public class Role implements GrantedAuthority {
     private static final long serialVersionUID = 4065375140379002510L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     @ManyToOne
     @JsonIgnore
     private User user;
