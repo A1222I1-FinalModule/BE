@@ -1,4 +1,3 @@
-
 package com.example.fashionmanage.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -64,4 +63,3 @@ public class Role implements GrantedAuthority {
     }
 
 }
-
