@@ -35,6 +35,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private Set<Employee> employees = new LinkedHashSet<>();
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
@@ -60,3 +61,4 @@ public class User implements UserDetails {
         return true;
     }
 }
+
