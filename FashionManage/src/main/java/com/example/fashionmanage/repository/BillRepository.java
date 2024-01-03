@@ -13,10 +13,10 @@ public interface BillRepository extends JpaRepository<Bill,String> {
     List<Bill> findTop5RecentOrders();
     @Query(value = "SELECT COUNT(DISTINCT customer_id) FROM bill", nativeQuery = true)
     double calculateCustomerGrowthPercentage();
-    @Query(value = "")
-    double calculateOrderGrowthPercentage();
-    @Query(value = "")
-    double calculateRevenueByWeek();
-    @Query(value = "")
-    double calculateRevenueByMonth();
+//    @Query(value = "")
+//    double calculateOrderGrowthPercentage();
+//    @Query(value = "")
+//    double calculateRevenueByWeek();
+//    @Query(value = "")
+//    double calculateRevenueByMonth();
 }
