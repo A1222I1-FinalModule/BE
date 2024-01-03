@@ -46,7 +46,6 @@ public class Role implements GrantedAuthority {
         result = prime * result + ((role == null) ? 0 : role.hashCode());
         return result;
     }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
