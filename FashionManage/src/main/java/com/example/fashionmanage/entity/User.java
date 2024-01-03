@@ -23,7 +23,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Integer id;
     @Column(name = "username")
     private String username;
     @Column(name = "password", length = 10000)
@@ -34,6 +34,8 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private Set<Employee> employees = new LinkedHashSet<>();
+
+
 
 
     @Override
