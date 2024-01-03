@@ -32,7 +32,7 @@ public class BillServiceImpl implements BillService{
     }
 
     @Override
-    public double calculateRevenueByMonth() {
+    public double calculateRevenueByMonth(Integer month) {
         return 0;
     }
 
