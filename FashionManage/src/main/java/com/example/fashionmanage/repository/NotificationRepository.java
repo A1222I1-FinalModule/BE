@@ -21,7 +21,7 @@ public interface NotificationRepository extends JpaRepository<Notification,Integ
      * @Param : N/A
      * @Return : This method will display all the records in the Notifications table
      */
-    @Query(value = " select content,start_date from Notification ",nativeQuery = true)
+    @Query(value = " select n.content,n.start_date from Notification n ",nativeQuery = true)
     List<Notification> findAll();
 
 

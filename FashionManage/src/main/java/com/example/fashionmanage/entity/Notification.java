@@ -34,18 +34,5 @@ public class Notification {
 
     private Boolean status;
 
-
-
-    public Notification(){
-
-    }
-
-    public Notification(Integer id, Date startDate, String content,int target,boolean status) {
-        this.id = id;
-        this.startDate = startDate;
-        this.content = content;
-        this.target = target;
-        this.status = status;
-    }
 }
 
