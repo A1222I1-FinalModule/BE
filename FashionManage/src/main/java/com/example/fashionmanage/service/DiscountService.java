@@ -3,6 +3,7 @@ package com.example.fashionmanage.service;
 import com.example.fashionmanage.entity.Discount;
 import com.example.fashionmanage.validation.DiscountDto;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,4 +49,6 @@ public interface DiscountService {
      * author QuanNV
      */
     Discount updateDiscount(String id, Discount discount);
+
+    List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today);
 }

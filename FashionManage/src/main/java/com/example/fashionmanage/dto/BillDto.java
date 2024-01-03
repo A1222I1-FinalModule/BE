@@ -1,5 +1,6 @@
-package com.example.fashionmanage.entity;
+package com.example.fashionmanage.dto;
 
+import com.example.fashionmanage.dto.ProductBill;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,4 +13,6 @@ public class BillDto {
     private String customerCode;
     private String employeeCode;
     private String discountCode;
+    private String billCode;
+    private Integer total;
 }

@@ -1,4 +1,4 @@
-package com.example.fashionmanage.entity;
+package com.example.fashionmanage.dto;
 
 import lombok.Getter;
 import lombok.Setter;

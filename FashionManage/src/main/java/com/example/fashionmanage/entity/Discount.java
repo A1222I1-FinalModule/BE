@@ -47,9 +47,8 @@ public class Discount {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date endDate;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;
-
-
 }

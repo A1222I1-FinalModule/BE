@@ -74,11 +74,24 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      *
      * @param id
      * @param discount1
-     * @return author QuanNV
+     * @author QuanNV
      */
     @Modifying
     @Query(value = "update discount set name=:discount1.name,rewardPoint=:discount1.rewardPoint,condition=:discount1.condition,beginDate=:discount1.beginDate,endDate=:discount1.endDate,customerType=:discount1.customerType" +
             "where discountCode=:id", nativeQuery = true)
     Discount updateDiscount(String id, Discount discount1);
+
+    /**
+     * the function help update discount by id
+     *
+     * @param cusTypeId
+     * @param total
+     * @param today
+     * @return list Discount
+     * @author BaoDV
+     */
+    @Modifying
+    @Query(value = "select d.* from discount d where d.condition <= :total and (:today between d.begin_date and d.end_date) and customer_type_id = :cusTypeId", nativeQuery = true)
+    List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today);
 }
 

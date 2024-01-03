@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-
-
 public interface BillRepository extends JpaRepository<Bill,String> {
     @Query(value = "SELECT * FROM bill ORDER BY release_date DESC LIMIT 5", nativeQuery = true)
     List<Bill> findTop5RecentOrders();

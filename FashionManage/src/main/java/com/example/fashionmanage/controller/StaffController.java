@@ -1,5 +1,7 @@
 package com.example.fashionmanage.controller;
 
+import com.example.fashionmanage.dto.BillDto;
+import com.example.fashionmanage.dto.ProductBill;
 import com.example.fashionmanage.entity.*;
 import com.example.fashionmanage.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +34,13 @@ public class StaffController {
     @Autowired
     private DiscountService discountService;
 
+    /**
+     * The function help search customer based on a string
+     *
+     * @param searchStr is search string
+     * @return list data of customer
+     * @author BaoDV
+     */
     @PostMapping("/customer/{searchStr}")
     public ResponseEntity<List<Customer>> findAllByNameOrPhoneContainingOrId(@PathVariable(name = "searchStr") String searchStr) {
         List<Customer> searchList = customerService.findAllByNameOrPhoneOrContainingId(searchStr);
@@ -38,6 +50,12 @@ public class StaffController {
         return new ResponseEntity<>(searchList, HttpStatus.OK);
     }
 
+    /**
+     * The function help add bill
+     *
+     * @param billDto
+     * @author BaoDV
+     */
     @PostMapping("/bill/add")
     public ResponseEntity<?> addBill(@RequestBody BillDto billDto) {
         Optional<Customer> customerOptional = customerService.findById(billDto.getCustomerCode());
@@ -69,12 +87,12 @@ public class StaffController {
                 return new ResponseEntity<>("Discount not found with ID: " + discountOptional.get().getDiscountCode(), HttpStatus.NOT_FOUND);
             }
             //auto generate bill code
-            String billCode = "";
+            String billCode = billDto.getBillCode();
             while (true) {
-                billCode = "HD" + generateRandomCode9Nums();
                 if (!bIllService.findById(billCode).isPresent()) {
                     break;
                 }
+                billCode = "HD" + generateRandomCode9Nums();
             }
             //add bill
             Bill newBill = new Bill();
@@ -83,8 +101,7 @@ public class StaffController {
             newBill.setCustomer(customerOptional.get());
             newBill.setEmployee(employeeOptional.get());
             newBill.setDiscount(discountOptional.get());
-
-            //thieu total vi khong biet add giam gia
+            newBill.setTotal(billDto.getTotal());
 
             bIllService.save(newBill);
             //add bill detail
@@ -113,6 +130,41 @@ public class StaffController {
         }
     }
 
+    /**
+     * The function help get bill code
+     *
+     * @return bill code
+     * @author BaoDV
+     */
+    @GetMapping("/bill/code")
+    public ResponseEntity<String> getBillCode() {
+        return new ResponseEntity<>("HD" + generateRandomCode9Nums(), HttpStatus.OK);
+    }
+
+    /**
+     * The function help get list discount for customer
+     *
+     * @param cusId
+     * @param total
+     * @return list discount
+     * @author BaoDV
+     */
+    @GetMapping("/discount/search/{cusId}")
+    public ResponseEntity<List<Discount>> findDiscount(@PathVariable Integer cusId, @RequestParam("total") Integer total) {
+        List<Discount> discountList = new ArrayList<>();
+        discountList = discountService.findDiscount(cusId, total, new Date());
+        if (discountList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(discountList, HttpStatus.OK);
+    }
+
+    /**
+     * The function help get 9 random number
+     *
+     * @return a string have 9 number random
+     * @author BaoDV
+     */
     public static String generateRandomCode9Nums() {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 1; i <= 9; i++) {
