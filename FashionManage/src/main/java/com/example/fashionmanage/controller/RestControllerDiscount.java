@@ -1,8 +1,7 @@
 package com.example.fashionmanage.controller;
 
 import com.example.fashionmanage.entity.Discount;
-import com.example.fashionmanage.service.discount.inter.DiscountServiceInter;
-import com.example.fashionmanage.service.discount.service.DiscountService;
+import com.example.fashionmanage.service.DiscountService;
 import com.example.fashionmanage.validation.DiscountDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -18,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/admin")
 public class RestControllerDiscount {
     @Autowired
-    private DiscountServiceInter discountServiceInter;
+    private DiscountService discountServiceInter;
 
     @Autowired
     private ModelMapper modelMapper;
