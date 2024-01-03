@@ -1,9 +1,8 @@
 package com.example.fashionmanage.controller;
 
 import com.example.fashionmanage.entity.Discount;
-import com.example.fashionmanage.service.discount.inter.DiscountServiceInter;
-import com.example.fashionmanage.service.discount.service.DiscountService;
-import com.example.fashionmanage.validation.DiscountDto;
+import com.example.fashionmanage.service.discount.inter.DiscountService;
+import com.example.fashionmanage.dto.DiscountDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,9 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/admin")
-public class RestControllerDiscount {
+public class DiscountController {
     @Autowired
-    private DiscountServiceInter discountServiceInter;
+    private DiscountService discountServiceInter;
 
     @Autowired
     private ModelMapper modelMapper;

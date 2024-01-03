@@ -2,8 +2,7 @@ package com.example.fashionmanage.service.discount.service;
 
 import com.example.fashionmanage.entity.Discount;
 import com.example.fashionmanage.repository.discount.DiscountRepository;
-import com.example.fashionmanage.service.discount.inter.DiscountServiceInter;
-import com.example.fashionmanage.validation.DiscountDto;
+import com.example.fashionmanage.dto.DiscountDto;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DiscountService implements DiscountServiceInter {
+public class DiscountServiceImpl implements com.example.fashionmanage.service.discount.inter.DiscountService {
     @Autowired
     private DiscountRepository discount;
 

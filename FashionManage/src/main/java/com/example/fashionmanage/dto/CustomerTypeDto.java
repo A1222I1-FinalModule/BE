@@ -1,4 +1,4 @@
-package com.example.fashionmanage.validation;
+package com.example.fashionmanage.dto;
 
 import com.example.fashionmanage.entity.Customer;
 import com.example.fashionmanage.entity.Discount;

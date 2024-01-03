@@ -1,15 +1,9 @@
-package com.example.fashionmanage.validation;
+package com.example.fashionmanage.dto;
 
-import com.example.fashionmanage.entity.CustomerType;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.parameters.P;
 
 import java.util.Date;
 
