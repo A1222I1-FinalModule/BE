@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-FashionManageApplication<FashionManage>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.example.fashionmanage.FashionManageApplication",
+      "projectName": "FashionManage",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
