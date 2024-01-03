@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -15,5 +16,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Optional<Employee> findById(String id) {
         return employeeRepository.findById(id);
+    }
+
+    @Override
+    public List<Employee> getEmployeeSaleTop() {
+        return employeeRepository.findAllEmployeeSaleTop();
     }
 }

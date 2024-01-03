@@ -1,14 +1,13 @@
-package com.example.fashionmanage.service;
+package com.example.fashionmanage.service.discount.inter;
 
 import com.example.fashionmanage.entity.Discount;
 import com.example.fashionmanage.validation.DiscountDto;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface DiscountService {
-    Optional<Discount> findById(String id);
-
+@Service
+public interface DiscountServiceInter {
     /**
      * The function help display all data of list discount
      * @author QuanNV

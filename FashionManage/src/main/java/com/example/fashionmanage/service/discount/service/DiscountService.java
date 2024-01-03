@@ -1,7 +1,8 @@
-package com.example.fashionmanage.service;
+package com.example.fashionmanage.service.discount.service;
 
 import com.example.fashionmanage.entity.Discount;
-import com.example.fashionmanage.repository.DiscountRepository;
+import com.example.fashionmanage.repository.discount.DiscountRepository;
+import com.example.fashionmanage.service.discount.inter.DiscountServiceInter;
 import com.example.fashionmanage.validation.DiscountDto;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -9,17 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class DiscountServiceImpl implements DiscountService {
+public class DiscountService implements DiscountServiceInter {
     @Autowired
-    private DiscountRepository discountRepository;
-
-    @Override
-    public Optional<Discount> findById(String id) {
-        return discountRepository.findById(id);
-    }
+    private DiscountRepository discount;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -31,7 +26,7 @@ public class DiscountServiceImpl implements DiscountService {
      */
     @Override
     public List<Discount> findAllDiscount() {
-        return discountRepository.finAllDiscount();
+        return discount.finAllDiscount();
     }
 
     /**
@@ -42,7 +37,7 @@ public class DiscountServiceImpl implements DiscountService {
      */
     @Override
     public Discount findByIdDiscount(String id) {
-        return discountRepository.findByIdDiscount(id);
+        return discount.findByIdDiscount(id);
     }
 
     /**
@@ -53,7 +48,7 @@ public class DiscountServiceImpl implements DiscountService {
      */
     @Override
     public void deleteByIdDiscount(String id) {
-        discountRepository.deleteByIdDiscount(id);
+        discount.deleteByIdDiscount(id);
     }
 
     /**
@@ -66,7 +61,7 @@ public class DiscountServiceImpl implements DiscountService {
     @Override
     public void saveDiscount(DiscountDto discountDto) {
         Discount discount1=modelMapper.map(discountDto, Discount.class);
-        discountRepository.saveDiscount(discount1.getDiscountCode(),discount1.getName(),discount1.getRewardPoint(),discount1.getCondition(),discount1.getBeginDate(),discount1.getEndDate(),discount1.getCustomerType().getId());
+        discount.saveDiscount(discount1.getDiscountCode(),discount1.getName(),discount1.getRewardPoint(),discount1.getCondition(),discount1.getBeginDate(),discount1.getEndDate(),discount1.getCustomerType().getId());
     }
 
     /**
@@ -78,6 +73,6 @@ public class DiscountServiceImpl implements DiscountService {
      */
     @Override
     public Discount updateDiscount(String id, Discount discount1) {
-        return discountRepository.updateDiscount(id,discount1);
+        return discount.updateDiscount(id,discount1);
     }
 }

@@ -1,16 +1,22 @@
 
 package com.example.fashionmanage.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
 @Setter
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "customer_type", schema = "fashionShop")
 public class CustomerType {
@@ -26,7 +32,7 @@ public class CustomerType {
     @OneToMany(mappedBy = "type")
     private Set<Customer> customers = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "customerType")
+    @OneToMany(mappedBy = "customerType",cascade = CascadeType.ALL)
     private Set<Discount> discounts = new LinkedHashSet<>();
 
 }

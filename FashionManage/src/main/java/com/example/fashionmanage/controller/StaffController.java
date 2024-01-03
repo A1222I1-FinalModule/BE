@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/staff")
@@ -19,7 +21,7 @@ public class StaffController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private BIllService bIllService;
+    private BillService bIllService;
     @Autowired
     private BillDetailService billDetailService;
     @Autowired
@@ -92,14 +94,6 @@ public class StaffController {
                 Product product = productService.findById(productId).orElseThrow();
 
                 BillDetail billDetail = new BillDetail();
-                String id = "";
-                while (true) {
-                    id = generateRandomCode9Nums();
-                    if (!bIllService.findById(billCode).isPresent()) {
-                        break;
-                    }
-                }
-                billDetail.setId(id);
                 billDetail.setQuantity(requestQuantity);
                 billDetail.setProduct(product);
                 billDetail.setBill(newBill);

@@ -1,16 +1,22 @@
 
 package com.example.fashionmanage.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
+import java.util.Date;
 
 @Getter
 @Setter
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "discount", schema = "fashionShop")
 public class Discount {
@@ -28,17 +34,20 @@ public class Discount {
 
     @Lob
     @Column(name = "`condition`")
-    private String condition;
+    private Integer condition;
 
     @NotNull
     @Column(name = "begin_date", nullable = false)
-    private Instant beginDate;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date beginDate;
 
     @NotNull
     @Column(name = "end_date", nullable = false)
-    private Instant endDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date endDate;
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;
 

@@ -16,7 +16,7 @@ public class BillDetail {
     @Id
     @Size(max = 255)
     @Column(name = "id", nullable = false)
-    private String id;
+    private Integer id;
 
     @Column(name = "quantity")
     private Integer quantity;
