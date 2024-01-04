@@ -8,6 +8,7 @@ public class PasswordEncoderTest {
     @Test
     public void testPasswordEncoder() throws Exception {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        System.out.println(encoder.encode("admin"));
+        System.out.println(encoder.encode("saler"));
+        System.out.println(encoder.encode("warehouse"));
     }
 }
