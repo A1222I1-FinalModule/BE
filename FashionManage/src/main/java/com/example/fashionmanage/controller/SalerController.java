@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/staff")
-public class StaffController {
+public class SalerController {
 }
