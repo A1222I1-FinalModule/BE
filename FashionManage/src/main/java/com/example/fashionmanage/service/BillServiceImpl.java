@@ -32,13 +32,8 @@ public class BillServiceImpl implements BillService{
     }
 
     @Override
-<<<<<<< HEAD
-    public double calculateRevenueByMonth() {
-        return billRepository.calculateRevenueByMonth();
-=======
     public double calculateRevenueByMonth(Integer month) {
         return 0;
->>>>>>> parent of c0793a1 (update bill service)
     }
 
 }
