@@ -31,11 +31,10 @@ public class CustomerType {
     private String typeName;
 
     @OneToMany(mappedBy = "type")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Customer> customers = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "customerType",cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Discount> discounts = new LinkedHashSet<>();
-
 }

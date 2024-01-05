@@ -54,11 +54,11 @@ public class Customer {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type_id")
-    @JsonBackReference
+    @JsonManagedReference
     private CustomerType type;
 
     @OneToMany(mappedBy = "customer")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Bill> bills = new LinkedHashSet<>();
 }
 

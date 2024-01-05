@@ -3,6 +3,7 @@ package com.example.fashionmanage.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -51,6 +52,6 @@ public class Discount {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_type_id")
-    @JsonBackReference
+    @JsonManagedReference
     private CustomerType customerType;
 }

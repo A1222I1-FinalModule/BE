@@ -33,22 +33,22 @@ public class Bill {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "discount_id", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private Discount discount;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private Customer customer;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "employee_id", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private Employee employee;
 
     @OneToMany(mappedBy = "bill")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<BillDetail> billDetails = new LinkedHashSet<>();
 }
