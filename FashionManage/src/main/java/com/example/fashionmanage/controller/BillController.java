@@ -42,6 +42,29 @@ public class BillController {
         Double monthRevenue = billService.calculateRevenueByWeek();
         return new ResponseEntity<>(monthRevenue, HttpStatus.OK);
     }
+    /**
+     * Get the weekly revenue calculated by the bill service.
+     * @return ResponseEntity containing the weekly revenue if available, or a
+     *         NOT_FOUND response if not.
+     * @author NhanNNB
+     */
+    @GetMapping("/warehouse/weekly/revenue")
+    public ResponseEntity<Double> getWeeklyRevenueForWarehouse() {
+        Double weeklyRevenue = billService.calculateRevenueByWeek();
+        return new ResponseEntity<>(weeklyRevenue, HttpStatus.OK);
+    }
+
+    /**
+     * Get the monthly revenue calculated by the bill service.
+     * @return ResponseEntity containing the monthly revenue if available, or a
+     *         NOT_FOUND response if not.
+     * @author NhanNNB
+     */
+    @GetMapping("/warehouse/month/revenue")
+    public ResponseEntity<Double> getMonthRevenueForWarehouse() {
+        Double monthRevenue = billService.calculateRevenueByWeek();
+        return new ResponseEntity<>(monthRevenue, HttpStatus.OK);
+    }
 
     /**
      * Get the weekly revenue calculated by the bill service.
