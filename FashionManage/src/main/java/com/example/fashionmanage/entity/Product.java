@@ -25,13 +25,19 @@ public class Product {
     @Column(name = "quantity")
     private Integer quantity;
 
+    @Column(name= "image")
+    private String image;
+
+    @Column(name = "price")
+    private Double price;
+
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_category_id", nullable = false)
     private ProductCategory productCategory;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "size_id", nullable = false)
     private com.example.fashionmanage.entity.Size size;
 
