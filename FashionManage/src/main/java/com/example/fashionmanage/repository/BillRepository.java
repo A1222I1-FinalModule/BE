@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 
+<<<<<<< HEAD
 public interface BillRepository extends JpaRepository<Bill, String> {
     /**
      * The Function to display list of 5 latest orders
@@ -70,4 +71,18 @@ public interface BillRepository extends JpaRepository<Bill, String> {
             "FROM bill " +
             "WHERE YEAR(release_date) = YEAR(NOW()) AND MONTH(release_date) = MONTH(NOW())", nativeQuery = true)
     Double calculateRevenueByMonth();
+=======
+
+public interface BillRepository extends JpaRepository<Bill,String> {
+    @Query(value = "SELECT * FROM bill ORDER BY release_date DESC LIMIT 5", nativeQuery = true)
+    List<Bill> findTop5RecentOrders();
+    @Query(value = "SELECT COUNT(DISTINCT customer_id) FROM bill", nativeQuery = true)
+    double calculateCustomerGrowthPercentage();
+//    @Query(value = "")
+//    double calculateOrderGrowthPercentage();
+//    @Query(value = "")
+//    double calculateRevenueByWeek();
+//    @Query(value = "")
+//    double calculateRevenueByMonth();
+>>>>>>> parent of c0793a1 (update bill service)
 }

@@ -9,5 +9,5 @@ public interface BillService {
     Object[] calculateCustomerGrowthPercentage();
     Object[] calculateOrderGrowthPercentage();
     double calculateRevenueByWeek();
-    double calculateRevenueByMonth(String month);
+    double calculateRevenueByMonth(Integer month);
 }
