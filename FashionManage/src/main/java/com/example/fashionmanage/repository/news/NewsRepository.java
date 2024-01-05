@@ -12,11 +12,11 @@ import java.util.List;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
-    @Query(value = "SELECT * FROM news", nativeQuery = true)
+    @Query(value = "SELECT * FROM fashionShop.news", nativeQuery = true)
     List<News> findAllNews();
 
     @Modifying
-    @Query(value = "INSERT INTO news (title, content, image, creator, tag_id) VALUES (:#{#news.title}, :#{#news.content}, :#{#news.image}, :#{#news.creator}, :#{#news.tag_id})", nativeQuery = true)
+    @Query(value = "INSERT INTO fashionShop.news (title, content, image, creator, tag_id) VALUES (:#{#news.title}, :#{#news.content}, :#{#news.image}, :#{#news.creator}, :#{#news.tag.id})", nativeQuery = true)
     @Transactional
     void createNew(@Param("news") News news);
 }
