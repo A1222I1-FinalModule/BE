@@ -150,9 +150,14 @@ public class StaffController {
      * @author BaoDV
      */
     @GetMapping("/discount/search/{cusId}")
-    public ResponseEntity<List<Discount>> findDiscount(@PathVariable Integer cusId, @RequestParam("total") Integer total) {
+    public ResponseEntity<List<Discount>> findDiscount(@PathVariable String cusId, @RequestParam("total") Integer total) {
+        Optional<Customer> customerOptional = customerService.findById(cusId);
+        if (!customerOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Integer cusTypeId = customerOptional.get().getType().getId();
         List<Discount> discountList = new ArrayList<>();
-        discountList = discountService.findDiscount(cusId, total, new Date());
+        discountList = discountService.findDiscount(cusTypeId, total, new Date());
         if (discountList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

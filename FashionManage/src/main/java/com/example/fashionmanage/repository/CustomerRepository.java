@@ -15,6 +15,6 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
      * @return list Customer
      * @author BaoDV
      */
-    @Query(value = "SELECT c.* FROM Customer c WHERE c.phone LIKE %:searchStr% OR c.name LIKE %:searchStr% OR c.id = :searchStr", nativeQuery = true)
+    @Query(value = "SELECT c.* FROM customer c WHERE c.phone LIKE %:searchStr% OR c.name LIKE %:searchStr% OR c.id = :searchStr", nativeQuery = true)
     List<Customer> findAllByNameOrPhoneOrContainingId(@Param("searchStr") String searchStr);
 }

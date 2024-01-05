@@ -3,6 +3,7 @@ package com.example.fashionmanage.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -30,9 +31,11 @@ public class CustomerType {
     private String typeName;
 
     @OneToMany(mappedBy = "type")
+    @JsonManagedReference
     private Set<Customer> customers = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "customerType",cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Discount> discounts = new LinkedHashSet<>();
 
 }

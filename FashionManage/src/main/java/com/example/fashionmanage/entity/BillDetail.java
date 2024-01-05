@@ -14,7 +14,7 @@ import lombok.Setter;
 @Table(name = "bill_detail", schema = "fashionShop")
 public class BillDetail {
     @Id
-    @Size(max = 255)
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -29,5 +29,6 @@ public class BillDetail {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "bill_id", nullable = false)
+    @JsonBackReference
     private Bill bill;
 }
