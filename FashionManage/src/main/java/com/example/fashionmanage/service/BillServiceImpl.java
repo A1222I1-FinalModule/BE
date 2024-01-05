@@ -5,12 +5,13 @@ import com.example.fashionmanage.repository.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
-public class BillServiceImpl implements BillService{
+public class BillServiceImpl implements BillService {
     @Autowired
     private BillRepository billRepository;
+
     @Override
     public List<Bill> getTop5RecentOrder() {
         return billRepository.findTop5RecentOrders();
@@ -32,8 +33,7 @@ public class BillServiceImpl implements BillService{
     }
 
     @Override
-    public double calculateRevenueByMonth(Integer month) {
-        return 0;
+    public double calculateRevenueByMonth(String month) {
+        return billRepository.calculateRevenueByMonth(month);
     }
-
 }
