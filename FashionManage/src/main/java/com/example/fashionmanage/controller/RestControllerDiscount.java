@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
 @RequestMapping("/api/admin")
-public class RestControllerDiscount {
+public class  RestControllerDiscount {
     @Autowired
     private DiscountServiceInter discountServiceInter;
 
@@ -29,12 +29,19 @@ public class RestControllerDiscount {
      * @return list data of discount
      */
     @GetMapping("/list")
-    public ResponseEntity<List<Discount>> findAllDiscount(){
-        List<Discount> discounts=discountServiceInter.findAllDiscount();
-        if(discounts.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(discounts,HttpStatus.OK);
+    public ResponseEntity<?> findAllDiscount(){
+
+            System.out.println(1);
+            List<Discount> discounts=discountServiceInter.findAllDiscount();
+            System.out.println(2);
+            if(discounts.isEmpty()){
+                System.out.println(3);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+
+            return  ResponseEntity.ok(discounts);
+
     }
 
     /**

@@ -28,10 +28,10 @@ public class CustomerType {
     @Size(max = 255)
     @Column(name = "type_name")
     private String typeName;
-
+    @JsonBackReference
     @OneToMany(mappedBy = "type")
     private Set<Customer> customers = new LinkedHashSet<>();
-
+    @JsonBackReference
     @OneToMany(mappedBy = "customerType",cascade = CascadeType.ALL)
     private Set<Discount> discounts = new LinkedHashSet<>();
 
