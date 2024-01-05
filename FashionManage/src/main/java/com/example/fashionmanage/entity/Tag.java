@@ -26,9 +26,7 @@ public class Tag {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "tag")
-    private Set<News> news = new LinkedHashSet<>();
+
 
 }
 
