@@ -5,35 +5,34 @@ import com.example.fashionmanage.repository.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 @Service
-public class BillServiceImpl implements BillService {
+public class BillServiceImpl implements BillService{
     @Autowired
     private BillRepository billRepository;
-
     @Override
-    public List<Bill> getTop5RecentOrder() {
+    public List<Object[]> getTop5RecentOrder() {
         return billRepository.findTop5RecentOrders();
     }
 
     @Override
-    public double calculateCustomerGrowthPercentage() {
-        return 0;
+    public Object[] calculateCustomerGrowthPercentage() {
+        return billRepository.calculateCustomerGrowthPercentage();
     }
 
     @Override
-    public double calculateOrderGrowthPercentage() {
-        return 0;
+    public Object[] calculateOrderGrowthPercentage() {
+        return billRepository.calculateOrderGrowthPercentage();
     }
 
     @Override
     public double calculateRevenueByWeek() {
-        return 0;
+        return billRepository.calculateRevenueByWeek();
     }
 
     @Override
-    public double calculateRevenueByMonth(String month) {
-        return billRepository.calculateRevenueByMonth(month);
+    public double calculateRevenueByMonth() {
+        return billRepository.calculateRevenueByMonth();
     }
 }

@@ -5,9 +5,9 @@ import com.example.fashionmanage.entity.Bill;
 import java.util.List;
 
 public interface BillService {
-    List<Bill> getTop5RecentOrder();
-    double calculateCustomerGrowthPercentage();
-    double calculateOrderGrowthPercentage();
+    List<Object[]> getTop5RecentOrder();
+    Object[] calculateCustomerGrowthPercentage();
+    Object[] calculateOrderGrowthPercentage();
     double calculateRevenueByWeek();
     double calculateRevenueByMonth(String month);
 }
