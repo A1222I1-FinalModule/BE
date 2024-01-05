@@ -12,28 +12,27 @@ public class BillServiceImpl implements BillService{
     @Autowired
     private BillRepository billRepository;
     @Override
-    public List<Bill> getTop5RecentOrder() {
+    public List<Object[]> getTop5RecentOrder() {
         return billRepository.findTop5RecentOrders();
     }
 
     @Override
-    public double calculateCustomerGrowthPercentage() {
-        return 0;
+    public Object[] calculateCustomerGrowthPercentage() {
+        return billRepository.calculateCustomerGrowthPercentage();
     }
 
     @Override
-    public double calculateOrderGrowthPercentage() {
-        return 0;
+    public Object[] calculateOrderGrowthPercentage() {
+        return billRepository.calculateOrderGrowthPercentage();
     }
 
     @Override
     public double calculateRevenueByWeek() {
-        return 0;
+        return billRepository.calculateRevenueByWeek();
     }
 
     @Override
     public double calculateRevenueByMonth() {
-        return 0;
+        return billRepository.calculateRevenueByMonth();
     }
-
 }
