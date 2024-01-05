@@ -10,13 +10,15 @@ import java.util.List;
 public interface DiscountService {
     /**
      * The function help display all data of list discount
-     * @author QuanNV
+     *
      * @return list data of discount
+     * @author QuanNV
      */
     List<Discount> findAllDiscount();
 
     /**
      * The function help display all data of discount find by id
+     *
      * @param id is code of discount
      * @return data of discount find by id
      * @author QuanNV
@@ -25,6 +27,7 @@ public interface DiscountService {
 
     /**
      * The function help delete all data of discount find by id
+     *
      * @param id is code of discount
      * @return
      * @author QuanNV
@@ -33,18 +36,17 @@ public interface DiscountService {
 
     /**
      * The function help create new discount
-     * @param discount
-     * @return
-     * author QuanNV
+     *
+     * @param discountDto
+     * @return author QuanNV
      */
-    void saveDiscount(DiscountDto discount);
-
+//    void saveDiscount(DiscountDto discount);
+    void createDiscount(DiscountDto discountDto);
     /**
      * the function help update discount by id
-     * @param id
+     *
      * @param discount
-     * @return
-     * author QuanNV
+     * @return author QuanNV
      */
-    Discount updateDiscount(String id, Discount discount);
+    int updateDiscount(DiscountDto discount);
 }

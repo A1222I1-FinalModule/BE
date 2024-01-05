@@ -20,8 +20,9 @@ public class DiscountServiceImpl implements com.example.fashionmanage.service.di
 
     /**
      * The function help display all data of list discount
-     * @author QuanNV
+     *
      * @return list data of discount
+     * @author QuanNV
      */
     @Override
     public List<Discount> findAllDiscount() {
@@ -30,6 +31,7 @@ public class DiscountServiceImpl implements com.example.fashionmanage.service.di
 
     /**
      * The function help display all data of discount find by id
+     *
      * @param id is code of discount
      * @return data of discount find by id
      * @author QuanNV
@@ -41,6 +43,7 @@ public class DiscountServiceImpl implements com.example.fashionmanage.service.di
 
     /**
      * The function help delete all data of discount find by id
+     *
      * @param id is code of discount
      * @return
      * @author QuanNV
@@ -52,26 +55,31 @@ public class DiscountServiceImpl implements com.example.fashionmanage.service.di
 
     /**
      * The function help create new discount
+     *
      * @param discountDto
-     * @return
-     * author QuanNV
+     * @return author QuanNV
      */
     @Transactional
     @Override
-    public void saveDiscount(DiscountDto discountDto) {
-        Discount discount1=modelMapper.map(discountDto, Discount.class);
-        discount.saveDiscount(discount1.getDiscountCode(),discount1.getName(),discount1.getRewardPoint(),discount1.getCondition(),discount1.getBeginDate(),discount1.getEndDate(),discount1.getCustomerType().getId());
+    public void createDiscount(DiscountDto discountDto) {
+        Discount discount1 = modelMapper.map(discountDto, Discount.class);
+        discount.createDiscount(discount1);
     }
+//    @Override
+//    public void saveDiscount(DiscountDto discountDto) {
+//        Discount discount1 = modelMapper.map(discountDto, Discount.class);
+//        discount.saveDiscount(discount1.getDiscountCode(), discount1.getName(), discount1.getRewardPoint(), discount1.getCondition(), discount1.getBeginDate(), discount1.getEndDate(), discount1.getCustomerType().getId());
+//    }
 
     /**
-     * the function help update discount by id
-     * @param id
-     * @param discount1
+     *
+     * @param discountDto
      * @return
-     * author QuanNV
      */
+    @Transactional
     @Override
-    public Discount updateDiscount(String id, Discount discount1) {
-        return discount.updateDiscount(id,discount1);
+    public int updateDiscount(DiscountDto discountDto) {
+        Discount discount1 = modelMapper.map(discountDto, Discount.class);
+        return discount.updateDiscount(discount1.getDiscountCode(), discount1.getName(), discount1.getRewardPoint(), discount1.getCondition(), discount1.getBeginDate(), discount1.getEndDate(), discount1.getCustomerType().getId());
     }
 }

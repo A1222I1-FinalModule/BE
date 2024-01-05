@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class Customer {
 
     @NotNull
     @Column(name = "date_of_birth", nullable = false)
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
 
     @NotNull
     @Lob
@@ -50,12 +51,10 @@ public class Customer {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
-    private CustomerType type;
+    private CustomerType customerType;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<Bill> bills = new LinkedHashSet<>();
 
 }
 

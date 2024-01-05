@@ -34,10 +34,6 @@ public class Bill {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "employee_id", nullable = false)
-    private  Employee employee;
-
     @OneToMany(mappedBy = "bill")
     private Set<BillDetail> billDetails = new LinkedHashSet<>();
 
