@@ -1,5 +1,6 @@
 package com.example.fashionmanage.service;
 
+
 import com.example.fashionmanage.entity.Employee;
 import com.example.fashionmanage.entity.User;
 import com.example.fashionmanage.repository.EmployeeRepository;
@@ -13,7 +14,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Autowired
     private EmployeeRepository employeeRepository;
     @Override
-    public List<Employee> getEmployeeSaleTop() {
+    public List<Object[]> getEmployeeSaleTop() {
         return employeeRepository.findAllEmployeeSaleTop();
     }
     public Employee getInfo(User user) {
