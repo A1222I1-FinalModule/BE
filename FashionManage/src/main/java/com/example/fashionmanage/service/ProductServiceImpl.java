@@ -11,13 +11,22 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService{
     @Autowired
     private ProductRepository productRepository;
-
+    /**
+     * The function help display all data of list product
+     * @author TuyenDV
+     * @return list data of product
+     */
     @Override
-    public List<Product> findAllInfoProduct() {
-        return productRepository.findInfoProduct();
+    public List<Product> findListInfoProduct() {
+        return productRepository.findListInfoProduct();
     }
 
-
+    /**
+     * The function help create new product
+     * @param product
+     * @return
+     * author TuyenDV
+     */
     @Transactional
     @Override
     public void createInfoProduct(Product product) {

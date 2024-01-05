@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "size", schema = "fashionShop")
 public class Size {
     @Id
-    @Column(name = "size_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @jakarta.validation.constraints.Size(max = 255)

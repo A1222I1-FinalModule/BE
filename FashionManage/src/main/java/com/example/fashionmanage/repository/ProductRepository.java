@@ -18,21 +18,14 @@ public interface ProductRepository extends JpaRepository<Product,String> {
      * @return list data of product
      */
     @Query(value = " select * from product ",nativeQuery = true)
-    List<Product> findInfoProduct();
+    List<Product> findListInfoProduct();
 
 
-//    /**
-//     * The function help create new product
-//     * @param product.getProductCode
-//     * @param name
-//     * @param quantity
-//     * @param productCategoryId
-//     * @param sizeId
-//     * @param image
-//     * @param price
-//     * author TuyenDV
-//     */
-
+    /**
+     * The function help create new product
+     * @param product
+     * author TuyenDV
+     */
 
     @Modifying
     @Query(value = "INSERT INTO product(product_code,name,quantity,image,price,product_category_id,size_id) VALUES" +

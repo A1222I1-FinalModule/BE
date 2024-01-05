@@ -19,7 +19,7 @@ public class ProductController {
    @GetMapping("/getListProduct")
    public ResponseEntity<List<Product>> getAllInfoProduct(){
        try{
-           List<Product> products = productService.findAllInfoProduct();
+           List<Product> products = productService.findListInfoProduct();
            if(products.isEmpty()){
                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
            }else {
