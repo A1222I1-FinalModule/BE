@@ -3,6 +3,7 @@ package com.example.fashionmanage.repository;
 
 import com.example.fashionmanage.entity.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,7 @@ public interface NotificationRepository extends JpaRepository<Notification,Integ
      * @Param : N/A
      * @Return : This method will display all the records in the Notifications table
      */
-    @Query(value = " select n.content,n.start_date from Notification n ",nativeQuery = true)
+    @Query(value = "SELECT * FROM notification  ",nativeQuery = true)
     List<Notification> findAll();
 
 
@@ -43,17 +44,20 @@ public interface NotificationRepository extends JpaRepository<Notification,Integ
      * @author :TamHP
      * @Return : data table notification  with id deleted
      */
-    @Query(value = "delete from Notification n where n.id = :id ",nativeQuery = true)
+
+
+    @Modifying
+    @Query(value = "delete from notification n where n.id = :id ",nativeQuery = true)
     void deletebyId(@Param("id")int id);
 
 
     /**
-     * this method is findById, It will return data equivalent to the id that exists, otherwise it will show that no id was found
+     * this method is findById(), It will return data equivalent to the id that exists, otherwise it will show that no id was found
      * @param id
      * @author: TamHP
      * @return : data notification witd id selected
      */
-    @Query(value = "select content,start_date from Notification n where n.id =: id",nativeQuery = true)
+    @Query(value = "select *  from notification n where n.id =: id",nativeQuery = true)
     Notification findById(@Param("id")int id);
 
 
