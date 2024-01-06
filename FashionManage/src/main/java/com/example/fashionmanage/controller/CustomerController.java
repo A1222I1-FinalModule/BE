@@ -47,4 +47,20 @@ public class CustomerController {
         customerService.deleteByIdCustomer(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    /**
+     * The function help display all data of customer find by name
+     *
+     * @param name is code of customer
+     * @return data of customer find by customer
+     * @author QuanNV
+     */
+    @GetMapping("/findByNameCustomer")
+    public ResponseEntity<?> findByNameCustomer(@RequestParam("name") String name) {
+        Customer customer = customerService.findByNameCustomer(name);
+        if (customer == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
 }

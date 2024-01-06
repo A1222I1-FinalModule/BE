@@ -61,26 +61,14 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
 
     /**
      *the function help update discount by id
-     *
-     * @param discountCode
-     * @param name
-     * @param rewardPoint
-     * @param condition
-     * @param beginDate
-     * @param endDate
-     * @param customerTypeId
+     * @param id
+     * @param discount
      * @return
      */
     @Modifying
-    @Query(value = "update discount set name=:name,reward_point=:rewardPoint,`condition`=:condition,begin_date=:beginDate,end_date=:endDate,customer_type_id=:customerTypeId " +
-            "where discountCode=:discountCode", nativeQuery = true)
-    int updateDiscount(@Param("discountCode") String discountCode,
-                            @Param("name") String name,
-                            @Param("rewardPoint") Integer rewardPoint,
-                            @Param("condition") Integer condition,
-                            @Param("beginDate") Date beginDate,
-                            @Param("endDate") Date endDate,
-                            @Param("customerTypeId") Integer customerTypeId);
+    @Query(value = "update discount set name=:#{#discount.name},reward_point=:#{#discount.rewardPoint},`condition`=:#{#discount.condition},begin_date=:#{#discount.beginDate},end_date=:#{#discount.endDate},customer_type_id=:#{#discount.customerType.id} " +
+            " where discount_code=:id", nativeQuery = true)
+    int updateDiscount(@Param("id") String id,@Param("discount") Discount discount);
 
     /**
      * The function help display all data of discount find by name

@@ -1,5 +1,6 @@
 package com.example.fashionmanage.controller;
 
+import com.example.fashionmanage.entity.Customer;
 import com.example.fashionmanage.entity.Discount;
 import com.example.fashionmanage.service.discount.inter.DiscountService;
 import com.example.fashionmanage.dto.DiscountDto;
@@ -92,11 +93,27 @@ public class DiscountController {
             if(discount==null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            discountService.updateDiscount(discountDto);
+            discountService.updateDiscount(id,discountDto);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    /**
+     * The function help display all data of discount find by name
+     *
+     * @param name is code of discount
+     * @return data of discount find by dicount
+     * @author QuanNV
+     */
+    @GetMapping("/findByNameDiscount")
+    public ResponseEntity<?> findByNameDiscount(@RequestParam("name") String name) {
+        Discount discount = discountService.findByNameDiscount(name);
+        if (discount == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(discount, HttpStatus.OK);
     }
 
 }

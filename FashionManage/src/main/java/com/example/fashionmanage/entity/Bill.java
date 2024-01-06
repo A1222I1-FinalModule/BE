@@ -29,10 +29,19 @@ public class Bill {
     @Column(name = "release_date", nullable = false)
     private Instant releaseDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "discount_id", nullable = false)
+    private Discount discount;
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
 
     @OneToMany(mappedBy = "bill")
     private Set<BillDetail> billDetails = new LinkedHashSet<>();

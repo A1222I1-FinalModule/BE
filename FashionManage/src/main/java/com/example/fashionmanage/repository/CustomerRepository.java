@@ -45,4 +45,15 @@ public interface CustomerRepository extends JpaRepository<Customer,String> {
     @Query(value = "select id , name , gender,point,date_of_birth,address,phone,email,type_id from fashionShop.customer  " +
             "where id=:id",nativeQuery = true)
     Customer findByIdCustomer(String id);
+
+    /**
+     * The function help display all data of customer find by name
+     *
+     * @param name is code of customer
+     * @return data of customer find by name
+     * @author QuanNV
+     */
+    @Query(value = "select id , name , gender,point,date_of_birth,address,phone,email,type_id from fashionShop.customer  " +
+            "where name=:name",nativeQuery = true)
+    Customer findByNameCustomer(String name);
 }

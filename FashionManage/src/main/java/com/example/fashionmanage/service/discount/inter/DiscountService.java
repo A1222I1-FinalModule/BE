@@ -40,13 +40,22 @@ public interface DiscountService {
      * @param discountDto
      * @return author QuanNV
      */
-//    void saveDiscount(DiscountDto discount);
     void createDiscount(DiscountDto discountDto);
+
     /**
      * the function help update discount by id
-     *
+     * @param id
      * @param discount
      * @return author QuanNV
      */
-    int updateDiscount(DiscountDto discount);
+    int updateDiscount(String id,DiscountDto discount);
+
+    /**
+     * The function help display all data of discount find by name
+     *
+     * @param name is code of discount
+     * @return data of discount find by name
+     * @author QuanNV
+     */
+    Discount findByNameDiscount(String name);
 }

@@ -34,4 +34,13 @@ public interface CustomerService {
      */
     Customer findByIdCustomer(String id);
 
+    /**
+     * The function help display all data of customer find by name
+     *
+     * @param name is code of customer
+     * @return data of customer find by name
+     * @author QuanNV
+     */
+    Customer findByNameCustomer(String name);
+
 }

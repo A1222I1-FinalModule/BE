@@ -72,14 +72,27 @@ public class DiscountServiceImpl implements com.example.fashionmanage.service.di
 //    }
 
     /**
-     *
+     * the function help update discount by id
+     * @param id
      * @param discountDto
      * @return
      */
     @Transactional
     @Override
-    public int updateDiscount(DiscountDto discountDto) {
+    public int updateDiscount(String id,DiscountDto discountDto) {
         Discount discount1 = modelMapper.map(discountDto, Discount.class);
-        return discount.updateDiscount(discount1.getDiscountCode(), discount1.getName(), discount1.getRewardPoint(), discount1.getCondition(), discount1.getBeginDate(), discount1.getEndDate(), discount1.getCustomerType().getId());
+        return discount.updateDiscount(id,discount1);
+    }
+
+    /**
+     * The function help display all data of discount find by name
+     *
+     * @param name is code of discount
+     * @return data of discount find by dicount
+     * @author QuanNV
+     */
+    @Override
+    public Discount findByNameDiscount(String name) {
+        return discount.findByNameDiscount(name);
     }
 }
