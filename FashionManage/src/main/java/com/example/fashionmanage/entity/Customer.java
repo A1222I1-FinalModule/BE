@@ -52,14 +52,10 @@ public class Customer {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
     @JsonManagedReference
     private CustomerType type;
-
-    @OneToMany(mappedBy = "customer")
-    @JsonBackReference
-    private Set<Bill> bills = new LinkedHashSet<>();
 }
 
 
