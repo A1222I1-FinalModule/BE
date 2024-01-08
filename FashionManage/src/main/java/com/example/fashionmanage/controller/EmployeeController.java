@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/api/employee")
 public class EmployeeController {
     @Autowired
-    private EmployeeService employeeService;
+    private EmployeeServiceImpl employeeService;
 
     @GetMapping("/employee-top")
     public ResponseEntity<List<Object[]>> getEmployeeSaleTop() {
