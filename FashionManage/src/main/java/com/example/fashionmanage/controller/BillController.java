@@ -1,5 +1,6 @@
 package com.example.fashionmanage.controller;
 
+import com.example.fashionmanage.entity.Bill;
 import com.example.fashionmanage.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,82 +21,55 @@ public class BillController {
     private BillService billService;
 
     /**
-     * Get the weekly revenue calculated by the bill service.
-     * @return ResponseEntity containing the weekly revenue if available, or a
+     * Get the list of bills by the bill service for warehouse.
+     * 
+     * @return ResponseEntity containing the list of bills if available, or a
      *         NOT_FOUND response if not.
      * @author NhanNNB
      */
-    @GetMapping("/saler/weekly/revenue")
-    public ResponseEntity<Double> getWeeklyRevenueForSaler() {
-        Double weeklyRevenue = billService.calculateRevenueByWeek();
-        return new ResponseEntity<>(weeklyRevenue, HttpStatus.OK);
+    @GetMapping({ "/saler/bill", "/warehouse/bill", "/bill" })
+    public ResponseEntity<List<Object[]>> getAllBills() {
+        List<Object[]> bills = billService.getAllBill();
+        return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
     /**
-     * Get the monthly revenue calculated by the bill service.
-     * @return ResponseEntity containing the monthly revenue if available, or a
+     * Get the daily revenue calculated by the bill service.
+     * 
+     * @return ResponseEntity containing the daily revenue if available, or a
      *         NOT_FOUND response if not.
      * @author NhanNNB
      */
-    @GetMapping("/saler/month/revenue")
-    public ResponseEntity<Double> getMonthRevenueForSaler() {
-        Double monthRevenue = billService.calculateRevenueByWeek();
-        return new ResponseEntity<>(monthRevenue, HttpStatus.OK);
-    }
-    /**
-     * Get the weekly revenue calculated by the bill service.
-     * @return ResponseEntity containing the weekly revenue if available, or a
-     *         NOT_FOUND response if not.
-     * @author NhanNNB
-     */
-    @GetMapping("/warehouse/weekly/revenue")
-    public ResponseEntity<Double> getWeeklyRevenueForWarehouse() {
-        Double weeklyRevenue = billService.calculateRevenueByWeek();
-        return new ResponseEntity<>(weeklyRevenue, HttpStatus.OK);
-    }
-
-    /**
-     * Get the monthly revenue calculated by the bill service.
-     * @return ResponseEntity containing the monthly revenue if available, or a
-     *         NOT_FOUND response if not.
-     * @author NhanNNB
-     */
-    @GetMapping("/warehouse/month/revenue")
-    public ResponseEntity<Double> getMonthRevenueForWarehouse() {
-        Double monthRevenue = billService.calculateRevenueByWeek();
-        return new ResponseEntity<>(monthRevenue, HttpStatus.OK);
+    @GetMapping({ "/warehouse/daily/revenue", "/saler/daily/revenue", "/daily/revenue" })
+    public ResponseEntity<Double> getDailyRevenue() {
+        Double dailyRevenue = billService.calculateRevenueByDay();
+        return new ResponseEntity<>(dailyRevenue, HttpStatus.OK);
     }
 
     /**
      * Get the weekly revenue calculated by the bill service.
-     *
+     * 
      * @return ResponseEntity containing the weekly revenue if available, or a
      *         NOT_FOUND response if not.
+     * @author NhanNNB
      */
-    @GetMapping("/weekly/revenue")
+    @GetMapping({ "/saler/weekly/revenue", "/warehouse/weekly/revenue", "/weekly/revenue" })
     public ResponseEntity<Double> getWeeklyRevenue() {
         Double weeklyRevenue = billService.calculateRevenueByWeek();
-        if (weeklyRevenue != null) {
-            return new ResponseEntity<>(weeklyRevenue, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(weeklyRevenue, HttpStatus.OK);
     }
 
     /**
      * Get the monthly revenue calculated by the bill service.
-     *
+     * 
      * @return ResponseEntity containing the monthly revenue if available, or a
      *         NOT_FOUND response if not.
+     * @author NhanNNB
      */
-    @GetMapping("/month/revenue")
-    public ResponseEntity<Double> getMonthRevenue() {
+    @GetMapping({ "/saler/monthly/revenue", "/warehouse/monthly/revenue", "/monthly/revenue" })
+    public ResponseEntity<Double> getMonthlyRevenue() {
         Double monthRevenue = billService.calculateRevenueByWeek();
-        if (monthRevenue != null) {
-            return new ResponseEntity<>(monthRevenue, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(monthRevenue, HttpStatus.OK);
     }
 
     /**

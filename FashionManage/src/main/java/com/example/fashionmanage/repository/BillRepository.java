@@ -8,6 +8,18 @@ import java.util.List;
 
 public interface BillRepository extends JpaRepository<Bill, String> {
         /**
+         * The Function to display list of bills in this month
+         *
+         * @return list of bills in this month
+         * @author NhanNNB
+         */
+        @Query(value = "SELECT b.release_date AS order_date, total, c.name AS customer_name " +
+                        "FROM bill b JOIN customer c ON b.customer_id = c.id " +
+                        "WHERE MONTH(release_date) = MONTH(NOW()) " +
+                        "ORDER BY b.release_date DESC;", nativeQuery = true)
+        List<Object[]> findBillsInMonth();
+
+        /**
          * The Function to display list of 5 latest orders
          *
          * @return list data of 5 latest orders
@@ -48,6 +60,17 @@ public interface BillRepository extends JpaRepository<Bill, String> {
                         "FROM bill " +
                         "WHERE MONTH(release_date) = MONTH(CURRENT_DATE)", nativeQuery = true)
         Object[] calculateOrderGrowthPercentage();
+
+        /**
+         * The function count revenue by day
+         *
+         * @return data of revenue by day
+         * @author NhanNNB
+         */
+        @Query(value = "SELECT SUM(total) AS daily_revenue " +
+                        "FROM bill " +
+                        "WHERE YEAR(release_date) = YEAR(NOW()) AND MONTH(release_date) = MONTH(NOW()) AND DAY(release_date) = DAY(NOW());", nativeQuery = true)
+        Double calculateRevenueByDay();
 
         /**
          * The function count revenue by week
