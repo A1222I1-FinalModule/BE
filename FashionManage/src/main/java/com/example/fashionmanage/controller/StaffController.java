@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/staff")
+@CrossOrigin("*")
 public class StaffController {
     @Autowired
     private CustomerService customerService;
@@ -131,7 +132,7 @@ public class StaffController {
     }
 
     /**
-     * The function help get bill code
+     * The function help get bill codex
      *
      * @return bill code
      * @author BaoDV
@@ -164,6 +165,21 @@ public class StaffController {
         return new ResponseEntity<>(discountList, HttpStatus.OK);
     }
 
+    @PostMapping("/bill/product")
+    public ResponseEntity<?> addProductBill(@RequestBody ProductBill productBill) {
+        Optional<Product> productOptional = productService.findById(productBill.getProductId());
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            int availableQuantity = product.getQuantity();
+            if (availableQuantity < productBill.getQuantity()) {
+                return new ResponseEntity<>("Insufficient stock for product with ID: " + productBill.getProductId(), HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Product not found with ID: " + productBill.getProductId(), HttpStatus.NOT_FOUND);
+        }
+    }
+
     /**
      * The function help get 9 random number
      *
@@ -178,4 +194,6 @@ public class StaffController {
         }
         return stringBuilder.toString();
     }
+
+
 }

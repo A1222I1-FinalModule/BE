@@ -22,9 +22,5 @@ public class Size {
     @NotNull
     @Column(name = "size", nullable = false)
     private String size;
-
-    @OneToMany(mappedBy = "size")
-    private Set<Product> products = new LinkedHashSet<>();
-
 }
 

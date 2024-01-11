@@ -1,5 +1,7 @@
 package com.example.fashionmanage.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,10 +21,12 @@ public class ProductSize {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_code")
+    @JsonManagedReference
     private Product productCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "size_id")
+    @JsonManagedReference
     private Size size;
 
 }
