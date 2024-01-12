@@ -16,6 +16,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     public List<Employee> getEmployeeSaleTop() {
         return employeeRepository.findAllEmployeeSaleTop();
     }
+    /**
+     * Method : getInfo
+     * <p>Return Employee from user</p>
+     * @param user
+     * @return Employee
+     * @author AiPV
+     */
     public Employee getInfo(User user) {
         return employeeRepository.findByUser(user.getId());
     }

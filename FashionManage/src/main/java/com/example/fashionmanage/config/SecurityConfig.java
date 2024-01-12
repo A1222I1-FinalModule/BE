@@ -43,6 +43,13 @@ public class SecurityConfig {
         return new UserDetailServiceImp();
     }
 
+    /**
+     * method :corsConfigurationSource
+     * <p>config CORS can allow access to server</p>
+     *
+     * @return CorsConfigurationSource
+     * @author AiPV
+     */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -53,6 +60,13 @@ public class SecurityConfig {
         return source;
     }
 
+    /**
+     * method :securityFilterChain
+     * <p>config httpSecurity</p>
+     *
+     * @return SecurityFilterChain
+     * @author AiPV
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http = http.csrf(crf -> crf.disable());
@@ -69,16 +83,26 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new CustomAuthenticationFailureHandler();
-    }
+    /**
+     * method :PasswordEncoder
+     * <p>create passwordEncoder by BCryptPasswordEncoder</p>
+     *
+     * @return PasswordEncoder
+     * @author AiPV
+     */
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * method :authenticationProvider
+     * <p>Config Authentication Context</p>
+     *
+     * @return AuthenticationProvider
+     * @author AiPV
+     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -87,6 +111,13 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 
+    /**
+     * method :authManagerBean
+     * <p>Config Authentication Manager</p>
+     *
+     * @return ProviderManager
+     * @author AiPV
+     */
     @Bean
     public ProviderManager authManagerBean(HttpSecurity security) throws Exception {
         return (ProviderManager) security.getSharedObject(AuthenticationManagerBuilder.class).authenticationProvider(authenticationProvider()).build();

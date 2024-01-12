@@ -18,6 +18,13 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeServiceImpl employeeService;
+
+    /**
+     * Method : getUserInfo
+     * <p>get Employee Information of current user</p>
+     * @return Employee
+     * @author AiPV
+     */
     @GetMapping("/info")
     private ResponseEntity<Employee> getUserInfo(@AuthenticationPrincipal User user) {
         Employee employee = employeeService.getInfo(user);

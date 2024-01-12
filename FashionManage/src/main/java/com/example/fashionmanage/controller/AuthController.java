@@ -37,10 +37,14 @@ public class AuthController {
     private String domain;
 
     /**
-     * Login response entity.
+     * Method : login
+     * <p>Validate login request</p>
+     * <p>If User Valid create and return JWT Token</p>
+     * <p>Else Return UNAUTHORIZED</p>
      *
      * @param request the request
-     * @return the response entity
+     * @return JWT Token
+     * @author AiPV"
      */
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody AuthCredentialsRequest request) {
@@ -68,6 +72,14 @@ public class AuthController {
         }
     }
 
+    /**
+     * Method : validateToken
+     * <p>Check JWT token valid</p>
+     *
+     * @param JWT token
+     * @return Boolean
+     * @author AiPV
+     */
     @GetMapping("/validate")
     public ResponseEntity<?> validateToken(@CookieValue(name = "jwt") String token,
                                            @AuthenticationPrincipal User user) {
@@ -79,8 +91,14 @@ public class AuthController {
         }
     }
 
+    /**
+     * Method : logout
+     * <p>Logout current user </p>
+     *
+     * @author AiPV
+     */
     @GetMapping("/logout")
-    public ResponseEntity<?> logout () {
+    public ResponseEntity<?> logout() {
         ResponseCookie cookie = ResponseCookie.from("jwt", "")
                 .domain(domain)
                 .path("/")
@@ -89,12 +107,14 @@ public class AuthController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, cookie.toString()).body("ok");
     }
+
     /**
      * Change the password for the current user
      *
      * @param request
      * @param user
      * @return Boolean
+     * @author AiPV
      */
     @PostMapping("/changePassword")
     public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequest request, @AuthenticationPrincipal User user) {
@@ -111,7 +131,7 @@ public class AuthController {
             return ResponseEntity.ok().build();
 
         } else {
-            return ResponseEntity.badRequest().body("The Old Password not correct");
+            return new ResponseEntity<>("The new password and confirm password",HttpStatus.UNAUTHORIZED );
         }
     }
 }
