@@ -58,4 +58,11 @@ public interface DiscountService {
      * @author QuanNV
      */
     Discount findByNameDiscount(String name);
+
+    /**
+     * The function help allows to know if the id already exists
+     * @param id
+     * @author QuanNV
+     */
+    boolean checkIdDiscount(String id);
 }

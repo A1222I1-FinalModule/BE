@@ -95,4 +95,14 @@ public class DiscountServiceImpl implements com.example.fashionmanage.service.di
     public Discount findByNameDiscount(String name) {
         return discount.findByNameDiscount(name);
     }
+
+    /**
+     * The function help allows to know if the id already exists
+     * @param id
+     * @return true or false
+     */
+    @Override
+    public boolean checkIdDiscount(String id) {
+        return discount.countByDiscountCode(id) > 0;
+    }
 }

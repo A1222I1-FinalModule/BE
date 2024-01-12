@@ -22,7 +22,7 @@ import java.util.Date;
 @Table(name = "discount", schema = "fashionShop")
 public class Discount {
     @Id
-    @Size(max = 255)
+    @Size(max = 10)
     @Column(name = "discount_code", nullable = false)
     private String discountCode;
 
@@ -49,7 +49,6 @@ public class Discount {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date endDate;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;

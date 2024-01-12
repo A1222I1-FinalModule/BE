@@ -1,6 +1,5 @@
 package com.example.fashionmanage.controller;
 
-import com.example.fashionmanage.entity.Customer;
 import com.example.fashionmanage.entity.Discount;
 import com.example.fashionmanage.service.discount.inter.DiscountService;
 import com.example.fashionmanage.dto.DiscountDto;
@@ -116,4 +115,13 @@ public class DiscountController {
         return new ResponseEntity<>(discount, HttpStatus.OK);
     }
 
+    /**
+     * The function help allows to know if the id already exists
+     * @param id
+     * @return true or false
+     */
+    @GetMapping("/existDiscountCode/{id}")
+    public boolean checkExistDiscountCode(@PathVariable String id){
+        return discountService.checkIdDiscount(id);
+    }
 }
