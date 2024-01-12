@@ -1,5 +1,8 @@
 package com.example.fashionmanage.repository;
 
+import com.example.fashionmanage.dto.BillDTO;
+import com.example.fashionmanage.dto.CustomerGrowth;
+import com.example.fashionmanage.dto.OrderGrowthDTO;
 import com.example.fashionmanage.entity.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,12 +28,12 @@ public interface BillRepository extends JpaRepository<Bill, String> {
          * @return list data of 5 latest orders
          * @author ThanhBM
          */
-        @Query(value = "SELECT b.release_date AS order_date, c.name AS customer_name " +
+        @Query(value = "SELECT b.release_date AS orderDate, c.name AS customerName " +
                         "FROM bill b " +
                         "JOIN customer c ON b.customer_id = c.id " +
                         "ORDER BY b.release_date DESC " +
                         "LIMIT 5", nativeQuery = true)
-        List<Object[]> findTop5RecentOrders();
+        List<BillDTO> findTop5RecentOrders();
 
         /**
          * The Function to display Customer Growth Percentage
@@ -38,12 +41,12 @@ public interface BillRepository extends JpaRepository<Bill, String> {
          * @return array of Customer Growth Percentage
          * @author ThanhBM
          */
-        @Query(value = "SELECT COUNT(DISTINCT customer_id) AS customer_count, " +
-                        "(COUNT(DISTINCT customer_id) - COALESCE(LAG(COUNT(DISTINCT customer_id)) OVER (ORDER BY MONTH(release_date)), 0)) AS customer_growth_percentage "
+        @Query(value = "SELECT COUNT(DISTINCT customer_id) AS customerCount, " +
+                        "(COUNT(DISTINCT customer_id) - COALESCE(LAG(COUNT(DISTINCT customer_id)) OVER (ORDER BY MONTH(release_date)), 0)) AS customerGrowthPercentage "
                         +
                         "FROM bill " +
                         "WHERE MONTH(release_date) = MONTH(CURRENT_DATE)", nativeQuery = true)
-        Object[] calculateCustomerGrowthPercentage();
+        List<CustomerGrowth> calculateCustomerGrowthPercentage();
 
         /**
          * The Function to display Order Growth Percentage
@@ -51,15 +54,15 @@ public interface BillRepository extends JpaRepository<Bill, String> {
          * @return data of Order Growth Percentage
          * @author ThanhBM
          */
-        @Query(value = "SELECT COUNT(*) AS order_count, " +
+        @Query(value = "SELECT COUNT(*) AS orderCount, " +
                         "(COUNT(*) - (" +
                         "    SELECT COUNT(*) " +
                         "    FROM bill " +
                         "    WHERE MONTH(release_date) = MONTH(CURRENT_DATE) - 1" +
-                        ")) AS order_growth_percentage " +
+                        ")) AS orderGrowthPercentage " +
                         "FROM bill " +
                         "WHERE MONTH(release_date) = MONTH(CURRENT_DATE)", nativeQuery = true)
-        Object[] calculateOrderGrowthPercentage();
+        List<OrderGrowthDTO> calculateOrderGrowthPercentage();
 
         /**
          * The function count revenue by day
