@@ -84,7 +84,6 @@ public class NotificationController {
     public ResponseEntity<Notification> findById(@PathVariable("id") String id){
         try {
             Integer parseId = Integer.parseInt(id);
-
             if(parseId == null){
                 return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }else {
@@ -135,7 +134,7 @@ public class NotificationController {
      * @return : insert database successfullly;
      */
     @PostMapping("/admin/savenotification")
-    public  ResponseEntity<Notification> sendNotification(@RequestBody @Valid Notification notification, BindingResult bindingResult){
+    public  ResponseEntity<Notification> sendNotification(@RequestBody Notification notification, BindingResult bindingResult){
         Date date = new Date();
         notification.setStartDate(date);
         notification.setStatus(false);

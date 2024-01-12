@@ -24,9 +24,9 @@ public class NotificationServiceImlp implements  NotificationService{
      * @Return : if success , object will insert not messager error
      */
     @Override
-    @Transactional
     public void Save(Notification notification) {
-        notificationRepository.Save(notification.getContent(),notification.getStartDate(),notification.getStatus(),notification.getTarget());
+        notificationRepository.createNew(notification);
+//        notificationRepository.save(notification);
     }
 
     /**

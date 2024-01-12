@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -35,8 +36,11 @@ public interface NotificationRepository extends JpaRepository<Notification,Integ
      * @author: TamHP
      * @Return : if this method success, data will insert in table notification , unless data isn't insert table and message error
      */
-    @Query(value = "insert into notification (content,start_date,status,target) values (:content,:start_date,:status,:target)",nativeQuery = true)
-    void Save(@Param("content")String content, @Param("start_date")Date startDate,@Param("status")Boolean status,@Param("target")Integer target);
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert into fashionShop.notification (content,start_date,status,target) values (:#{#notification.content},:#{#notification.startDate},:#{#notification.status},:#{#notification.target})",nativeQuery = true)
+    void createNew(@Param("notification")Notification notification);
 
     /**
      * this method is deletebyId, it is delete record in table with id selected,if id not exsist message not found
@@ -47,6 +51,7 @@ public interface NotificationRepository extends JpaRepository<Notification,Integ
 
 
     @Modifying
+    @Transactional
     @Query(value = "delete from notification n where n.id = :id ",nativeQuery = true)
     void deletebyId(@Param("id")int id);
 
@@ -57,7 +62,7 @@ public interface NotificationRepository extends JpaRepository<Notification,Integ
      * @author: TamHP
      * @return : data notification witd id selected
      */
-    @Query(value = "select *  from notification n where n.id =: id",nativeQuery = true)
+    @Query(value = "select *  from notification n where n.id = :id",nativeQuery = true)
     Notification findById(@Param("id")int id);
 
 
