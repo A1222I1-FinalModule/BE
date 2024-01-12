@@ -1,6 +1,8 @@
 
 package com.example.fashionmanage.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,12 +28,14 @@ public class Product {
     private Integer quantity;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_category_id", nullable = false)
     private ProductCategory productCategory;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "size_id", nullable = false)
     private com.example.fashionmanage.entity.Size size;
 
