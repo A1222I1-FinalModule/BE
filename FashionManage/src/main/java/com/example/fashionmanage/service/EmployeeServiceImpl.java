@@ -1,6 +1,7 @@
 package com.example.fashionmanage.service;
 
 
+import com.example.fashionmanage.dto.EmployeeDTO;
 import com.example.fashionmanage.entity.Employee;
 import com.example.fashionmanage.entity.User;
 import com.example.fashionmanage.repository.EmployeeRepository;
@@ -14,7 +15,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Autowired
     private EmployeeRepository employeeRepository;
     @Override
-    public List<Object[]> getEmployeeSaleTop() {
+    public List<EmployeeDTO> getEmployeeSaleTop() {
         return employeeRepository.findAllEmployeeSaleTop();
     }
     public Employee getInfo(User user) {
