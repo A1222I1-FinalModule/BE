@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
-public class RestControllerDiscount {
+public class  RestControllerDiscount {
     @Autowired
     private DiscountServiceInter discountServiceInter;
 
