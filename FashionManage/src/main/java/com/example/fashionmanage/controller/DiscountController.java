@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000/")
 @RequestMapping("/api/admin")
 public class DiscountController {
     @Autowired
@@ -108,11 +109,11 @@ public class DiscountController {
      */
     @GetMapping("/findByNameDiscount")
     public ResponseEntity<?> findByNameDiscount(@RequestParam("name") String name) {
-        Discount discount = discountService.findByNameDiscount(name);
-        if (discount == null) {
+        List<Discount>discounts = discountService.findByNameDiscount(name);
+        if (discounts == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(discount, HttpStatus.OK);
+        return new ResponseEntity<>(discounts, HttpStatus.OK);
     }
 
     /**

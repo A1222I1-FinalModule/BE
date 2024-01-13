@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public Customer findByNameCustomer(String name) {
+    public List<Customer> findByNameCustomer(String name) {
         return customerRepository.findByNameCustomer(name);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000/")
 @RequestMapping("/api/admin")
 public class CustomerController {
     @Autowired
@@ -57,7 +58,7 @@ public class CustomerController {
      */
     @GetMapping("/findByNameCustomer")
     public ResponseEntity<?> findByNameCustomer(@RequestParam("name") String name) {
-        Customer customer = customerService.findByNameCustomer(name);
+        List<Customer> customer = customerService.findByNameCustomer(name);
         if (customer == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

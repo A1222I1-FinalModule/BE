@@ -57,7 +57,7 @@ public interface DiscountService {
      * @return data of discount find by name
      * @author QuanNV
      */
-    Discount findByNameDiscount(String name);
+    List<Discount> findByNameDiscount(String name);
 
     /**
      * The function help allows to know if the id already exists

@@ -77,8 +77,8 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return data of discount find by id
      * @author QuanNV
      */
-    @Query(value = "select * from discount  where name=:name", nativeQuery = true)
-    Discount findByNameDiscount(String name);
+    @Query(value = "select discount_code , name , reward_point,`condition`,begin_date,end_date,customer_type_id from discount  where name LIKE %:name%", nativeQuery = true)
+    List<Discount> findByNameDiscount(String name);
 
     /**
      * The function help allows to know if the id already exists

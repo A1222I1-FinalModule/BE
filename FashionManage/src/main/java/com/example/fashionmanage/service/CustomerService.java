@@ -41,6 +41,6 @@ public interface CustomerService {
      * @return data of customer find by name
      * @author QuanNV
      */
-    Customer findByNameCustomer(String name);
+    List<Customer> findByNameCustomer(String name);
 
 }

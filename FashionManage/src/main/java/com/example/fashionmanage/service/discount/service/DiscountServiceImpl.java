@@ -92,7 +92,7 @@ public class DiscountServiceImpl implements com.example.fashionmanage.service.di
      * @author QuanNV
      */
     @Override
-    public Discount findByNameDiscount(String name) {
+    public List<Discount> findByNameDiscount(String name) {
         return discount.findByNameDiscount(name);
     }
 

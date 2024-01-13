@@ -54,6 +54,6 @@ public interface CustomerRepository extends JpaRepository<Customer,String> {
      * @author QuanNV
      */
     @Query(value = "select id , name , gender,point,date_of_birth,address,phone,email,type_id from fashionShop.customer  " +
-            "where name=:name",nativeQuery = true)
-    Customer findByNameCustomer(String name);
+            "where name LIKE %:name%",nativeQuery = true)
+    List<Customer> findByNameCustomer(String name);
 }
