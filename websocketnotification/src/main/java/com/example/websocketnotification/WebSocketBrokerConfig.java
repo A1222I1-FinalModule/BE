@@ -1,2 +1,4 @@
-package com.example.websocketnotification;public class WebSocketBrokerConfig {
+package com.example.websocketnotification;
+
+public class WebSocketBrokerConfig {
 }
