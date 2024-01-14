@@ -6,18 +6,19 @@ import java.util.List;
 public interface ProductService {
 
     /**
-     * The function help create new product
+     *  This is the createInfoProduct(Product product) method, which is created for reuse by subclasses,Its purpose is to add data
      * @param product
-     * @return
-     * author TuyenDV
+     * @author :TuyenDV
+     * @Return : if this method success, data will insert in table product , unless data isn't insert table and message error
      */
     void createInfoProduct(Product product);
 
 
     /**
-     * The function help display all data of list product
-     * @author TuyenDV
-     * @return list data of product
+     * This is the findListInfoProduct(), which is created for reuse by subclasses, Its purpose is to display the product list
+     * @param :N/A
+     * @author : TuyenDV
+     * @Return : display list product
      */
     List<Product> findListInfoProduct();
 

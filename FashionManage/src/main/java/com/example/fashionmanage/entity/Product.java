@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -24,17 +26,21 @@ public class Product {
     @Column(name = "product_code", nullable = false)
     private String productCode;
 
-    @Size(max = 255)
+    @Size(max = 255,message = "Length from 5 to 255")
+    @NotBlank(message = "Information cannot be left blank")
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "quantity")
+    @Min(value = 1,message = "Quantity must be 1 or more")
     private Integer quantity;
 
+    @NotBlank(message = "Information cannot be left blank")
     @Column(name= "image")
     private String image;
 
+    @Min(value = 1,message = "The lowest price must be from 1 VND")
     @Column(name = "price")
     private Double price;
 

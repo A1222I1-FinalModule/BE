@@ -1,20 +1,22 @@
-package com.example.fashionmanage.service;
+package com.example.fashionmanage.service.impl;
 
 import com.example.fashionmanage.entity.Product;
 import com.example.fashionmanage.repository.ProductRepository;
+import com.example.fashionmanage.service.ProductService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
     /**
-     * The function help display all data of list product
-     * @author TuyenDV
-     * @return list data of product
+     * this is method override by interface ProductService,is is used display all record in table product
+     * @param :N/A
+     * @author: TuyenDV
+     * @return : if success , display all record in table product messager error
      */
     @Override
     public List<Product> findListInfoProduct() {
@@ -22,10 +24,10 @@ public class ProductServiceImpl implements ProductService{
     }
 
     /**
-     * The function help create new product
+     * This is method overrride by interface ProductService,It is used to add a info product object
      * @param product
-     * @return
-     * author TuyenDV
+     * @author: TuyenDv
+     * @Return : if success , object will insert not messager error
      */
 //    @Transactional
     @Override

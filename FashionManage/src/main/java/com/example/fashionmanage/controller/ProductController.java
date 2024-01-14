@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -16,7 +17,11 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
-
+    /**
+     * The function help list product
+     * @return
+     * author TuyenDV
+     */
 
    @GetMapping("/getListProduct")
    public ResponseEntity<List<Product>> getAllInfoProduct(){
@@ -36,15 +41,26 @@ public class ProductController {
      * The function help create new product
      * @param product
      * @return
-     * author TuyenNV
+     * author TuyenDV
      */
     @PostMapping("/createInfoProduct")
-    public ResponseEntity<?> saveInfoProduct(@Valid @RequestBody Product product){
-        try {
+    public ResponseEntity<?> saveInfoProduct(@RequestBody @Valid Product product , BindingResult bindingResult){
+//        try {
+//            String idProduct = "H-" + ((int) Math.random() * 1000);
+//            product.setProductCode(idProduct);
+//            productService.createInfoProduct(product);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        }catch (Exception e){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+
+        if(bindingResult.hasErrors()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }else {
+            String idProduct = "H-" + Math.random() * 1000;
+            product.setProductCode(idProduct);
             productService.createInfoProduct(product);
             return new ResponseEntity<>(HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
     }
