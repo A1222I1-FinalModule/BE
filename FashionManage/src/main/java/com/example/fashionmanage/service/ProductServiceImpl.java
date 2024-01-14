@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService{
      * @return
      * author TuyenDV
      */
-    @Transactional
+//    @Transactional
     @Override
     public void createInfoProduct(Product product) {
         productRepository.createInfoProduct(product);

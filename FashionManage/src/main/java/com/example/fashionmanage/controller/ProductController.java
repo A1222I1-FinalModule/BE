@@ -1,5 +1,4 @@
 package com.example.fashionmanage.controller;
-
 import com.example.fashionmanage.entity.Product;
 import com.example.fashionmanage.service.ProductService;
 import jakarta.validation.Valid;
@@ -9,12 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@CrossOrigin(origins = "*")
+
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/warehouse")
+
 public class ProductController {
     @Autowired
     private ProductService productService;
+
 
    @GetMapping("/getListProduct")
    public ResponseEntity<List<Product>> getAllInfoProduct(){
@@ -44,5 +46,6 @@ public class ProductController {
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
     }
 }
