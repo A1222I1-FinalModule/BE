@@ -26,6 +26,6 @@ public interface ProductSizeRepository extends JpaRepository<ProductSize,Integer
      * @author: TuyenDV
      * @return : data notification witd id selected
      */
-    @Query(value = "select * from product_size  where product_size.id = :id",nativeQuery = true)
+    @Query(value = "select id ,product_code,size_id,name  from product_size  where id =:id",nativeQuery = true)
     ProductSize findByIdListProductSize(@Param("id") Integer id);
 }

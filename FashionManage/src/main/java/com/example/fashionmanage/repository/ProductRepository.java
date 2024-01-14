@@ -33,4 +33,13 @@ public interface ProductRepository extends JpaRepository<Product,String> {
     @Transactional
     void createInfoProduct(@Param("product") Product product);
 
+    /**
+     * The function help find name product
+     * @param name
+     * author TuyenDV
+     */
+
+    @Query(value = "select * from product where name LIKE %:name%", nativeQuery = true)
+    List<Product> findByNameProduct(String name);
+
 }

@@ -62,6 +62,22 @@ public class ProductController {
             productService.createInfoProduct(product);
             return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
 
+
+    /**
+     * The function help product all data of product find by name
+     *
+     * @param name is code of product
+     * @return data of discount find by product
+     * @author TuyenDV
+     */
+    @GetMapping("/findByNameProduct")
+    public ResponseEntity<?> findByNameProduct (@RequestParam(value = "name" ,required = false) String name ){
+        List<Product> products = productService.findByNameProduct(name);
+        if (products == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }

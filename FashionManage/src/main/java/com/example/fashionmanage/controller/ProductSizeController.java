@@ -42,19 +42,13 @@ public class ProductSizeController {
      * author TuyenDV
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ProductSize> findByIdProductSize(@PathVariable("id") String id){
-        try {
-            Integer parseId = Integer.parseInt(id);
-            if(parseId == null){
-                return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }else {
-                ProductSize productSize = productSizeService.findByIdProductSize(parseId);
-                return new ResponseEntity<>(productSize,HttpStatus.OK);
+    public ResponseEntity<ProductSize> findByIdProductSize(@PathVariable("id") Integer id) {
+        {
+            ProductSize productSize = productSizeService.findByIdProductSize(id);
+            if (productSize.getId() == 0) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-
-        }catch (Exception e){
-            return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(productSize, HttpStatus.OK);
         }
     }
-
 }

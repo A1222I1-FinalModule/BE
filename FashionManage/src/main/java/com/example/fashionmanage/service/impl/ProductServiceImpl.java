@@ -23,8 +23,21 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findListInfoProduct();
     }
 
+
     /**
-     * This is method overrride by interface ProductService,It is used to add a info product object
+     * The function help display all data of product find by name
+     *
+     * @param name is code of product
+     * @return data of product find by product
+     * @author TuyenDV
+     */
+    @Override
+    public List<Product> findByNameProduct(String name) {
+        return productRepository.findByNameProduct(name);
+    }
+
+    /**
+     * This is method overrride by interface ProductService,It is used to add  info product object
      * @param product
      * @author: TuyenDv
      * @Return : if success , object will insert not messager error
