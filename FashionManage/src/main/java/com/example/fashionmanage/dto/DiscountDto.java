@@ -33,6 +33,11 @@ public class DiscountDto {
     private Integer condition;
 
     @NotNull
+    @Min(value = 10)
+    @Max(value = 100)
+    private double sale;
+
+    @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date beginDate;
