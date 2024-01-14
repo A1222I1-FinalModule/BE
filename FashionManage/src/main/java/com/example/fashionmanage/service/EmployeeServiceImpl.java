@@ -22,4 +22,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> getEmployeeSaleTop() {
         return employeeRepository.findAllEmployeeSaleTop();
     }
+
+    @Override
+    public String getEmployeeCodeByUserId(Integer user_id) {
+        return employeeRepository.getEmployeeCodeByUserId(user_id);
+    }
 }

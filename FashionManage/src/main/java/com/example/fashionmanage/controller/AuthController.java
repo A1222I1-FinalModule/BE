@@ -43,7 +43,7 @@ public class AuthController {
      * @param request the request
      * @return the response entity
      */
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthCredentialsRequest request) {
         try {
             Authentication authenticate = authenticationManager

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/staff")
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:3000")
 public class StaffController {
     @Autowired
     private CustomerService customerService;
@@ -42,8 +42,8 @@ public class StaffController {
      * @return list data of customer
      * @author BaoDV
      */
-    @PostMapping("/customer/{searchStr}")
-    public ResponseEntity<List<Customer>> findAllByNameOrPhoneContainingOrId(@PathVariable(name = "searchStr") String searchStr) {
+    @PostMapping("/customer")
+    public ResponseEntity<List<Customer>> findAllByNameOrPhoneContainingOrId(@RequestParam(name = "searchStr", required = false, defaultValue = "") String searchStr) {
         List<Customer> searchList = customerService.findAllByNameOrPhoneOrContainingId(searchStr);
         if (searchList == null || searchList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -63,7 +63,7 @@ public class StaffController {
         if (customerOptional.isPresent()) {
             //check is product available
             for (ProductBill productBill : billDto.getProductBills()) {
-                String productId = productBill.getProductId();
+                String productId = productBill.getProductCode();
                 int requestQuantity = productBill.getQuantity();
 
                 Optional<Product> productOptional = productService.findById(productId);
@@ -107,7 +107,7 @@ public class StaffController {
             bIllService.save(newBill);
             //add bill detail
             for (ProductBill productBill : billDto.getProductBills()) {
-                String productId = productBill.getProductId();
+                String productId = productBill.getProductCode();
                 int requestQuantity = productBill.getQuantity();
                 Product product = productService.findById(productId).orElseThrow();
 
@@ -143,6 +143,23 @@ public class StaffController {
     }
 
     /**
+     * The function help get employee code base on user id
+     *
+     * @param user_id
+     * @return employee Code
+     * @author BaoDV
+     */
+    @GetMapping("/employee/code")
+    public ResponseEntity<String> getEmployeeCodeByUserId(@RequestParam("user_id") Integer user_id) {
+        String employeeCode = employeeService.getEmployeeCodeByUserId(user_id);
+        if (employeeCode != "") {
+            return new ResponseEntity<>(employeeCode, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    /**
      * The function help get list discount for customer
      *
      * @param cusId
@@ -150,11 +167,11 @@ public class StaffController {
      * @return list discount
      * @author BaoDV
      */
-    @GetMapping("/discount/search/{cusId}")
-    public ResponseEntity<List<Discount>> findDiscount(@PathVariable String cusId, @RequestParam("total") Integer total) {
+    @GetMapping("/discount/search")
+    public ResponseEntity<List<Discount>> findDiscount(@RequestParam("cusID") String cusId, @RequestParam("total") Integer total) {
         Optional<Customer> customerOptional = customerService.findById(cusId);
         if (!customerOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Integer cusTypeId = customerOptional.get().getType().getId();
         List<Discount> discountList = new ArrayList<>();
@@ -165,18 +182,30 @@ public class StaffController {
         return new ResponseEntity<>(discountList, HttpStatus.OK);
     }
 
+    /**
+     * The function help check if we add product with quantity into bill
+     *
+     * @param productBill
+     * @return status code
+     * @author BaoDV
+     */
     @PostMapping("/bill/product")
     public ResponseEntity<?> addProductBill(@RequestBody ProductBill productBill) {
-        Optional<Product> productOptional = productService.findById(productBill.getProductId());
+        if (productBill.getQuantity() <= 0) {
+            return new ResponseEntity<>("Quantity must be more than 0", HttpStatus.BAD_REQUEST);
+        }
+        Optional<Product> productOptional = productService.findById(productBill.getProductCode());
         if (productOptional.isPresent()) {
             Product product = productOptional.get();
             int availableQuantity = product.getQuantity();
-            if (availableQuantity < productBill.getQuantity()) {
-                return new ResponseEntity<>("Insufficient stock for product with ID: " + productBill.getProductId(), HttpStatus.BAD_REQUEST);
+            int orderQuantity = productBill.getQuantity();
+            if (availableQuantity < orderQuantity) {
+                return new ResponseEntity<>("Insufficient stock for product with ID: " + productBill.getProductCode(), HttpStatus.NO_CONTENT);
             }
+            product.setQuantity(orderQuantity);
             return new ResponseEntity<>(product, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Product not found with ID: " + productBill.getProductId(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Product not found with ID: " + productBill.getProductCode(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -194,6 +223,5 @@ public class StaffController {
         }
         return stringBuilder.toString();
     }
-
 
 }

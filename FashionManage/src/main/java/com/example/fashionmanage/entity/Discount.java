@@ -38,6 +38,9 @@ public class Discount {
     @Column(name = "`condition`")
     private Integer condition;
 
+    @Column(name = "`sale`")
+    private Double sale;
+
     @NotNull
     @Column(name = "begin_date", nullable = false)
     @DateTimeFormat(pattern = "dd-MM-yyyy")

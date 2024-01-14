@@ -16,4 +16,13 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
             "GROUP BY e.id, e.name " +
             "ORDER BY total_sales DESC LIMIT 5", nativeQuery = true)
     List<Employee> findAllEmployeeSaleTop();
+    /**
+     * The function help get employee code base on user id
+     *
+     * @param user_id
+     * @return employee Code
+     * @author BaoDV
+     */
+    @Query(value = "select id from employee where user_id = :user_id ", nativeQuery = true)
+    String getEmployeeCodeByUserId(Integer user_id);
 }
