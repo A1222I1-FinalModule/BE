@@ -1,12 +1,15 @@
 
 package com.example.fashionmanage.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -32,16 +35,19 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_category_id", nullable = false)
     private ProductCategory productCategory;
-    
+
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "size_id", nullable = false)
     private com.example.fashionmanage.entity.Size size;
+
+
+//    @OneToMany(mappedBy = "productCode")
+//    private Set<ProductSize> productSizes = new LinkedHashSet<>();
 
 }
 
