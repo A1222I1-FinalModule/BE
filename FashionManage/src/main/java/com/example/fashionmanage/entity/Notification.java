@@ -16,13 +16,14 @@ import java.util.Date;
 public class Notification {
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
     @Column(name = "start_date", nullable = false)
-    @DateTimeFormat
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
+
 
     @NotNull
     @Column(name = "content", nullable = false,columnDefinition = "text")

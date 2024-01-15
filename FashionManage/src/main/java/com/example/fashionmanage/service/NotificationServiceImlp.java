@@ -5,6 +5,7 @@ import com.example.fashionmanage.entity.Notification;
 import com.example.fashionmanage.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,8 @@ public class NotificationServiceImlp implements  NotificationService{
      */
     @Override
     public void Save(Notification notification) {
-        notificationRepository.Save(notification.getContent(),notification.getStartDate(),notification.getStatus(),notification.getTarget());
+        notificationRepository.createNew(notification);
+//        notificationRepository.save(notification);
     }
 
     /**
