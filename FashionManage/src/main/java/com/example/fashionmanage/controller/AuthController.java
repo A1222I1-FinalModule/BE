@@ -81,8 +81,11 @@ public class AuthController {
      * @author AiPV
      */
     @GetMapping("/validate")
-    public ResponseEntity<?> validateToken(@CookieValue(name = "jwt") String token,
+    public ResponseEntity<?> validateToken(@CookieValue(name = "jwt",required = false) String token,
                                            @AuthenticationPrincipal User user) {
+        if (token == null){
+            return ResponseEntity.ok(false);
+        }
         try {
             Boolean isValidToken = jwtUtil.validateToken(token, user);
             return ResponseEntity.ok(isValidToken);

@@ -50,7 +50,6 @@ public class Bill {
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "discount_id", nullable = false)
-    @JsonBackReference
     private Discount discount;
 
     @OneToMany(mappedBy = "bill")

@@ -31,7 +31,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,String> {
      * @return Employee
      * @author AiPV
      */
-    @Query(value = "SELECT e.id,e.address,e.date_of_birth,e.name,e.phone,e.user_id FROM employee e WHERE e.user_id = :id", nativeQuery = true)
+    @Query(value = "SELECT e.id,e.address,e.date_of_birth,e.name,e.phone,e.image,e.user_id FROM employee e WHERE e.user_id = :id", nativeQuery = true)
     Employee findByUser(@Param("id")Integer id);
 
 }
