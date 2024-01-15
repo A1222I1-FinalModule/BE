@@ -46,8 +46,6 @@ public class Bill {
     @JsonBackReference
     private  Employee employee;
 
-
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "discount_id", nullable = false)
     @JsonBackReference
