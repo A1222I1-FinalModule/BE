@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class Employee {
     @Id
     @Size(max = 255)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false,unique = true)
     private String id;
 
     @Size(max = 255)

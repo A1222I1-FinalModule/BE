@@ -22,7 +22,7 @@ import java.util.Set;
 public class Bill {
     @Id
     @Size(max = 255)
-    @Column(name ="id", nullable = false)
+    @Column(name ="id", nullable = false,unique = true)
     private String id;
 
     @NotNull
@@ -37,14 +37,22 @@ public class Bill {
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", nullable = false)
+    @JsonBackReference
     private Customer customer;
 
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
+    @JsonBackReference
     private  Employee employee;
 
+
     @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "discount_id", nullable = false)
+    @JsonBackReference
+    private Discount discount;
+
     @OneToMany(mappedBy = "bill")
     private Set<BillDetail> billDetails = new LinkedHashSet<>();
 

@@ -1,5 +1,8 @@
 package com.example.fashionmanage.service;
 
+import com.example.fashionmanage.dto.BillDTO;
+import com.example.fashionmanage.dto.CustomerGrowth;
+import com.example.fashionmanage.dto.OrderGrowthDTO;
 import com.example.fashionmanage.entity.Bill;
 import com.example.fashionmanage.repository.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,28 +15,27 @@ public class BillServiceImpl implements BillService{
     @Autowired
     private BillRepository billRepository;
     @Override
-    public List<Bill> getTop5RecentOrder() {
+    public List<BillDTO> getTop5RecentOrder() {
         return billRepository.findTop5RecentOrders();
     }
 
     @Override
-    public double calculateCustomerGrowthPercentage() {
-        return 0;
+    public List<CustomerGrowth> calculateCustomerGrowthPercentage() {
+        return billRepository.calculateCustomerGrowthPercentage();
     }
 
     @Override
-    public double calculateOrderGrowthPercentage() {
-        return 0;
+    public List<OrderGrowthDTO> calculateOrderGrowthPercentage() {
+        return billRepository.calculateOrderGrowthPercentage();
     }
 
     @Override
     public double calculateRevenueByWeek() {
-        return 0;
+        return billRepository.calculateRevenueByWeek();
     }
 
     @Override
     public double calculateRevenueByMonth() {
-        return 0;
+        return billRepository.calculateRevenueByMonth();
     }
-
 }
