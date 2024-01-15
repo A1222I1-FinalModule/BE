@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping(value = "/api/admin")
 public class CustomerController {
@@ -38,6 +37,15 @@ public class CustomerController {
         try {
             customerService.update(id, newCustomer);
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        }
+    }
+
+    @GetMapping("/detail/{id}")
+    ResponseEntity<?> detailCustomer(@PathVariable String id) {
+        try {
+            return new ResponseEntity<>(customerService.findId(id),HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
         }

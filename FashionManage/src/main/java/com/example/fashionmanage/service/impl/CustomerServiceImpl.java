@@ -30,4 +30,9 @@ public class CustomerServiceImpl implements CustomerService {
             repository.update(cid, customer);
         }
     }
+
+    @Override
+    public Customer findId(String cid) {
+        return repository.findByIdCustomer(cid);
+    }
 }

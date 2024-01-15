@@ -10,4 +10,6 @@ public interface CustomerService {
     void save(Customer customer);
 
     void update(String cid, Customer customer);
+
+    Customer findId(String cid);
 }

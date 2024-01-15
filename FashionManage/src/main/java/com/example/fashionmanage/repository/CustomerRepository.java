@@ -19,6 +19,10 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
             "values (:#{#customer.id}, :#{#customer.name}, :#{#customer.dateOfBirth},:#{#customer.address}, :#{#customer.gender},:#{#customer.phone}, :#{#customer.email}, :#{#customer.customerType.id})", nativeQuery = true)
     void create(@Param("customer") Customer customer);
 
+    @Query(value = "select id , name , gender,point,date_of_birth,address,phone,email,type_id from fashionShop.customer  " +
+            "where id=:id",nativeQuery = true)
+    Customer findByIdCustomer(String id);
+
     @Modifying
     @Transactional
     @Query(value = "update customer set name = :#{#customer.name}, date_of_birth = :#{#customer.dateOfBirth}, address = :#{#customer.address}, gender = :#{#customer.gender}, phone = :#{#customer.phone}, email = :#{#customer.email}, type_id = :#{#customer.customerType.id} " +
