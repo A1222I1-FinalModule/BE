@@ -18,7 +18,8 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController()
 @RequestMapping("/api/admin")
-public class BillController {
+public class
+BillController {
     @Autowired
     private BillService billService;
     /**
