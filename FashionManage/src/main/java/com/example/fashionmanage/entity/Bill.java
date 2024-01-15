@@ -31,25 +31,21 @@ public class Bill {
     @Column(name = "release_date", nullable = false)
     private Instant releaseDate;
 
-    @NotNull
-    @JsonManagedReference
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id", nullable = false)
-    @JsonBackReference
-    private Customer customer;
-
-    @JsonManagedReference
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_id", nullable = false)
-    @JsonBackReference
-    private  Employee employee;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "discount_id", nullable = false)
-    @JsonBackReference
     private Discount discount;
 
-    @OneToMany(mappedBy = "bill")
-    private Set<BillDetail> billDetails = new LinkedHashSet<>();
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "employee_id", nullable = false)
+    private  Employee employee;
+
+    @OneToMany(mappedBy = "bill")
+    @JsonBackReference
+    private Set<BillDetail> billDetails = new LinkedHashSet<>();
 }

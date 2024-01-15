@@ -1,4 +1,5 @@
-package com.example.fashionmanage.repository.discount;
+package com.example.fashionmanage.repository;
+
 
 import com.example.fashionmanage.entity.Discount;
 import jakarta.transaction.Transactional;
@@ -8,13 +9,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface DiscountRepository extends JpaRepository<Discount, String> {
-
     /**
      * The function help display all data of list discount
      *
@@ -88,4 +87,17 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
     @Query(value = "SELECT COUNT(*) FROM discount WHERE discount_code = :discountCode", nativeQuery = true)
     Long countByDiscountCode(@Param("discountCode") String discountCode);
 
+    /**
+     * the function help update discount by id
+     *
+     * @param cusTypeId
+     * @param total
+     * @param today
+     * @return list Discount
+     * @author BaoDV
+     */
+    @Modifying
+    @Query(value = "select d.* from discount d where d.condition <= :total and (:today between d.begin_date and d.end_date) and customer_type_id = :cusTypeId", nativeQuery = true)
+    List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today);
 }
+

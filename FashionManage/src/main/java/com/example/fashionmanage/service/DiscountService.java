@@ -1,12 +1,12 @@
-package com.example.fashionmanage.service.discount.inter;
+package com.example.fashionmanage.service;
 
 import com.example.fashionmanage.entity.Discount;
 import com.example.fashionmanage.dto.DiscountDto;
-import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
-@Service
 public interface DiscountService {
     /**
      * The function help display all data of list discount
@@ -65,4 +65,13 @@ public interface DiscountService {
      * @author QuanNV
      */
     boolean checkIdDiscount(String id);
+
+    /**
+     * The function findDiscount
+     * @param cusTypeId
+     * @param today
+     * @author BaoDV
+     */
+    Optional<Discount> findById(String id);
+    List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today);
 }

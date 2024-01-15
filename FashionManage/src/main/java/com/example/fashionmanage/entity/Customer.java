@@ -1,5 +1,7 @@
 package com.example.fashionmanage.entity;
 
+
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -48,8 +50,6 @@ public class Customer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
     private CustomerType customerType;
-
-
 }
 
 

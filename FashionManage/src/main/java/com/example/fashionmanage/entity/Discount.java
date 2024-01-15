@@ -1,7 +1,6 @@
 
 package com.example.fashionmanage.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +8,6 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.Instant;
 import java.util.Date;
 
 @Getter
@@ -36,6 +34,7 @@ public class Discount {
     @Lob
     @Column(name = "`condition`")
     private Integer condition;
+
 
     @Lob
     @Column(name = "sale")

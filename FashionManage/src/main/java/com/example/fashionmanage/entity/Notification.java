@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
