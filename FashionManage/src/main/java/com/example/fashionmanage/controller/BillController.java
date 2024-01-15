@@ -19,7 +19,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController()
-@RequestMapping("/api/admin")
+@RequestMapping("/api")
 public class BillController {
     @Autowired
     private BillService billService;
@@ -31,7 +31,7 @@ public class BillController {
      *         NOT_FOUND response if not.
      * @author NhanNNB
      */
-    @GetMapping({ "/saler/bill", "/warehouse/bill", "/bill" })
+    @GetMapping({ "/saler/bill", "/warehouse/bill", "/admin/bill" })
     public ResponseEntity<List<Object[]>> getAllBills() {
         List<Object[]> bills = billService.getAllBill();
         return new ResponseEntity<>(bills, HttpStatus.OK);
@@ -44,7 +44,7 @@ public class BillController {
      *         NOT_FOUND response if not.
      * @author NhanNNB
      */
-    @GetMapping({ "/warehouse/daily/revenue", "/saler/daily/revenue", "/daily/revenue" })
+    @GetMapping({ "/warehouse/daily/revenue", "/saler/daily/revenue", "/admin/daily/revenue" })
     public ResponseEntity<Double> getDailyRevenue() {
         Double dailyRevenue = billService.calculateRevenueByDay();
         return new ResponseEntity<>(dailyRevenue, HttpStatus.OK);
@@ -57,7 +57,7 @@ public class BillController {
      *         NOT_FOUND response if not.
      * @author NhanNNB
      */
-    @GetMapping({ "/saler/weekly/revenue", "/warehouse/weekly/revenue", "/weekly/revenue" })
+    @GetMapping({ "/saler/weekly/revenue", "/warehouse/weekly/revenue", "/admin/weekly/revenue" })
     public ResponseEntity<Double> getWeeklyRevenue() {
         Double weeklyRevenue = billService.calculateRevenueByWeek();
         return new ResponseEntity<>(weeklyRevenue, HttpStatus.OK);
@@ -70,7 +70,7 @@ public class BillController {
      *         NOT_FOUND response if not.
      * @author NhanNNB
      */
-    @GetMapping({ "/saler/monthly/revenue", "/warehouse/monthly/revenue", "/monthly/revenue" })
+    @GetMapping({ "/saler/monthly/revenue", "/warehouse/monthly/revenue", "/admin/monthly/revenue" })
     public ResponseEntity<Double> getMonthlyRevenue() {
         Double monthRevenue = billService.calculateRevenueByWeek();
         return new ResponseEntity<>(monthRevenue, HttpStatus.OK);
@@ -83,7 +83,7 @@ public class BillController {
      *         orders if available,
      *         or a NOT_FOUND response if the list is empty.
      */
-    @GetMapping("/orders-top")
+    @GetMapping("/admin/orders-top")
     public ResponseEntity<List<BillDTO>> getTop5RecentOrders() {
         List<BillDTO> bill = billService.getTop5RecentOrder();
         if (bill.isEmpty()) {
@@ -101,7 +101,7 @@ public class BillController {
      *         growth if available,
      *         or a NOT_FOUND response if the array is null or empty.
      */
-    @GetMapping("/customer-growth")
+    @GetMapping("/admin/customer-growth")
     public ResponseEntity<List<CustomerGrowth>> calculateCustomerGrowthPercentage() {
         List<CustomerGrowth> customerGrowth = billService.calculateCustomerGrowthPercentage();
         if (customerGrowth.isEmpty()) {
@@ -119,7 +119,7 @@ public class BillController {
      *         if available,
      *         or a NOT_FOUND response if the array is null or empty.
      */
-    @GetMapping("/order-growth")
+    @GetMapping("/admin/order-growth")
     public ResponseEntity<List<OrderGrowthDTO>> calculateOrderGrowthPercentage() {
         List<OrderGrowthDTO> orderGrowth = billService.calculateOrderGrowthPercentage();
         if (orderGrowth.isEmpty()) {
