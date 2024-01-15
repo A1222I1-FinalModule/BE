@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ProductService {
     List<Product> findAll();
+    void updateQuantity(Integer quantity, Product product);
 }

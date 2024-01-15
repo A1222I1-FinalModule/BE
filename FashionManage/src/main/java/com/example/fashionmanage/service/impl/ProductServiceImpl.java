@@ -3,6 +3,8 @@ package com.example.fashionmanage.service.impl;
 import com.example.fashionmanage.entity.Product;
 import com.example.fashionmanage.repository.ProductRepository;
 import com.example.fashionmanage.service.ProductService;
+
+import org.hibernate.annotations.DialectOverride.OverridesAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAll() {
         return repository.findAll();
+    }
+    @Override
+    public void updateQuantity(Integer quantity, Product product) {
+        product.setQuantity(quantity);
+        repository.save(product);
     }
 }
