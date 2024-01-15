@@ -30,4 +30,24 @@ public class CustomerServiceImpl implements CustomerService {
             repository.update(cid, customer);
         }
     }
+
+    @Override
+    public List<Customer> findAllCustomer() {
+        return null;
+    }
+
+    @Override
+    public void deleteByIdCustomer(String id) {
+
+    }
+
+    @Override
+    public Customer findByIdCustomer(String id) {
+        return null;
+    }
+
+    @Override
+    public List<Customer> findByNameCustomer(String name) {
+        return null;
+    }
 }
