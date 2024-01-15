@@ -1,10 +1,9 @@
 package com.example.fashionmanage.controller;
 
 
-import com.example.fashionmanage.dto.BillDTO;
 import com.example.fashionmanage.dto.CustomerGrowth;
+import com.example.fashionmanage.dto.GetBillDTO;
 import com.example.fashionmanage.dto.OrderGrowthDTO;
-import com.example.fashionmanage.entity.Bill;
 import com.example.fashionmanage.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -84,8 +83,8 @@ public class BillController {
      *         or a NOT_FOUND response if the list is empty.
      */
     @GetMapping("/admin/orders-top")
-    public ResponseEntity<List<BillDTO>> getTop5RecentOrders() {
-        List<BillDTO> bill = billService.getTop5RecentOrder();
+    public ResponseEntity<List<GetBillDTO>> getTop5RecentOrders() {
+        List<GetBillDTO> bill = billService.getTop5RecentOrder();
         if (bill.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {

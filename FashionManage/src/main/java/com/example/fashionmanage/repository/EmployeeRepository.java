@@ -7,14 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-
 import java.util.List;
+
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee,String> {
+public interface EmployeeRepository extends JpaRepository<Employee, String> {
     /**
      * The Function to display list of 5 Employee Sale Top
-     * @author ThanhBM
+     *
      * @return list array of 5 Employee Sale Top
+     * @author ThanhBM
      */
     @Query(value = "SELECT e.name AS employeeName, " +
             "SUM(b.total) AS totalSales, " +
@@ -26,6 +27,16 @@ public interface EmployeeRepository extends JpaRepository<Employee,String> {
     List<EmployeeDTO> findAllEmployeeSaleTop();
 
     @Query(value = "SELECT e.id,e.address,e.date_of_birth,e.name,e.phone,e.user_id FROM employee e WHERE e.user_id = :id", nativeQuery = true)
-    Employee findByUser(@Param("id")Integer id);
+    Employee findByUser(@Param("id") Integer id);
 
+    /**
+     * The function help get employee code base on user id
+     *
+     * @param user_id
+     * @return employee Code
+     * @author BaoDV
+     */
+    @Query(value = "select id from employee where user_id = :user_id ", nativeQuery = true)
+    String getEmployeeCodeByUserId(Integer user_id);
 }
+

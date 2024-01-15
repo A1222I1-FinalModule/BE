@@ -1,7 +1,7 @@
 package com.example.fashionmanage.repository;
 
-import com.example.fashionmanage.dto.BillDTO;
 import com.example.fashionmanage.dto.CustomerGrowth;
+import com.example.fashionmanage.dto.GetBillDTO;
 import com.example.fashionmanage.dto.OrderGrowthDTO;
 import com.example.fashionmanage.entity.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,19 +21,18 @@ public interface BillRepository extends JpaRepository<Bill, String> {
                         "WHERE MONTH(release_date) = MONTH(NOW()) " +
                         "ORDER BY b.release_date DESC;", nativeQuery = true)
         List<Object[]> findBillsInMonth();
-
-        /**
-         * The Function to display list of 5 latest orders
-         *
-         * @return list data of 5 latest orders
-         * @author ThanhBM
-         */
-        @Query(value = "SELECT b.release_date AS orderDate, c.name AS customerName " +
-                        "FROM bill b " +
-                        "JOIN customer c ON b.customer_id = c.id " +
-                        "ORDER BY b.release_date DESC " +
-                        "LIMIT 5", nativeQuery = true)
-        List<BillDTO> findTop5RecentOrders();
+    /**
+     * The Function to display list of 5 latest orders
+     *
+     * @return list data of 5 latest orders
+     * @author ThanhBM
+     */
+    @Query(value = "SELECT b.release_date AS orderDate, c.name AS customerName " +
+            "FROM bill b " +
+            "JOIN customer c ON b.customer_id = c.id " +
+            "ORDER BY b.release_date DESC " +
+            "LIMIT 5", nativeQuery = true)
+    List<GetBillDTO> findTop5RecentOrders();
 
         /**
          * The Function to display Customer Growth Percentage
