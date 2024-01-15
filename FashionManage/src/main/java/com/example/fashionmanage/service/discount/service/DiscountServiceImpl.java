@@ -2,8 +2,7 @@ package com.example.fashionmanage.service.discount.service;
 
 import com.example.fashionmanage.entity.Discount;
 import com.example.fashionmanage.repository.discount.DiscountRepository;
-import com.example.fashionmanage.service.discount.inter.DiscountServiceInter;
-import com.example.fashionmanage.validation.DiscountDto;
+import com.example.fashionmanage.dto.DiscountDto;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DiscountService implements DiscountServiceInter {
+public class DiscountServiceImpl implements com.example.fashionmanage.service.discount.inter.DiscountService {
     @Autowired
     private DiscountRepository discount;
 
@@ -21,8 +20,9 @@ public class DiscountService implements DiscountServiceInter {
 
     /**
      * The function help display all data of list discount
-     * @author QuanNV
+     *
      * @return list data of discount
+     * @author QuanNV
      */
     @Override
     public List<Discount> findAllDiscount() {
@@ -31,6 +31,7 @@ public class DiscountService implements DiscountServiceInter {
 
     /**
      * The function help display all data of discount find by id
+     *
      * @param id is code of discount
      * @return data of discount find by id
      * @author QuanNV
@@ -42,6 +43,7 @@ public class DiscountService implements DiscountServiceInter {
 
     /**
      * The function help delete all data of discount find by id
+     *
      * @param id is code of discount
      * @return
      * @author QuanNV
@@ -53,26 +55,54 @@ public class DiscountService implements DiscountServiceInter {
 
     /**
      * The function help create new discount
+     *
      * @param discountDto
-     * @return
-     * author QuanNV
+     * @return author QuanNV
      */
     @Transactional
     @Override
-    public void saveDiscount(DiscountDto discountDto) {
-        Discount discount1=modelMapper.map(discountDto, Discount.class);
-        discount.saveDiscount(discount1.getDiscountCode(),discount1.getName(),discount1.getRewardPoint(),discount1.getCondition(),discount1.getBeginDate(),discount1.getEndDate(),discount1.getCustomerType().getId());
+    public void createDiscount(DiscountDto discountDto) {
+        Discount discount1 = modelMapper.map(discountDto, Discount.class);
+        discount.createDiscount(discount1);
     }
+//    @Override
+//    public void saveDiscount(DiscountDto discountDto) {
+//        Discount discount1 = modelMapper.map(discountDto, Discount.class);
+//        discount.saveDiscount(discount1.getDiscountCode(), discount1.getName(), discount1.getRewardPoint(), discount1.getCondition(), discount1.getBeginDate(), discount1.getEndDate(), discount1.getCustomerType().getId());
+//    }
 
     /**
      * the function help update discount by id
      * @param id
-     * @param discount1
+     * @param discountDto
      * @return
-     * author QuanNV
+     */
+    @Transactional
+    @Override
+    public int updateDiscount(String id,DiscountDto discountDto) {
+        Discount discount1 = modelMapper.map(discountDto, Discount.class);
+        return discount.updateDiscount(id,discount1);
+    }
+
+    /**
+     * The function help display all data of discount find by name
+     *
+     * @param name is code of discount
+     * @return data of discount find by dicount
+     * @author QuanNV
      */
     @Override
-    public Discount updateDiscount(String id, Discount discount1) {
-        return discount.updateDiscount(id,discount1);
+    public List<Discount> findByNameDiscount(String name) {
+        return discount.findByNameDiscount(name);
+    }
+
+    /**
+     * The function help allows to know if the id already exists
+     * @param id
+     * @return true or false
+     */
+    @Override
+    public boolean checkIdDiscount(String id) {
+        return discount.countByDiscountCode(id) > 0;
     }
 }
