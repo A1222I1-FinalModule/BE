@@ -22,7 +22,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
-@RestController()
+@RestController
 @RequestMapping("/api/auth")
 public class AuthController {
     @Autowired
@@ -46,7 +46,7 @@ public class AuthController {
      * @return JWT Token
      * @author AiPV"
      */
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthCredentialsRequest request) {
         try {
             Authentication authenticate = authenticationManager

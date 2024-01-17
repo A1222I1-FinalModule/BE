@@ -3,6 +3,7 @@ package com.example.fashionmanage.controller;
 import com.example.fashionmanage.dto.EmployeeDTO;
 import com.example.fashionmanage.entity.Employee;
 import com.example.fashionmanage.entity.User;
+import com.example.fashionmanage.service.EmployeeService;
 import com.example.fashionmanage.service.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,7 @@
 package com.example.fashionmanage.repository;
 
-import com.example.fashionmanage.dto.BillDTO;
 import com.example.fashionmanage.dto.CustomerGrowth;
+import com.example.fashionmanage.dto.GetBillDTO;
 import com.example.fashionmanage.dto.OrderGrowthDTO;
 import com.example.fashionmanage.entity.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,7 +22,7 @@ public interface BillRepository extends JpaRepository<Bill, String> {
             "JOIN customer c ON b.customer_id = c.id " +
             "ORDER BY b.release_date DESC " +
             "LIMIT 5", nativeQuery = true)
-    List<BillDTO> findTop5RecentOrders();
+    List<GetBillDTO> findTop5RecentOrders();
 
     /**
      * The Function to display Customer Growth Percentage
