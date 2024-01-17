@@ -61,6 +61,7 @@ public class SecurityConfig {
             res.sendError(HttpServletResponse.SC_FORBIDDEN, ex.getMessage());
         }));
         http = http.authorizeHttpRequests((author) -> author.requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/public/**").permitAll()
                 .requestMatchers("/api/admin").hasRole("ADMIN")
                 .requestMatchers("/api/sale").hasRole("SALE")
                 .requestMatchers("/api/warehouse").hasRole("WAREHOUSE")

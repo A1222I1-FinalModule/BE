@@ -1,6 +1,5 @@
 package com.example.fashionmanage.controller;
 
-import com.example.fashionmanage.entity.Discount;
 import com.example.fashionmanage.entity.Product;
 import com.example.fashionmanage.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/public")
 public class ProductController {
     @Autowired
     private ProductService productService;
