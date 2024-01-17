@@ -1,7 +1,9 @@
 package com.example.fashionmanage.controller;
 
 
-import com.example.fashionmanage.entity.Bill;
+import com.example.fashionmanage.dto.CustomerGrowth;
+import com.example.fashionmanage.dto.GetBillDTO;
+import com.example.fashionmanage.dto.OrderGrowthDTO;
 import com.example.fashionmanage.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +17,9 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController()
-@RequestMapping("/api")
-public class BillController {
+@RequestMapping("/api/admin")
+public class
+BillController {
     @Autowired
     private BillService billService;
     /**
@@ -54,8 +57,8 @@ public class BillController {
      *         or a NOT_FOUND response if the list is empty.
      */
     @GetMapping("/orders-top")
-    public ResponseEntity<List<Object[]>> getTop5RecentOrders() {
-        List<Object[]> bill = billService.getTop5RecentOrder();
+    public ResponseEntity<List<GetBillDTO>> getTop5RecentOrders() {
+        List<GetBillDTO> bill = billService.getTop5RecentOrder();
         if (bill.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -69,12 +72,12 @@ public class BillController {
      *         or a NOT_FOUND response if the array is null or empty.
      */
     @GetMapping("/customer-growth")
-    public ResponseEntity<Object[]> calculateCustomerGrowthPercentage() {
-        Object[] customerGrowth = billService.calculateCustomerGrowthPercentage();
-        if (customerGrowth != null && customerGrowth.length > 0) {
-            return new ResponseEntity<>(customerGrowth, HttpStatus.OK);
-        } else {
+    public ResponseEntity<List<CustomerGrowth>> calculateCustomerGrowthPercentage() {
+        List<CustomerGrowth> customerGrowth = billService.calculateCustomerGrowthPercentage();
+        if (customerGrowth.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(customerGrowth, HttpStatus.OK);
         }
     }
     /**
@@ -84,12 +87,12 @@ public class BillController {
      *         or a NOT_FOUND response if the array is null or empty.
      */
     @GetMapping("/order-growth")
-    public ResponseEntity<Object[]> calculateOrderGrowthPercentage() {
-        Object[] orderGrowth = billService.calculateOrderGrowthPercentage();
-        if (orderGrowth != null && orderGrowth.length > 0) {
-            return new ResponseEntity<>(orderGrowth, HttpStatus.OK);
-        } else {
+    public ResponseEntity<List<OrderGrowthDTO>> calculateOrderGrowthPercentage() {
+        List<OrderGrowthDTO> orderGrowth = billService.calculateOrderGrowthPercentage();
+        if (orderGrowth.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(orderGrowth, HttpStatus.OK);
         }
     }
 }
