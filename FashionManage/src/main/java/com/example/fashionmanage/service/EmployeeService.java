@@ -12,9 +12,7 @@ import com.example.fashionmanage.entity.User;
 
 public interface EmployeeService {
     Employee getInfo(User user);
-
     List<EmployeeDTO> getEmployeeSaleTop();
     Optional<Employee> findById(String id);
-    public Employee getInfo(User user);
     String getEmployeeCodeByUserId(Integer user_id);
 }

@@ -30,9 +30,10 @@ public class ProductServiceImpl implements ProductService {
     public void save(Product product) {
         productRepository.save(product);
     }
+
     @Override
     public void updateQuantity(Integer quantity, Product product) {
         product.setQuantity(quantity);
-        repository.save(product);
+        productRepository.save(product);
     }
 }
