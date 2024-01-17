@@ -85,4 +85,13 @@ public class CustomerController {
             }
             return new ResponseEntity<>(customer, HttpStatus.OK);
         }
+
+    @GetMapping("/detail/{id}")
+    ResponseEntity<?> detailCustomer(@PathVariable String id) {
+        try {
+            return new ResponseEntity<>(customerService.findId(id),HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        }
+    }
 }
