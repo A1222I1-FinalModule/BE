@@ -57,8 +57,8 @@ public class ProductController {
         if(bindingResult.hasErrors()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }else {
-            String idProduct = "H-" + Math.random() * 1000;
-            product.setProductCode(idProduct);
+//            String idProduct = "H-" + Math.random() * 1000;
+//            product.setProductCode(idProduct);
             productService.createInfoProduct(product);
             return new ResponseEntity<>(HttpStatus.OK);
         }
