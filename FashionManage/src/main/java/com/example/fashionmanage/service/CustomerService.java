@@ -48,9 +48,11 @@ public interface CustomerService {
 
     void update(String cid, Customer customer);
 
+
     //BaoNV
     List<Customer> findAllByNameOrPhoneOrContainingId(String str);
 
     Optional<Customer> findById(String id);
+    Customer findId(String cid);
 }
 

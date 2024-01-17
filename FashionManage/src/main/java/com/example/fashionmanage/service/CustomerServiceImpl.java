@@ -17,7 +17,6 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> findAllCustomer() {
         return customerRepository.finAllCustomer();
     }
-
     @Override
     public void deleteByIdCustomer(String id) {
         customerRepository.deleteByIdCustomer(id);
@@ -41,6 +40,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Optional<Customer> findById(String id) {
         return customerRepository.findById(id);
+    }
+
+    @Override
+    public Customer findId(String cid) {
+        return customerRepository.findByIdCustomer(cid);
     }
 
     //QuanND
