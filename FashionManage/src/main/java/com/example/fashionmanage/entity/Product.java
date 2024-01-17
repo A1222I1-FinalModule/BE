@@ -1,8 +1,6 @@
 
 package com.example.fashionmanage.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -48,6 +46,7 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_category_id", nullable = false)
     private ProductCategory productCategory;
+
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

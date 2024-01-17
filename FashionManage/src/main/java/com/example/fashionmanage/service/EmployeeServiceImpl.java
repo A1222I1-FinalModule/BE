@@ -8,17 +8,30 @@ import com.example.fashionmanage.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.List;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService{
+public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Override
+    public Optional<Employee> findById(String id) {
+        return employeeRepository.findById(id);
+    }
+
     @Override
     public List<EmployeeDTO> getEmployeeSaleTop() {
         return employeeRepository.findAllEmployeeSaleTop();
     }
+
     public Employee getInfo(User user) {
         return employeeRepository.findByUser(user.getId());
+    }
+
+    @Override
+    public String getEmployeeCodeByUserId(Integer user_id) {
+        return employeeRepository.getEmployeeCodeByUserId(user_id);
     }
 }

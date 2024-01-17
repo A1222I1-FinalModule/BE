@@ -22,11 +22,13 @@ public class ProductSize {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_code")
+    @JsonManagedReference
     private Product productCode;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "size_id")
+    @JsonManagedReference
     private Size size;
 
 }

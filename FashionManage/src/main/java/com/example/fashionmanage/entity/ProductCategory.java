@@ -2,9 +2,7 @@
 package com.example.fashionmanage.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -32,8 +30,6 @@ public class ProductCategory {
 //    @JsonBackReference
 //    @OneToMany(mappedBy = "productCategory")
 //    private Set<Product> products = new LinkedHashSet<>();
-
-
 
 }
 

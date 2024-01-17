@@ -1,7 +1,6 @@
 package com.example.fashionmanage.dto;
 
-public interface BillDTO {
+public interface GetBillDTO {
     String getOrderDate();
     String getCustomerName();
-
 }

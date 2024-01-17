@@ -1,12 +1,14 @@
-package com.example.fashionmanage.service.impl;
+package com.example.fashionmanage.service;
 
 import com.example.fashionmanage.entity.Product;
 import com.example.fashionmanage.repository.ProductRepository;
 import com.example.fashionmanage.service.ProductService;
 import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -21,6 +23,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findListInfoProduct() {
         return productRepository.findListInfoProduct();
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    public Optional<Product> findById(String id) {
+        return productRepository.findById(id);
+    }
+
+    @Override
+    public void save(Product product) {
+        productRepository.save(product);
     }
 
 
@@ -47,6 +64,5 @@ public class ProductServiceImpl implements ProductService {
     public void createInfoProduct(Product product) {
         productRepository.createInfoProduct(product);
     }
-
 
 }
