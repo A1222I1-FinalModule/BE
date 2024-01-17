@@ -7,4 +7,6 @@ import java.util.List;
 public interface NewsService {
     List<News> findAllNews();
     void createNews(News news);
+    News findNewsById(Long id);
+
 }

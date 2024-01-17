@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/news")
+@RequestMapping("/api/admin/news")
 public class NewsController {
     @Autowired
     private NewsServiceImpl newsService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<News>> findAllNews() {
+    public ResponseEntity<List<News>> getAllNews() {
         List<News> newsList = newsService.findAllNews();
         if (newsList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
