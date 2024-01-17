@@ -33,6 +33,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateQuantity(Integer quantity, Product product) {
         product.setQuantity(quantity);
-        repository.save(product);
+        productRepository.save(product);
     }
 }
