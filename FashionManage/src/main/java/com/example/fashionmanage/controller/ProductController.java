@@ -5,10 +5,7 @@ import com.example.fashionmanage.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,11 +18,19 @@ public class ProductController {
 
     @GetMapping("/list-product")
     public ResponseEntity<?> findAllDiscount(){
-        List<Product> discounts=productService.findAll();
-        if(discounts.isEmpty()){
+        List<Product> products = productService.findAll();
+        if(products.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return  ResponseEntity.ok(discounts);
+        return  ResponseEntity.ok(products);
+    }
 
+    @GetMapping("/findByNameProduct")
+    public ResponseEntity<?> findByNameProduct (@RequestParam(value = "name" ,required = false) String name ){
+        List<Product> products = productService.findByNameProduct(name);
+        if (products == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }

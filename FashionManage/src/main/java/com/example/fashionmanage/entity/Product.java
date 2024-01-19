@@ -39,5 +39,7 @@ public class Product {
     @JoinColumn(name = "size_id", nullable = false)
     private com.example.fashionmanage.entity.Size size;
 
+
+
 }
 
