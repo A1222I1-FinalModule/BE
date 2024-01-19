@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.List;
 
 @Service
-public class BillServiceImpl implements BillService {
+public class BillServiceImpl implements BIllService {
     @Autowired
     private BillRepository billRepository;
 

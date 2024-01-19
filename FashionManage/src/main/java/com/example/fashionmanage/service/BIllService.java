@@ -11,22 +11,22 @@ import com.example.fashionmanage.dto.OrderGrowthDTO;
 import com.example.fashionmanage.entity.Bill;
 
 @Service
-public interface BillService {
+public interface BIllService {
   List<Object[]> getAllBill();
 
-    List<GetBillDTO> getTop5RecentOrder();
+  List<GetBillDTO> getTop5RecentOrder();
 
-    List<CustomerGrowth> calculateCustomerGrowthPercentage();
+  List<CustomerGrowth> calculateCustomerGrowthPercentage();
 
-    List<OrderGrowthDTO> calculateOrderGrowthPercentage();
+  List<OrderGrowthDTO> calculateOrderGrowthPercentage();
 
-    double calculateRevenueByDay();
+  double calculateRevenueByDay();
 
-    double calculateRevenueByWeek();
+  double calculateRevenueByWeek();
 
-    double calculateRevenueByMonth();
+  double calculateRevenueByMonth();
 
-    void save(Bill bill);
+  void save(Bill bill);
 
-    Optional<Bill> findById(String id);
+  Optional<Bill> findById(String id);
 }

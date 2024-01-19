@@ -4,7 +4,8 @@ package com.example.fashionmanage.controller;
 import com.example.fashionmanage.dto.CustomerGrowth;
 import com.example.fashionmanage.dto.GetBillDTO;
 import com.example.fashionmanage.dto.OrderGrowthDTO;
-import com.example.fashionmanage.service.BillService;
+import com.example.fashionmanage.service.BIllService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class BillController {
     @Autowired
-    private BillService billService;
+    private BIllService billService;
 
     /**
      * Get the list of bills by the bill service for warehouse.
@@ -32,7 +33,7 @@ public class BillController {
      */
     @GetMapping({ "/saler/bill", "/warehouse/bill", "/admin/bill" })
     public ResponseEntity<List<Object[]>> getAllBills() {
-        List<Object[]> bills = billService.getAllBill();
+        List<Object[]> bills = ((BIllService) billService).getAllBill();
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 

@@ -5,21 +5,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.fashionmanage.repository.StatisticalRepository;
+import com.example.fashionmanage.repository.ImportingRepository;
+
 
 @Service
 public class StastisticalServiceImpl implements StatisticalService {
   @Autowired
-  private StatisticalRepository statisticalRepository;
+  private ImportingRepository importingRepository;
 
   @Override
   public List<Object[]> getStatisticalByMonth() {
-    return statisticalRepository.getStatisticalByMonth();
+    return importingRepository.getStatisticalByMonth();
   }
 
   @Override
   public List<Object[]> getStatisticalByDate() {
-    return statisticalRepository.getStatisticalByDay();
+    return importingRepository.getStatisticalByDay();
   }
 
 }
