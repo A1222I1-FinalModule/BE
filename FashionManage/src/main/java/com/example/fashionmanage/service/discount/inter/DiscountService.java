@@ -65,4 +65,12 @@ public interface DiscountService {
      * @author QuanNV
      */
     boolean checkIdDiscount(String id);
+
+    /**
+     * The function help display all data discountCode
+     *
+     * @return list data of discountCode
+     * @author QuanNV
+     */
+    List<String>listDiscountCode();
 }

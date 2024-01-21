@@ -1,6 +1,7 @@
 package com.example.fashionmanage.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -41,6 +42,8 @@ public class DiscountDto {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date beginDate;
+
+    private boolean isDelete;
 
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")

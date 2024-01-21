@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -21,7 +19,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return list data of discount
      * @author QuanNV
      */
-    @Query(value = "select discount_code , name , reward_point,`condition`,sale,begin_date,end_date,customer_type_id " +
+    @Query(value = "select discount_code , name , reward_point,`condition`,sale,begin_date,end_date,is_Delete,customer_type_id " +
             "from discount ", nativeQuery = true)
     List<Discount> finAllDiscount();
 
@@ -32,20 +30,8 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return data of discount find by id
      * @author QuanNV
      */
-    @Query(value = "select discount_code , name , reward_point,`condition`,sale,begin_date,end_date,customer_type_id from discount  where discount_code=:id",nativeQuery = true)
+    @Query(value = "select discount_code , name , reward_point,`condition`,sale,begin_date,end_date,is_Delete,customer_type_id from discount  where discount_code=:id",nativeQuery = true)
     Discount findByIdDiscount(String id);
-
-    /**
-     * The function help delete all data of discount find by id
-     *
-     * @param id is code of discount
-     * @return
-     * @author QuanNV
-     */
-    @Modifying
-    @Transactional
-    @Query(value = "delete from discount  where discount_code=:id", nativeQuery = true)
-    void deleteByIdDiscount(@Param("id") String id);
 
     /**
      * The function help create new discount
@@ -53,11 +39,10 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * author QuanNV
      */
     @Modifying
-    @Query(value = "INSERT INTO fashionShop.discount (discount_code, name, reward_point, `condition`, sale,begin_date,end_date,customer_type_id) VALUES (:#{#discount.discountCode}, :#{#discount.name}, :#{#discount.rewardPoint}, :#{#discount.condition},:#{#discount.sale} ,:#{#discount.beginDate},:#{#discount.endDate},:#{#discount.customerType.id})",
+    @Query(value = "INSERT INTO fashionShop.discount (discount_code, name, reward_point, `condition`, sale,begin_date,end_date,is_delete,customer_type_id) VALUES (:#{#discount.discountCode}, :#{#discount.name}, :#{#discount.rewardPoint}, :#{#discount.condition},:#{#discount.sale} ,:#{#discount.beginDate},:#{#discount.endDate},:#{#discount.isDelete},:#{#discount.customerType.id})",
             nativeQuery = true)
     @Transactional
     void createDiscount(@Param("discount") Discount discount);
-
 
     /**
      *the function help update discount by id
@@ -77,7 +62,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return data of discount find by id
      * @author QuanNV
      */
-    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,customer_type_id from discount  where name LIKE %:name%", nativeQuery = true)
+    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id from discount  where name LIKE %:name%", nativeQuery = true)
     List<Discount> findByNameDiscount(String name);
 
     /**
@@ -88,4 +73,23 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
     @Query(value = "SELECT COUNT(*) FROM discount WHERE discount_code = :discountCode", nativeQuery = true)
     Long countByDiscountCode(@Param("discountCode") String discountCode);
 
+    /**
+     * The function help display all data discountCode
+     *
+     * @return list data of discountCode
+     * @author QuanNV
+     */
+    @Query(value = "select discount_code from discount ", nativeQuery = true)
+    List<String> listDiscountCode();
+
+    /**
+     *The function help delete all data of discount find by id
+     * @param id
+     * @return
+     */
+    @Modifying
+    @Transactional
+    @Query(value = "update discount set is_delete=false  " +
+            " where discount_code=:id", nativeQuery = true)
+    int isDelete(@Param("id") String id);
 }

@@ -53,6 +53,9 @@ public class Discount {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date endDate;
 
+    @Column(name = "is_delete", nullable = false)
+    private boolean isDelete;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;

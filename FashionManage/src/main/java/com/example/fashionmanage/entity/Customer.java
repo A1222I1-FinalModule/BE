@@ -1,4 +1,3 @@
-
 package com.example.fashionmanage.entity;
 
 import jakarta.persistence.*;
@@ -6,11 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.sql.Date;
-import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -50,6 +45,9 @@ public class Customer {
     @NotNull
     @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "is_delete", nullable = false)
+    private boolean isDelete;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")

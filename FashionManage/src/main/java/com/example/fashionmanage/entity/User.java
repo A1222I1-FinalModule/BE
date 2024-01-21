@@ -31,7 +31,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user" ,fetch = FetchType.EAGER)
     @JsonBackReference
     private List<Role> authorities ;
-
+    @JsonBackReference
     @OneToMany(mappedBy = "user")
     private Set<Employee> employees = new LinkedHashSet<>();
 

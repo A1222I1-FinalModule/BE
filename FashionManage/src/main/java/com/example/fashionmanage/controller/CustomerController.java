@@ -1,7 +1,6 @@
 package com.example.fashionmanage.controller;
 
 import com.example.fashionmanage.entity.Customer;
-import com.example.fashionmanage.entity.Discount;
 import com.example.fashionmanage.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,7 +38,7 @@ public class CustomerController {
      * @return
      * @author QuanNV
      */
-    @DeleteMapping("/deleteByIdCustomer")
+    @GetMapping("/deleteByIdCustomer")
     public ResponseEntity<?> deleteByIdCustomer(@RequestParam("id") String id) {
         Customer customer = customerService.findByIdCustomer(id);
         if (customer == null) {
@@ -64,4 +63,26 @@ public class CustomerController {
         }
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
-}
+
+        @PostMapping("/insert-customer")
+        ResponseEntity<?> saveCustomer (@RequestBody Customer newCustomer){
+            try {
+                customerService.save(newCustomer);
+                return new ResponseEntity<>(HttpStatus.OK);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+            }
+        }
+        @PutMapping("/update-customer/{id}")
+        ResponseEntity<?> updateCustomer (@PathVariable String id,
+                @RequestBody Customer newCustomer){
+            try {
+                customerService.update(id, newCustomer);
+                return new ResponseEntity<>(HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+            }
+        }
+    }
+

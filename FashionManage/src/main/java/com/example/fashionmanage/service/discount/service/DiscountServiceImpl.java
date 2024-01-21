@@ -50,7 +50,7 @@ public class DiscountServiceImpl implements com.example.fashionmanage.service.di
      */
     @Override
     public void deleteByIdDiscount(String id) {
-        discount.deleteByIdDiscount(id);
+        discount.isDelete(id);
     }
 
     /**
@@ -65,11 +65,6 @@ public class DiscountServiceImpl implements com.example.fashionmanage.service.di
         Discount discount1 = modelMapper.map(discountDto, Discount.class);
         discount.createDiscount(discount1);
     }
-//    @Override
-//    public void saveDiscount(DiscountDto discountDto) {
-//        Discount discount1 = modelMapper.map(discountDto, Discount.class);
-//        discount.saveDiscount(discount1.getDiscountCode(), discount1.getName(), discount1.getRewardPoint(), discount1.getCondition(), discount1.getBeginDate(), discount1.getEndDate(), discount1.getCustomerType().getId());
-//    }
 
     /**
      * the function help update discount by id
@@ -104,5 +99,10 @@ public class DiscountServiceImpl implements com.example.fashionmanage.service.di
     @Override
     public boolean checkIdDiscount(String id) {
         return discount.countByDiscountCode(id) > 0;
+    }
+
+    @Override
+    public List<String> listDiscountCode() {
+        return discount.listDiscountCode();
     }
 }

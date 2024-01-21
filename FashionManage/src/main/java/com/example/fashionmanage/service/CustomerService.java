@@ -1,7 +1,6 @@
 package com.example.fashionmanage.service;
 
 import com.example.fashionmanage.entity.Customer;
-import com.example.fashionmanage.entity.Discount;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,4 +42,8 @@ public interface CustomerService {
      */
     List<Customer> findByNameCustomer(String name);
 
+
+    void save(Customer customer);
+
+    void update(String cid, Customer customer);
 }

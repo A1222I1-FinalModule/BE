@@ -1,7 +1,7 @@
 package com.example.fashionmanage.controller;
 
 
-import com.example.fashionmanage.entity.Notification;
+import  com.example.fashionmanage.entity.Notification;
 import com.example.fashionmanage.service.NotificationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,10 @@
 
 package com.example.fashionmanage.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -18,7 +22,7 @@ import java.util.Set;
 public class Bill {
     @Id
     @Size(max = 255)
-    @Column(name ="id", nullable = false)
+    @Column(name ="id", nullable = false,unique = true)
     private String id;
 
     @NotNull
@@ -34,7 +38,7 @@ public class Bill {
     private Discount discount;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 

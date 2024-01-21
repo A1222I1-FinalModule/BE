@@ -29,7 +29,6 @@ public class Notification {
     @Column(name = "content", nullable = false,columnDefinition = "text")
     private String content;
 
-
     private  int target;
 
     private Boolean status;
