@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,8 +32,8 @@ public class Bill {
     @Column(name = "release_date", nullable = false)
     private Instant releaseDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "discount_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "discount_id", nullable = true)
     @JsonManagedReference
     private Discount discount;
 
@@ -47,8 +48,4 @@ public class Bill {
     @JoinColumn(name = "employee_id", nullable = false)
     @JsonManagedReference
     private Employee employee;
-
-    @OneToMany(mappedBy = "bill")
-    @JsonBackReference
-    private Set<BillDetail> billDetails = new LinkedHashSet<>();
 }
