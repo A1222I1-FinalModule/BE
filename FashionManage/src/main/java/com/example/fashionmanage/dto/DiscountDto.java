@@ -1,7 +1,6 @@
 package com.example.fashionmanage.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,7 +19,7 @@ public class DiscountDto {
     private String discountCode;
 
     @NotNull
-    @Pattern(regexp = "^[A-Z][a-zA-Z0-9 /]{2,29}$")
+    @Size(min = 2, max = 50)
     private String name;
 
     @NotNull
