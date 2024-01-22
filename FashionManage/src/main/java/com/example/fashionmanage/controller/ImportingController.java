@@ -35,7 +35,7 @@ public class ImportingController {
     return importingService.getImportingByMonth();
   }
 
-  @PostMapping({ "admin/importing", "/warehouse/importing", "/saler/importing" })
+  @PostMapping({ "admin/importing", "warehouse/importing", "saler/importing" })
   public void addImporting(@RequestBody Importing importing) {
     importingService.saveImporting(importing);
   }
