@@ -32,9 +32,9 @@ public class EmployeeController {
             return new ResponseEntity<>(employee, HttpStatus.OK);
         }
     }
-//    @GetMapping("/info")
-//    private ResponseEntity<Employee> getUserInfo(@AuthenticationPrincipal User user) {
-//        Employee employee = employeeService.getInfo(user);
-//        return ResponseEntity.ok(employee);
-//    }
+    @GetMapping("/info")
+    private ResponseEntity<Employee> getUserInfo(@AuthenticationPrincipal User user) {
+        Employee employee = employeeService.getInfo(user);
+        return ResponseEntity.ok(employee);
+    }
 }
