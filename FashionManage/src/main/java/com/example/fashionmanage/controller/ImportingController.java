@@ -35,9 +35,13 @@ public class ImportingController {
     return importingService.getImportingByMonth();
   }
 
-  @PostMapping({"admin/importing","/warehouse/importing","/saler/importing"})
+  @PostMapping({ "admin/importing", "/warehouse/importing", "/saler/importing" })
   public void addImporting(@RequestBody Importing importing) {
     importingService.saveImporting(importing);
   }
 
+  @GetMapping({ "admin/importing/maxId", "warehouse/importing/maxId" })
+  public Integer getCurrentMaxId() {
+    return importingService.getCurrentMaxId();
+  }
 }

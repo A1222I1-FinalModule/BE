@@ -36,4 +36,9 @@ public class ImportingServiceImpl implements ImportingService {
       throw new NullPointerException("Importing is null");
     }
   }
+
+  @Override
+  public Integer getCurrentMaxId() {
+    return importingRepository.getCurrentMaxId();
+  }
 }

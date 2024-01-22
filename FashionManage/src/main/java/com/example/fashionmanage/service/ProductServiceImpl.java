@@ -30,9 +30,15 @@ public class ProductServiceImpl implements ProductService {
     public void save(Product product) {
         productRepository.save(product);
     }
+
     @Override
-    public void updateQuantity(Integer quantity, Product product) {
-        product.setQuantity(quantity);
-        productRepository.save(product);
+    public void updateProductQuantity(Product product) {
+        Optional<Product> fromDB = productRepository.findById(product.getProductCode());
+        if (!fromDB.isPresent()) {
+            throw new NullPointerException("Product is null");
+        } else {
+            product.setQuantity(fromDB.get().getQuantity() + product.getQuantity());
+            productRepository.save(product);
+        }
     }
 }
