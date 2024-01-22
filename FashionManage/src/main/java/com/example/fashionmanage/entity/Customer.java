@@ -51,7 +51,6 @@ public class Customer {
     @JoinColumn(name = "type_id")
     private CustomerType customerType;
 
-
 }
 
 

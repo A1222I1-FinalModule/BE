@@ -34,23 +34,17 @@ public class Bill {
     private Instant releaseDate;
 
     @NotNull
-    @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", nullable = false)
-    @JsonBackReference
     private Customer customer;
 
-    @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
-    @JsonBackReference
     private  Employee employee;
 
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "discount_id", nullable = false)
-    @JsonBackReference
     private Discount discount;
 
     @OneToMany(mappedBy = "bill")
