@@ -41,6 +41,10 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
+    public double calculateRevenueByDay() {
+        return billRepository.calculateRevenueByDay();
+    }
+    @Override
     public double calculateRevenueByWeek() {
         return billRepository.calculateRevenueByWeek();
     }
@@ -49,4 +53,10 @@ public class BillServiceImpl implements BillService {
     public double calculateRevenueByMonth() {
         return billRepository.calculateRevenueByMonth();
     }
+
+    @Override
+    public List<Object[]> getAllBill() {
+        return billRepository.findBillsInMonth();
+    }
+
 }

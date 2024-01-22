@@ -2,6 +2,9 @@ package com.example.fashionmanage.service;
 
 import com.example.fashionmanage.entity.Product;
 import com.example.fashionmanage.repository.ProductRepository;
+import com.example.fashionmanage.service.ProductService;
+
+import org.hibernate.annotations.DialectOverride.OverridesAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void save(Product product) {
+        productRepository.save(product);
+    }
+    @Override
+    public void updateQuantity(Integer quantity, Product product) {
+        product.setQuantity(quantity);
         productRepository.save(product);
     }
 }

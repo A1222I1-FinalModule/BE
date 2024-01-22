@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin("*")
 @RequestMapping("/api/admin")
 public class DiscountController {
     @Autowired
