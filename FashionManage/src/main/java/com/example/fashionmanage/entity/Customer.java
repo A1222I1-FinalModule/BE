@@ -1,5 +1,4 @@
 package com.example.fashionmanage.entity;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +8,6 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-
 @Getter
 @Setter
 @Entity
@@ -54,8 +52,6 @@ public class Customer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
     private CustomerType customerType;
-
-
 }
 
 

@@ -33,4 +33,13 @@ public class ProductController {
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
+    @GetMapping("/findByProductCategories")
+    public ResponseEntity<?> findByNameProduct (@RequestParam(value = "id" ,required = false) Integer id ){
+        List<Product> products = productService.findByProductCategories(id);
+        if (products == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
 }

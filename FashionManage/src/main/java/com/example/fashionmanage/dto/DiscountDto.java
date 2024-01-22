@@ -1,15 +1,9 @@
-package com.example.fashionmanage.validation;
+package com.example.fashionmanage.dto;
 
-import com.example.fashionmanage.entity.CustomerType;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.parameters.P;
 
 import java.util.Date;
 
@@ -37,6 +31,11 @@ public class DiscountDto {
     @Min(value = 1000)
     @Max(value = 100000000)
     private Integer condition;
+
+    @NotNull
+    @Min(value = 10)
+    @Max(value = 100)
+    private double sale;
 
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
