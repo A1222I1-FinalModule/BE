@@ -29,19 +29,20 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @Column(name = "image")
+    private String image;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_category_id", nullable = false)
     @JsonManagedReference
     private ProductCategory productCategory;
-
-
-
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "size_id", nullable = false)
     @JsonManagedReference
     private com.example.fashionmanage.entity.Size size;
+
+
 
 }
 

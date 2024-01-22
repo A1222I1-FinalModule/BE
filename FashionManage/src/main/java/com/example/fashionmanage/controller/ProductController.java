@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,12 +32,29 @@ public class ProductController {
 
     @GetMapping("/list-product")
     public ResponseEntity<?> findAllDiscount(){
-        List<Product> discounts=productService.findAll();
-        if(discounts.isEmpty()){
+        List<Product> products = productService.findAll();
+        if(products.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return  ResponseEntity.ok(discounts);
+        return  ResponseEntity.ok(products);
+    }
 
+    @GetMapping("/findByNameProduct")
+    public ResponseEntity<?> findByNameProduct (@RequestParam(value = "name" ,required = false) String name ){
+        List<Product> products = productService.findByNameProduct(name);
+        if (products == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @GetMapping("/findByProductCategories")
+    public ResponseEntity<?> findByNameProduct (@RequestParam(value = "id" ,required = false) Integer id ){
+        List<Product> products = productService.findByProductCategories(id);
+        if (products == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
     @PostMapping("/update-quantity/{quantity}")
     public void UpdateQuantity(@PathVariable Integer quantity,@RequestBody Product product) {

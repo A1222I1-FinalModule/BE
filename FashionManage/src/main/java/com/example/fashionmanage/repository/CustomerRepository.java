@@ -68,13 +68,13 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
     //QuanND
     @Modifying
     @Transactional
-    @Query(value = "insert into customer(id, name, date_of_birth,address, gender, phone, email, type_id) " +
-            "values (:#{#customer.id}, :#{#customer.name}, :#{#customer.dateOfBirth},:#{#customer.address}, :#{#customer.gender},:#{#customer.phone}, :#{#customer.email}, :#{#customer.customerType.id})", nativeQuery = true)
+    @Query(value = "insert into customer(id, name, date_of_birth, address, gender, phone, email, point, type_id, is_delete) " +
+            "values (:#{#customer.id}, :#{#customer.name}, :#{#customer.dateOfBirth}, :#{#customer.address}, :#{#customer.gender}, :#{#customer.phone}, :#{#customer.email}, :#{#customer.point}, :#{#customer.customerType.id}, 1)", nativeQuery = true)
     void create(@Param("customer") Customer customer);
 
     @Modifying
     @Transactional
-    @Query(value = "update customer set name = :#{#customer.name}, date_of_birth = :#{#customer.dateOfBirth}, address = :#{#customer.address}, gender = :#{#customer.gender}, phone = :#{#customer.phone}, email = :#{#customer.email}, type_id = :#{#customer.customerType.id} " +
+    @Query(value = "update customer set name = :#{#customer.name}, date_of_birth = :#{#customer.dateOfBirth}, address = :#{#customer.address}, gender = :#{#customer.gender}, phone = :#{#customer.phone}, email = :#{#customer.email}, point = :#{#customer.point}, type_id = :#{#customer.customerType.id} " +
             "where id = :cid", nativeQuery = true)
     void update(@Param("cid") String cid, @Param("customer") Customer customer);
 }

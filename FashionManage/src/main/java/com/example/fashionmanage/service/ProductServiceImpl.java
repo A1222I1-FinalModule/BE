@@ -34,5 +34,14 @@ public class ProductServiceImpl implements ProductService {
     public void updateQuantity(Integer quantity, Product product) {
         product.setQuantity(quantity);
         productRepository.save(product);
+
+    @Override
+    public List<Product> findByNameProduct(String name) {
+        return productRepository.findByNameProduct(name);
+    }
+
+    @Override
+    public List<Product> findByProductCategories(Integer id) {
+        return productRepository.findByProductCategory(id);
     }
 }

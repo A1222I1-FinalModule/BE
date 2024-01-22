@@ -44,7 +44,7 @@ public class CustomerController {
          * @return list data of customer
          * @author QuanNV
          */
-        @GetMapping("/listCustomer")
+        @GetMapping("/list-customer")
         public ResponseEntity<List<Customer>> findAllDiscount () {
             List<Customer> customers = customerService.findAllCustomer();
             if (customers.isEmpty()) {
