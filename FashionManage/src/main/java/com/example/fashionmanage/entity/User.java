@@ -3,8 +3,6 @@ package com.example.fashionmanage.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,7 +29,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user" ,fetch = FetchType.EAGER)
     @JsonBackReference
     private List<Role> authorities ;
-
+    @JsonBackReference
     @OneToMany(mappedBy = "user")
     private Set<Employee> employees = new LinkedHashSet<>();
 

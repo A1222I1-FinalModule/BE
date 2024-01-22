@@ -21,9 +21,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin("*")
 @RestController
-@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/auth")
 public class AuthController {
     @Autowired

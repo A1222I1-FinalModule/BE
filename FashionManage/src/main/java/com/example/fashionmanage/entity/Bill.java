@@ -21,7 +21,7 @@ import java.util.Set;
 public class Bill {
     @Id
     @Size(max = 255)
-    @Column(name ="id", nullable = false)
+    @Column(name ="id", nullable = false,unique = true)
     private String id;
 
     @NotNull
@@ -34,18 +34,15 @@ public class Bill {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "discount_id", nullable = true)
-    @JsonManagedReference
     private Discount discount;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", nullable = false)
-    @JsonManagedReference
     private Customer customer;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
-    @JsonManagedReference
     private Employee employee;
 }

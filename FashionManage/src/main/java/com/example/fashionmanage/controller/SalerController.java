@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/staff")
 @CrossOrigin("http://localhost:3000")
-public class StaffController {
+public class SalerController {
     @Autowired
     private CustomerService customerService;
     @Autowired
@@ -177,7 +177,7 @@ public class StaffController {
         if (!customerOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Integer cusTypeId = customerOptional.get().getType().getId();
+        Integer cusTypeId = customerOptional.get().getCustomerType().getId();
         List<Discount> discountList = new ArrayList<>();
         discountList = discountService.findDiscount(cusTypeId, total, new Date());
         if (discountList.isEmpty()) {

@@ -9,20 +9,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface DiscountRepository extends JpaRepository<Discount, String> {
-
     /**
      * The function help display all data of list discount
      *
      * @return list data of discount
      * @author QuanNV
      */
-    @Query(value = "select * from discount ", nativeQuery = true)
+    @Query(value = "select discount_code , name , reward_point,`condition`,sale,begin_date,end_date,customer_type_id " +
+            "from discount ", nativeQuery = true)
     List<Discount> finAllDiscount();
 
     /**
@@ -32,7 +31,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return data of discount find by id
      * @author QuanNV
      */
-    @Query(value = "select * from discount  where discount_code=:id", nativeQuery = true)
+    @Query(value = "select discount_code , name , reward_point,`condition`,sale,begin_date,end_date,customer_type_id from discount  where discount_code=:id",nativeQuery = true)
     Discount findByIdDiscount(String id);
 
     /**
@@ -49,37 +48,44 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
 
     /**
      * The function help create new discount
-     *
-     * @param discountCode
-     * @param name
-     * @param rewardPoint
-     * @param condition
-     * @param beginDate
-     * @param endDate
-     * @param customerTypeId author QuanNV
+     * @param discount
+     * author QuanNV
      */
     @Modifying
-    @Query(value = "insert into discount(discount_code, name, reward_point, `condition`, begin_date, end_date, customer_type_id) " +
-            "values (:discountCode, :name, :rewardPoint, :condition, :beginDate, :endDate, :customerTypeId)", nativeQuery = true)
-    void saveDiscount(@Param("discountCode") String discountCode,
-                      @Param("name") String name,
-                      @Param("rewardPoint") Integer rewardPoint,
-                      @Param("condition") Integer condition,
-                      @Param("beginDate") Date beginDate,
-                      @Param("endDate") Date endDate,
-                      @Param("customerTypeId") Integer customerTypeId);
+    @Query(value = "INSERT INTO fashionShop.discount (discount_code, name, reward_point, `condition`, sale,begin_date,end_date,customer_type_id) VALUES (:#{#discount.discountCode}, :#{#discount.name}, :#{#discount.rewardPoint}, :#{#discount.condition},:#{#discount.sale} ,:#{#discount.beginDate},:#{#discount.endDate},:#{#discount.customerType.id})",
+            nativeQuery = true)
+    @Transactional
+    void createDiscount(@Param("discount") Discount discount);
+
 
     /**
-     * the function help update discount by id
-     *
+     *the function help update discount by id
      * @param id
-     * @param discount1
-     * @author QuanNV
+     * @param discount
+     * @return
      */
     @Modifying
-    @Query(value = "update discount set name=:discount1.name,rewardPoint=:discount1.rewardPoint,condition=:discount1.condition,beginDate=:discount1.beginDate,endDate=:discount1.endDate,customerType=:discount1.customerType" +
-            "where discountCode=:id", nativeQuery = true)
-    Discount updateDiscount(String id, Discount discount1);
+    @Query(value = "update discount set name=:#{#discount.name},reward_point=:#{#discount.rewardPoint},`condition`=:#{#discount.condition},sale=:#{#discount.sale},begin_date=:#{#discount.beginDate},end_date=:#{#discount.endDate},customer_type_id=:#{#discount.customerType.id} " +
+            " where discount_code=:id", nativeQuery = true)
+    int updateDiscount(@Param("id") String id,@Param("discount") Discount discount);
+
+    /**
+     * The function help display all data of discount find by name
+     *
+     * @param name of discount
+     * @return data of discount find by id
+     * @author QuanNV
+     */
+    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,customer_type_id from discount  where name LIKE %:name%", nativeQuery = true)
+    List<Discount> findByNameDiscount(String name);
+
+    /**
+     * The function help allows to know if the id already exists
+     * @param discountCode
+     * @author QuanNV
+     */
+    @Query(value = "SELECT COUNT(*) FROM discount WHERE discount_code = :discountCode", nativeQuery = true)
+    Long countByDiscountCode(@Param("discountCode") String discountCode);
 
     /**
      * the function help update discount by id

@@ -24,5 +24,9 @@ public class ProductCategory {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "productCategory")
+    private Set<Product> products = new LinkedHashSet<>();
 }
 

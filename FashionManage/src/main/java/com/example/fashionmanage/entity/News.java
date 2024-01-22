@@ -15,15 +15,15 @@ public class News {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Lob
+
     @Column(name = "title")
     private String title;
 
-    @Lob
+
     @Column(name = "content")
     private String content;
 
-    @Lob
+
     @Column(name = "image")
     private String image;
 
@@ -31,7 +31,8 @@ public class News {
     @Column(name = "creator")
     private String creator;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tag_id")
     private Tag tag;
 

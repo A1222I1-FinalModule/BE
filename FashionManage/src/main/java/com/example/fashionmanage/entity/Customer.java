@@ -1,18 +1,13 @@
-
 package com.example.fashionmanage.entity;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
+import java.util.Date;
 @Getter
 @Setter
 @Entity
@@ -35,7 +30,9 @@ public class Customer {
 
     @NotNull
     @Column(name = "date_of_birth", nullable = false)
-    private LocalDate dateOfBirth;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date dateOfBirth;
 
     @NotNull
     @Lob
@@ -54,8 +51,10 @@ public class Customer {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
-    @JsonManagedReference
-    private CustomerType type;
+    private CustomerType customerType;
+
+    @Column(name = "is_delete", nullable = false)
+    private boolean isDelete;
 }
 
 
