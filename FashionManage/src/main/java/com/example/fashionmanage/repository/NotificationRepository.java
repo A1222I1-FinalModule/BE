@@ -56,6 +56,9 @@ public interface NotificationRepository extends JpaRepository<Notification,Integ
     void deletebyId(@Param("id")int id);
 
 
+
+
+
     /**
      * this method is findById(), It will return data equivalent to the id that exists, otherwise it will show that no id was found
      * @param id
