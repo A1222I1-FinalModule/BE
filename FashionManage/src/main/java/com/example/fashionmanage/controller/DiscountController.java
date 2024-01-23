@@ -45,7 +45,7 @@ public class DiscountController {
      * @author QuanNV
      */
     @GetMapping("/findByIdDiscount")
-    public ResponseEntity<?> findByIdDiscount(@RequestParam("id") String id) {
+    public ResponseEntity<Discount> findByIdDiscount(@RequestParam("id") String id) {
         Discount discount = discountService.findByIdDiscount(id);
         if (discount == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -61,7 +61,7 @@ public class DiscountController {
      * @author QuanNV
      */
     @GetMapping("/deleteByIdDiscount")
-    public ResponseEntity<?> deleteByIdDiscount(@RequestParam("id") String id) {
+    public ResponseEntity<Discount> deleteByIdDiscount(@RequestParam("id") String id) {
         Discount discount = discountService.findByIdDiscount(id);
         if (discount == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -77,10 +77,10 @@ public class DiscountController {
      * @return author QuanNV
      */
     @PostMapping("/createDiscount")
-    public ResponseEntity<?> saveDiscount(@Valid @RequestBody DiscountDto discountDto) {
+    public ResponseEntity<Void> saveDiscount(@Valid @RequestBody DiscountDto discountDto) {
         try {
             boolean check=discountService.checkIdDiscount(discountDto.getDiscountCode());
-            if(check==true){
+            if(check){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }else{
             discountService.createDiscount(discountDto);
@@ -91,7 +91,7 @@ public class DiscountController {
     }
 
     @PutMapping("/updateDiscount/{id}")
-    public ResponseEntity<?>updateDiscount(@Valid @PathVariable("id") String id, @RequestBody DiscountDto discountDto){
+    public ResponseEntity<Void>updateDiscount(@Valid @PathVariable("id") String id, @RequestBody DiscountDto discountDto){
         try {
             Discount discount= discountService.findByIdDiscount(id);
             if(discount==null) {
@@ -112,7 +112,7 @@ public class DiscountController {
      * @author QuanNV
      */
     @GetMapping("/findByNameDiscount")
-    public ResponseEntity<?> findByNameDiscount(@RequestParam("name") String name) {
+    public ResponseEntity<List<Discount>> findByNameDiscount(@RequestParam("name") String name) {
         List<Discount>discounts = discountService.findByNameDiscount(name);
         if (discounts == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
