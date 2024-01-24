@@ -33,8 +33,8 @@ public class DiscountDto {
     private Integer condition;
 
     @NotNull
-    @Min(value = 5)
-    @Max(value = 100)
+    @Min(value = 20000)
+    @Max(value = 1000000)
     private double sale;
 
     @NotNull

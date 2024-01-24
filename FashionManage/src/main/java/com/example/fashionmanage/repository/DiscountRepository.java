@@ -1,4 +1,4 @@
-package com.example.fashionmanage.repository.discount;
+package com.example.fashionmanage.repository;
 
 import com.example.fashionmanage.entity.Discount;
 import jakarta.transaction.Transactional;

@@ -1,4 +1,4 @@
-package com.example.fashionmanage.service.discount.inter;
+package com.example.fashionmanage.service;
 
 import com.example.fashionmanage.entity.Discount;
 import com.example.fashionmanage.dto.DiscountDto;

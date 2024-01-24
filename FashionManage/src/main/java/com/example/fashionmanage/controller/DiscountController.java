@@ -1,7 +1,7 @@
 package com.example.fashionmanage.controller;
 
 import com.example.fashionmanage.entity.Discount;
-import com.example.fashionmanage.service.discount.inter.DiscountService;
+import com.example.fashionmanage.service.DiscountService;
 import com.example.fashionmanage.dto.DiscountDto;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
