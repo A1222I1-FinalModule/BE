@@ -19,7 +19,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController()
-@RequestMapping("/api/admin")
+@RequestMapping({"/api/admin", "/api/saler", "/api/warehouse"})
 public class EmployeeController {
     @Autowired
     private EmployeeServiceImpl employeeService;
@@ -33,9 +33,10 @@ public class EmployeeController {
             return new ResponseEntity<>(employee, HttpStatus.OK);
         }
     }
-//    @GetMapping("/info")
-//    private ResponseEntity<Employee> getUserInfo(@AuthenticationPrincipal User user) {
-//        Employee employee = employeeService.getInfo(user);
-//        return ResponseEntity.ok(employee);
-//    }
+
+    @GetMapping("/info")
+    public ResponseEntity<Employee> getUserInfo(@AuthenticationPrincipal User user) {
+        Employee employee = employeeService.getInfo(user);
+        return ResponseEntity.ok(employee);
+    }
 }
