@@ -19,4 +19,7 @@ public interface NewsRepository extends JpaRepository<News, Integer> {
     @Query(value = "INSERT INTO fashionShop.news (title, content, image, creator, tag_id) VALUES (:#{#news.title}, :#{#news.content}, :#{#news.image}, :#{#news.creator}, :#{#news.tag.id})", nativeQuery = true)
     @Transactional
     void createNew(@Param("news") News news);
+
+    @Query(value = "SELECT * FROM fashionShop.news WHERE id = :id", nativeQuery = true)
+    News findNewsById(@Param("id") Long id);
 }
