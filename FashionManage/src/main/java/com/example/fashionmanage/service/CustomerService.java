@@ -48,6 +48,8 @@ public interface CustomerService {
 
     void update(String cid, Customer customer);
 
+    boolean isPhoneUnique(String phone);
+    boolean isEmailUnique(String phone);
 
     //BaoNV
     List<Customer> findAllByNameOrPhoneOrContainingId(String str);
