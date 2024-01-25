@@ -1,5 +1,4 @@
 package com.example.fashionmanage.repository;
-
 import com.example.fashionmanage.entity.Customer;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -53,11 +52,20 @@ public interface CustomerRepository extends JpaRepository<Customer,String> {
      * @author QuanNV
      */
     @Query(value = "select id , name , gender,point,date_of_birth,address,phone,email,is_delete,type_id from fashionShop.customer  " +
-            "where name LIKE %:name%",nativeQuery = true)
-    List<Customer> findByNameCustomer(String name);
-    @Query(value = "select * from customer", nativeQuery = true)
-    List<Customer> findAll();
+            "where name LIKE %:name% OR email LIKE %:email%",nativeQuery = true)
+    List<Customer> findByNameCustomer(String name, String email);
 
+    /**
+     * the function help search customer based on a string
+     *
+     * @param searchStr
+     * @return list Customer
+     * @author BaoDV
+     */
+    @Query(value = "SELECT c.* FROM customer c WHERE c.phone LIKE %:searchStr% OR c.name LIKE %:searchStr% OR c.id = :searchStr", nativeQuery = true)
+    List<Customer> findAllByNameOrPhoneOrContainingId(@Param("searchStr") String searchStr);
+
+    //QuanND
     @Modifying
     @Transactional
     @Query(value = "insert into customer(id, name, date_of_birth,address, gender, phone, email, type_id) " +
@@ -69,7 +77,6 @@ public interface CustomerRepository extends JpaRepository<Customer,String> {
     @Query(value = "update customer set name = :#{#customer.name}, date_of_birth = :#{#customer.dateOfBirth}, address = :#{#customer.address}, gender = :#{#customer.gender}, phone = :#{#customer.phone}, email = :#{#customer.email}, type_id = :#{#customer.customerType.id} " +
             "where id = :cid", nativeQuery = true)
     void update(@Param("cid") String cid, @Param("customer") Customer customer);
-
     /**
      *The function help delete all data of customer find by id
      * @param id

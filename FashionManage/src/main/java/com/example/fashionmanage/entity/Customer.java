@@ -1,12 +1,10 @@
 package com.example.fashionmanage.entity;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import java.sql.Date;
-
 @Getter
 @Setter
 @Entity
@@ -52,8 +50,6 @@ public class Customer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
     private CustomerType customerType;
-
-
 }
 
 

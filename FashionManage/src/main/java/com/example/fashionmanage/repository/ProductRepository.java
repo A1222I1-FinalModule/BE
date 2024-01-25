@@ -10,3 +10,5 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     @Query(value = "select * from product", nativeQuery = true)
     List<Product> findAll();
 }
+
+

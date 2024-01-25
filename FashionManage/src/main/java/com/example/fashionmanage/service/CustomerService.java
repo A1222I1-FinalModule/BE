@@ -4,6 +4,7 @@ import com.example.fashionmanage.entity.Customer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface CustomerService {
@@ -42,8 +43,16 @@ public interface CustomerService {
      */
     List<Customer> findByNameCustomer(String name);
 
-
+    //QuanND
     void save(Customer customer);
 
     void update(String cid, Customer customer);
+
+
+    //BaoNV
+    List<Customer> findAllByNameOrPhoneOrContainingId(String str);
+
+    Optional<Customer> findById(String id);
+    Customer findId(String cid);
 }
+

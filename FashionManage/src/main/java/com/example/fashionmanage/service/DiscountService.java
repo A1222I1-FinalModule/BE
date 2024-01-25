@@ -2,11 +2,11 @@ package com.example.fashionmanage.service;
 
 import com.example.fashionmanage.entity.Discount;
 import com.example.fashionmanage.dto.DiscountDto;
-import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
-@Service
 public interface DiscountService {
     /**
      * The function help display all data of list discount
@@ -60,6 +60,16 @@ public interface DiscountService {
     List<Discount> findByNameDiscount(String name);
 
     /**
+     * The function help display all data of discount find by name
+     *
+     * @param name is code of discount
+     * @param customerType of customer type
+     * @return data of discount find by name
+     * @author QuanNV
+     */
+    List<Discount> findByNameDiscountBothCustomerType(String name,Integer customerType);
+
+    /**
      * The function help allows to know if the id already exists
      * @param id
      * @author QuanNV
@@ -67,10 +77,20 @@ public interface DiscountService {
     boolean checkIdDiscount(String id);
 
     /**
+<<<<<<< HEAD
      * The function help display all data discountCode
      *
      * @return list data of discountCode
      * @author QuanNV
      */
     List<String>listDiscountCode();
+
+    /**
+     * The function findDiscount
+     * @param cusTypeId
+     * @param today
+     * @author BaoDV
+     */
+    List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today);
+    Optional<Discount> findById(String id);
 }

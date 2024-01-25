@@ -1,10 +1,5 @@
 
 package com.example.fashionmanage.entity;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -33,8 +28,8 @@ public class Bill {
     @Column(name = "release_date", nullable = false)
     private Instant releaseDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "discount_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "discount_id", nullable = true)
     private Discount discount;
 
     @NotNull

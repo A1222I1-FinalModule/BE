@@ -6,16 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
     @Override
     public List<Customer> findAllCustomer() {
         return customerRepository.finAllCustomer();
     }
-
     @Override
     public void deleteByIdCustomer(String id) {
         customerRepository.isDelete(id);
@@ -28,16 +29,38 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public List<Customer> findByNameCustomer(String name) {
-        return customerRepository.findByNameCustomer(name);
+        return customerRepository.findByNameCustomer(name,name);
+    }
+
+    //BaoNV
+    @Override
+    public List<Customer> findAllByNameOrPhoneOrContainingId(String str) {
+        return customerRepository.findAllByNameOrPhoneOrContainingId(str);
     }
 
     @Override
+    public Optional<Customer> findById(String id) {
+        return customerRepository.findById(id);
+    }
+
+    @Override
+    public Customer findId(String cid) {
+        return customerRepository.findByIdCustomer(cid);
+    }
+
+    //QuanND
+
+    @Override
     public void save(Customer customer) {
-        customerRepository.create(customer);
+        customerRepository.save(customer);
     }
 
     @Override
     public void update(String cid, Customer customer) {
         customerRepository.update(cid,customer);
+        Customer newCustomer = customerRepository.findById(cid).orElse(null);
+        if (newCustomer != null) {
+            customerRepository.update(cid, customer);
+        }
     }
 }

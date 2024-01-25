@@ -1,12 +1,8 @@
 
 package com.example.fashionmanage.entity;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -25,5 +21,4 @@ public class CustomerType {
     @Size(max = 255)
     @Column(name = "type_name")
     private String typeName;
-
 }

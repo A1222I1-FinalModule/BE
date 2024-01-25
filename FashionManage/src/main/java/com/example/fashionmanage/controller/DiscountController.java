@@ -112,8 +112,13 @@ public class DiscountController {
      * @author QuanNV
      */
     @GetMapping("/findByNameDiscount")
-    public ResponseEntity<List<Discount>> findByNameDiscount(@RequestParam("name") String name) {
-        List<Discount>discounts = discountService.findByNameDiscount(name);
+    public ResponseEntity<List<Discount>> findByNameDiscount(@RequestParam("name") String name , @RequestParam("customerType") Integer customerType) {
+        List<Discount>discounts;
+        if(customerType==0){
+            discounts=discountService.findByNameDiscount(name);
+        }else{
+           discounts = discountService.findByNameDiscountBothCustomerType(name,customerType);
+        }
         if (discounts == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

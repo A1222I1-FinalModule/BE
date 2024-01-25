@@ -3,13 +3,14 @@ package com.example.fashionmanage.service;
 import com.example.fashionmanage.entity.Discount;
 import com.example.fashionmanage.repository.DiscountRepository;
 import com.example.fashionmanage.dto.DiscountDto;
-import com.example.fashionmanage.service.DiscountService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DiscountServiceImpl implements DiscountService {
@@ -88,6 +89,11 @@ public class DiscountServiceImpl implements DiscountService {
      * @author QuanNV
      */
     @Override
+    public List<Discount> findByNameDiscountBothCustomerType(String name, Integer customerType) {
+        return discount.findByNameDiscountBothCustomerType(name,customerType);
+    }
+
+    @Override
     public List<Discount> findByNameDiscount(String name) {
         return discount.findByNameDiscount(name);
     }
@@ -105,5 +111,21 @@ public class DiscountServiceImpl implements DiscountService {
     @Override
     public List<String> listDiscountCode() {
         return discount.listDiscountCode();
+    }
+
+    @Override
+    public Optional<Discount> findById(String id) {
+        return discount.findById(id);
+    }
+
+    /**
+     * The function findDiscount
+     * @param cusTypeId
+     * @param today
+     * @author BaoDV
+     */
+    @Override
+    public List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today) {
+        return discount.findDiscount(cusTypeId, total, today);
     }
 }

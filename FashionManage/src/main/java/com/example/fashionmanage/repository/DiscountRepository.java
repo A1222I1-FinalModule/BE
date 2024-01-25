@@ -1,5 +1,4 @@
 package com.example.fashionmanage.repository;
-
 import com.example.fashionmanage.entity.Discount;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,12 +6,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface DiscountRepository extends JpaRepository<Discount, String> {
-
     /**
      * The function help display all data of list discount
      *
@@ -59,6 +57,17 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * The function help display all data of discount find by name
      *
      * @param name of discount
+     * @param customerType of customer type
+     * @return data of discount find by id
+     * @author QuanNV
+     */
+    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id from discount  where name LIKE %:name% and customer_type_id=:customerType", nativeQuery = true)
+    List<Discount> findByNameDiscountBothCustomerType(String name, Integer customerType);
+
+    /**
+     * The function help display all data of discount find by name
+     *
+     * @param name of discount
      * @return data of discount find by id
      * @author QuanNV
      */
@@ -74,6 +83,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
     Long countByDiscountCode(@Param("discountCode") String discountCode);
 
     /**
+<<<<<<< HEAD
      * The function help display all data discountCode
      *
      * @return list data of discountCode
@@ -92,4 +102,18 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
     @Query(value = "update discount set is_delete=false  " +
             " where discount_code=:id", nativeQuery = true)
     int isDelete(@Param("id") String id);
+
+    /**
+     * the function help update discount by id
+     *
+     * @param cusTypeId
+     * @param total
+     * @param today
+     * @return list Discount
+     * @author BaoDV
+     */
+    @Modifying
+    @Query(value = "select d.* from discount d where d.condition <= :total and (:today between d.begin_date and d.end_date) and customer_type_id = :cusTypeId", nativeQuery = true)
+    List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today);
 }
+

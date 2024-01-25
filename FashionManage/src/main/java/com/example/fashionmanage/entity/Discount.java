@@ -35,6 +35,7 @@ public class Discount {
     @Column(name = "`condition`")
     private Integer condition;
 
+
     @Lob
     @Column(name = "sale")
     private double sale;
