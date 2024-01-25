@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/public")
@@ -21,9 +22,9 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/list-product")
-    public ResponseEntity<?> findAllDiscount() {
-        List<Product> products = productService.findAll();
-        if (products.isEmpty()) {
+    public ResponseEntity<?> findAllProduct(){
+        List<Product> products=productService.findAll();
+        if(products.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(products);
@@ -54,4 +55,9 @@ public class ProductController {
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+    @PostMapping({"admin/update-quantity", "warehouse/update-quantity"})
+    public void updateProductQuantity(@RequestBody Product product) {
+        productService.updateProductQuantity(product);
+    }
+    
 }

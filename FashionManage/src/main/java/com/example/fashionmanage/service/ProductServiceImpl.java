@@ -1,5 +1,4 @@
 package com.example.fashionmanage.service;
-
 import com.example.fashionmanage.entity.Product;
 import com.example.fashionmanage.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +37,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findByProductCategories(Integer id) {
         return productRepository.findByProductCategory(id);
+    }
+    public void updateProductQuantity(Product product) {
+        Optional<Product> fromDB = productRepository.findById(product.getProductCode());
+        if (!fromDB.isPresent()) {
+            throw new NullPointerException("Product is null");
+        } else {
+            product.setQuantity(fromDB.get().getQuantity() + product.getQuantity());
+            productRepository.save(product);
+        }
     }
 }

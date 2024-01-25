@@ -17,4 +17,5 @@ public interface ProductService {
     Optional<Product> findById(String id);
 
     void save(Product product);
+    void updateProductQuantity(Product product);
 }

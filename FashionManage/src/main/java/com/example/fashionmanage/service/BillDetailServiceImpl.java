@@ -13,7 +13,7 @@ public class BillDetailServiceImpl implements BillDetailService {
     private BillDetailRepository billDetailRepository;
 
     @Override
-    public Optional<BillDetail> findById(String id) {
+    public Optional<BillDetail> findById(Integer id) {
         return billDetailRepository.findById(id);
     }
 

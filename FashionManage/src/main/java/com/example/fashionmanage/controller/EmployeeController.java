@@ -5,9 +5,11 @@ import com.example.fashionmanage.entity.Employee;
 import com.example.fashionmanage.entity.User;
 import com.example.fashionmanage.service.EmployeeService;
 import com.example.fashionmanage.service.EmployeeServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController()
-@RequestMapping("/api/admin")
+@RequestMapping({"/api/admin", "/api/saler", "/api/warehouse"})
 public class EmployeeController {
     @Autowired
     private EmployeeServiceImpl employeeService;
@@ -31,9 +33,10 @@ public class EmployeeController {
             return new ResponseEntity<>(employee, HttpStatus.OK);
         }
     }
-//    @GetMapping("/info")
-//    private ResponseEntity<Employee> getUserInfo(@AuthenticationPrincipal User user) {
-//        Employee employee = employeeService.getInfo(user);
-//        return ResponseEntity.ok(employee);
-//    }
+
+    @GetMapping("/info")
+    public ResponseEntity<Employee> getUserInfo(@AuthenticationPrincipal User user) {
+        Employee employee = employeeService.getInfo(user);
+        return ResponseEntity.ok(employee);
+    }
 }

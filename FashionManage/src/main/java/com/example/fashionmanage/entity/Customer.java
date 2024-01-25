@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 @Getter
 @Setter
@@ -30,8 +28,6 @@ public class Customer {
 
     @NotNull
     @Column(name = "date_of_birth", nullable = false)
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date dateOfBirth;
 
     @NotNull
@@ -52,6 +48,9 @@ public class Customer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
     private CustomerType customerType;
+
+    @Column(name = "is_delete", nullable = false)
+    private boolean isDelete;
 }
 
 

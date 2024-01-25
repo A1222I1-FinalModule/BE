@@ -7,6 +7,7 @@ import com.example.fashionmanage.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -27,7 +28,7 @@ public class SalerController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private BillService bIllService;
+    private BIllService bIllService;
     @Autowired
     private BillDetailService billDetailService;
     @Autowired
@@ -57,8 +58,9 @@ public class SalerController {
      * @param billDto
      * @author BaoDV
      */
+    @Transactional
     @PostMapping("/bill/add")
-    public ResponseEntity<?> addBill(@RequestBody BillDto billDto) {
+    public ResponseEntity<String> addBill(@RequestBody BillDto billDto) {
         Optional<Customer> customerOptional = customerService.findById(billDto.getCustomerCode());
         if (customerOptional.isPresent()) {
             //check is product available
@@ -84,9 +86,6 @@ public class SalerController {
             }
             //check is discount available
             Optional<Discount> discountOptional = discountService.findById(billDto.getDiscountCode());
-            if (!discountOptional.isPresent()) {
-                return new ResponseEntity<>("Discount not found with ID: " + discountOptional.get().getDiscountCode(), HttpStatus.NOT_FOUND);
-            }
             //auto generate bill code
             String billCode = billDto.getBillCode();
             while (true) {
@@ -101,7 +100,9 @@ public class SalerController {
             newBill.setReleaseDate(Instant.now());
             newBill.setCustomer(customerOptional.get());
             newBill.setEmployee(employeeOptional.get());
-            newBill.setDiscount(discountOptional.get());
+            if (discountOptional.isPresent()) {
+                newBill.setDiscount(discountOptional.get());
+            }
             newBill.setTotal(billDto.getTotal());
 
             bIllService.save(newBill);
@@ -115,6 +116,7 @@ public class SalerController {
                 billDetail.setQuantity(requestQuantity);
                 billDetail.setProduct(product);
                 billDetail.setBill(newBill);
+                billDetail.setId(1);
                 billDetailService.save(billDetail);
 
                 // Update quantity product
@@ -123,7 +125,9 @@ public class SalerController {
             }
             //update customer point
             Customer customer = customerOptional.get();
-            customer.setPoint(customer.getPoint() + discountOptional.get().getRewardPoint());
+            if (discountOptional.isPresent()) {
+                customer.setPoint(customer.getPoint() + discountOptional.get().getRewardPoint());
+            }
             customerService.save(customer);
             return new ResponseEntity<>("Payment Successfully ", HttpStatus.OK);
         } else {
