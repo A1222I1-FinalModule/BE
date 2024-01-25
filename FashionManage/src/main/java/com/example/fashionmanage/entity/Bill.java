@@ -35,7 +35,11 @@ public class Bill {
     private Customer customer;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
+
+    @OneToMany(mappedBy = "bill")
+    private Set<BillDetail> billDetails = new LinkedHashSet<>();
+
 }

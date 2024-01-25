@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Date;
+import java.sql.Date;
 @Getter
 @Setter
 @Entity
@@ -44,12 +44,12 @@ public class Customer {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Column(name = "is_delete", nullable = false)
+    private boolean isDelete;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
     private CustomerType customerType;
-
-    @Column(name = "is_delete", nullable = false)
-    private boolean isDelete;
 }
 
 

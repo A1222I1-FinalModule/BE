@@ -1,12 +1,11 @@
 
 package com.example.fashionmanage.entity;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -24,9 +23,10 @@ public class Size {
     @Column(name = "size", nullable = false)
     private String size;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "size")
-    private Set<Product> products = new LinkedHashSet<>();
+
+//    @JsonBackReference
+//    @OneToMany(mappedBy = "size")
+//    private Set<Product> products = new LinkedHashSet<>();
 
 }
 

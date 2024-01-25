@@ -20,6 +20,7 @@ public class News {
     private String title;
 
 
+    @Size(max = 1000)
     @Column(name = "content")
     private String content;
 
