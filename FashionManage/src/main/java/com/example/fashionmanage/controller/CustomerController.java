@@ -73,8 +73,7 @@ public class CustomerController {
 
 
     /**
-     * The function help display all data of customer find by name
-     *
+     * The function help display all data of cux`
      * @param name is code of customer
      * @return data of customer find by customer
      * @author QuanNV

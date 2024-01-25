@@ -1,11 +1,9 @@
 package com.example.fashionmanage.service;
-
 import com.example.fashionmanage.entity.Product;
 import com.example.fashionmanage.repository.ProductRepository;
-import com.example.fashionmanage.service.ProductService;
-
-import org.hibernate.annotations.DialectOverride.OverridesAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +30,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<Product> findByProduct(String name, Pageable pageable) {
+        return productRepository.findByProduct(name, pageable);
+    }
+
+    @Override
+    public List<Product> findByProductCategories(Integer id) {
+        return productRepository.findByProductCategory(id);
+    }
     public void updateProductQuantity(Product product) {
         Optional<Product> fromDB = productRepository.findById(product.getProductCode());
         if (!fromDB.isPresent()) {
