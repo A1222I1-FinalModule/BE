@@ -7,13 +7,13 @@ import com.example.fashionmanage.dto.OrderGrowthDTO;
 import com.example.fashionmanage.service.BIllService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -72,7 +72,7 @@ public class BillController {
      */
     @GetMapping({ "/saler/monthly/revenue", "/warehouse/monthly/revenue", "/admin/monthly/revenue" })
     public ResponseEntity<Double> getMonthlyRevenue() {
-        Double monthRevenue = billService.calculateRevenueByWeek();
+        Double monthRevenue = billService.calculateRevenueByMonth();
         return new ResponseEntity<>(monthRevenue, HttpStatus.OK);
     }
 
