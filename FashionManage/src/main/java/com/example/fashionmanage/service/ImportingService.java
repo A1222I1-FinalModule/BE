@@ -12,4 +12,6 @@ public interface ImportingService {
   List<Importing> getImportingByMonth();
 
   void saveImporting(Importing importing);
+
+  Integer getCurrentMaxId();
 }

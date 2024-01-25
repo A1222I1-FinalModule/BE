@@ -5,6 +5,6 @@ import com.example.fashionmanage.entity.BillDetail;
 import java.util.Optional;
 
 public interface BillDetailService {
-    Optional<BillDetail> findById(String id);
+    Optional<BillDetail> findById(Integer id);
     void save(BillDetail billDetail);
 }

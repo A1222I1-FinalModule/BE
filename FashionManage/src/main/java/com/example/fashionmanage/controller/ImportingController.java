@@ -11,6 +11,7 @@ import com.example.fashionmanage.service.ImportingService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @CrossOrigin("*")
@@ -35,9 +36,8 @@ public class ImportingController {
     return importingService.getImportingByMonth();
   }
 
-  @PostMapping({"admin/importing","/warehouse/importing","/saler/importing"})
-  public void addImporting(@RequestBody Importing importing) {
-    importingService.saveImporting(importing);
+  @GetMapping({ "admin/importing/maxId", "warehouse/importing/maxId" })
+  public Integer getCurrentMaxId() {
+    return importingService.getCurrentMaxId();
   }
-
 }

@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.sql.Date;
 @Getter
 @Setter
 @Entity
@@ -48,6 +48,9 @@ public class Customer {
     @NotNull
     @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "is_delete", nullable = false)
+    private boolean isDelete;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")

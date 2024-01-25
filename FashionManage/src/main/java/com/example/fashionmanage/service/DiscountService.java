@@ -60,6 +60,16 @@ public interface DiscountService {
     List<Discount> findByNameDiscount(String name);
 
     /**
+     * The function help display all data of discount find by name
+     *
+     * @param name is code of discount
+     * @param customerType of customer type
+     * @return data of discount find by name
+     * @author QuanNV
+     */
+    List<Discount> findByNameDiscountBothCustomerType(String name,Integer customerType);
+
+    /**
      * The function help allows to know if the id already exists
      * @param id
      * @author QuanNV
@@ -67,11 +77,20 @@ public interface DiscountService {
     boolean checkIdDiscount(String id);
 
     /**
+<<<<<<< HEAD
+     * The function help display all data discountCode
+     *
+     * @return list data of discountCode
+     * @author QuanNV
+     */
+    List<String>listDiscountCode();
+
+    /**
      * The function findDiscount
      * @param cusTypeId
      * @param today
      * @author BaoDV
      */
-    Optional<Discount> findById(String id);
     List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today);
+    Optional<Discount> findById(String id);
 }
