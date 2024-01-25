@@ -1,13 +1,10 @@
 
 package com.example.fashionmanage.entity;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-
 @Getter
 @Setter
 @Entity
@@ -15,33 +12,45 @@ import lombok.Setter;
 public class Product {
     @Id
     @Size(max = 255)
+    @Pattern(regexp = "^H[0-9]{3,20}$",message = "Không đúng định dạng")
     @Column(name = "product_code", nullable = false)
     private String productCode;
 
-    @Size(max = 255)
+    @Size(min= 2 , max = 255,message = "Độ dài ký tự phải từ 2 đến 255")
+    @Pattern(regexp = "^[A-ZÁ+]+[a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểìíịỉĩễòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđA-Z0-9 /]{2,255}$",message = "Độ dài ký tự phải từ 2 đến 255 và không chứa ký tự đặc biệt")
+    @NotBlank(message = "Thông tin không được để trống!")
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotBlank(message = "Thông tin không được để trống!")
+    @NotNull
     @Column(name = "quantity")
+    @Min(value = 1,message = "Số lượng phải từ 1 trở lên")
     private Integer quantity;
 
+    @NotBlank(message = "Thông tin không được để trống!")
+    @Column(name= "image")
+    private String image;
+
+    @Min(value = 10000,message = "Gía phải từ 10.000 VND trở lên")
     @Column(name = "price")
     private Double price;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-
     @JoinColumn(name = "product_category_id", nullable = false)
-    @JsonManagedReference
     private ProductCategory productCategory;
 
-
-
-
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "size_id", nullable = false)
-    @JsonManagedReference
     private com.example.fashionmanage.entity.Size size;
+
+
+
+//    @OneToMany(mappedBy = "productCode")
+//    private Set<ProductSize> productSizes;
+
 
 }
 

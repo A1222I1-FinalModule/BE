@@ -28,7 +28,7 @@ public class SalerController {
     @Autowired
     private ProductService productService;
     @Autowired
-    private BillService bIllService;
+    private BIllService bIllService;
     @Autowired
     private BillDetailService billDetailService;
     @Autowired
