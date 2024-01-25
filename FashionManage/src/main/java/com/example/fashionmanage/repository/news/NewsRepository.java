@@ -20,6 +20,6 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     @Transactional
     void createNew(@Param("news") News news);
 
-    @Query(value = "SELECT news FROM fashionShop.news WHERE id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM fashionShop.news WHERE id = :id", nativeQuery = true)
     News findNewsById(@Param("id") Long id);
 }

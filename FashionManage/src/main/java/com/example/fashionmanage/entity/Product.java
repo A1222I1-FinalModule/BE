@@ -35,9 +35,6 @@ public class Product {
     @JsonManagedReference
     private ProductCategory productCategory;
 
-
-
-
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "size_id", nullable = false)
     @JsonManagedReference
