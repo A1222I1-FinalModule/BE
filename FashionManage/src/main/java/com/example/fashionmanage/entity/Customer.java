@@ -1,13 +1,10 @@
 package com.example.fashionmanage.entity;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Date;
-
 @Getter
 @Setter
 @Entity
@@ -51,6 +48,8 @@ public class Customer {
     @JoinColumn(name = "type_id")
     private CustomerType customerType;
 
+    @Column(name = "is_delete", nullable = false)
+    private boolean isDelete;
 }
 
 

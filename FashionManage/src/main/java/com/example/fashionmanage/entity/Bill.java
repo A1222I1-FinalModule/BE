@@ -1,19 +1,11 @@
 
 package com.example.fashionmanage.entity;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.Instant;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -33,21 +25,17 @@ public class Bill {
     @Column(name = "release_date", nullable = false)
     private Instant releaseDate;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "discount_id", nullable = true)
+    private Discount discount;
+
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id", nullable = false)
-    private  Employee employee;
-
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "discount_id", nullable = false)
-    private Discount discount;
-
-    @OneToMany(mappedBy = "bill")
-    private Set<BillDetail> billDetails = new LinkedHashSet<>();
-
+    private Employee employee;
 }

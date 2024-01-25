@@ -22,11 +22,13 @@ public class ProductSize {
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_code")
+    @JsonManagedReference
     private Product productCode;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "size_id")
+    @JsonManagedReference
     private Size size;
 
 }
