@@ -10,21 +10,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.fashionmanage.service.StatisticalService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @CrossOrigin("*")
 @RestController()
-@RequestMapping("/api/saler")
+@RequestMapping({ "/api/saler", "/api/admin", "/api/warehouse" })
 public class StatisticalController {
   @Autowired
   private StatisticalService statisticalService;
 
-  @GetMapping("/statistical/monthly")
-  public List<Object[]> getStatisticalByMonth() {
-    return statisticalService.getStatisticalByMonth();
+  @GetMapping("/statistical/month/{month}")
+  public List<Object[]> getStatisticalByMonth(@PathVariable("month") String month) {
+    return statisticalService.getStatisticalByMonth(month);
   }
-  @GetMapping("/statistical/daily")
-  public List<Object[]> getStatisticalByDay() {
-    return statisticalService.getStatisticalByDate();
+
+  @GetMapping("/statistical/date/{date}")
+  public List<Object[]> getStatisticalByDate(@PathVariable("date") String date){
+    return statisticalService.getStatisticalByDate(date);
   }
 
 }

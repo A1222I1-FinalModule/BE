@@ -19,7 +19,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController()
-@RequestMapping({"/api/admin", "/api/saler", "/api/warehouse"})
+@RequestMapping({"/api/admin", "/api/saler", "/api/warehouse", "/api/public"})
 public class EmployeeController {
     @Autowired
     private EmployeeServiceImpl employeeService;
