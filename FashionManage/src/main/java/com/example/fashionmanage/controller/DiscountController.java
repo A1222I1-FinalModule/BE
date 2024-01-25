@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin("*")
 @RequestMapping("/api/admin")
 public class DiscountController {
     @Autowired
@@ -45,7 +45,7 @@ public class DiscountController {
      * @author QuanNV
      */
     @GetMapping("/findByIdDiscount")
-    public ResponseEntity<?> findByIdDiscount(@RequestParam("id") String id) {
+    public ResponseEntity<Discount> findByIdDiscount(@RequestParam("id") String id) {
         Discount discount = discountService.findByIdDiscount(id);
         if (discount == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -60,8 +60,8 @@ public class DiscountController {
      * @return
      * @author QuanNV
      */
-    @DeleteMapping("/deleteByIdDiscount")
-    public ResponseEntity<?> deleteByIdDiscount(@RequestParam("id") String id) {
+    @GetMapping("/deleteByIdDiscount")
+    public ResponseEntity<Discount> deleteByIdDiscount(@RequestParam("id") String id) {
         Discount discount = discountService.findByIdDiscount(id);
         if (discount == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -77,17 +77,21 @@ public class DiscountController {
      * @return author QuanNV
      */
     @PostMapping("/createDiscount")
-    public ResponseEntity<?> saveDiscount(@Valid @RequestBody DiscountDto discountDto) {
+    public ResponseEntity<Void> saveDiscount(@Valid @RequestBody DiscountDto discountDto) {
         try {
+            boolean check=discountService.checkIdDiscount(discountDto.getDiscountCode());
+            if(check){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }else{
             discountService.createDiscount(discountDto);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);}
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/updateDiscount/{id}")
-    public ResponseEntity<?>updateDiscount(@Valid @PathVariable("id") String id, @RequestBody DiscountDto discountDto){
+    public ResponseEntity<Void>updateDiscount(@Valid @PathVariable("id") String id, @RequestBody DiscountDto discountDto){
         try {
             Discount discount= discountService.findByIdDiscount(id);
             if(discount==null) {
@@ -108,8 +112,13 @@ public class DiscountController {
      * @author QuanNV
      */
     @GetMapping("/findByNameDiscount")
-    public ResponseEntity<?> findByNameDiscount(@RequestParam("name") String name) {
-        List<Discount>discounts = discountService.findByNameDiscount(name);
+    public ResponseEntity<List<Discount>> findByNameDiscount(@RequestParam("name") String name , @RequestParam("customerType") Integer customerType) {
+        List<Discount>discounts;
+        if(customerType==0){
+            discounts=discountService.findByNameDiscount(name);
+        }else{
+           discounts = discountService.findByNameDiscountBothCustomerType(name,customerType);
+        }
         if (discounts == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -117,12 +126,17 @@ public class DiscountController {
     }
 
     /**
-     * The function help allows to know if the id already exists
-     * @param id
-     * @return true or false
+     * The function help display all data of list discountCode
+     *
+     * @return list data of discountCode
+     * @author QuanNV
      */
-    @GetMapping("/existDiscountCode/{id}")
-    public boolean checkExistDiscountCode(@PathVariable String id){
-        return discountService.checkIdDiscount(id);
+    @GetMapping("/listDiscountCode")
+    public ResponseEntity<List<String>> findAllDiscountCode() {
+        List<String> discounts = discountService.listDiscountCode();
+        if (discounts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(discounts, HttpStatus.OK);
     }
 }

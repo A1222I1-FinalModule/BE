@@ -19,7 +19,7 @@ public class DiscountDto {
     private String discountCode;
 
     @NotNull
-    @Pattern(regexp = "^[A-Z][a-zA-Z0-9 /]{2,29}$")
+    @Size(min = 2, max = 50)
     private String name;
 
     @NotNull
@@ -33,14 +33,16 @@ public class DiscountDto {
     private Integer condition;
 
     @NotNull
-    @Min(value = 10)
-    @Max(value = 100)
+    @Min(value = 20000)
+    @Max(value = 1000000)
     private double sale;
 
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date beginDate;
+
+    private boolean isDelete;
 
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")

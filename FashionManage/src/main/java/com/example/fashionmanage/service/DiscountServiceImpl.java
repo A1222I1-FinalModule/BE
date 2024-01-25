@@ -1,8 +1,8 @@
 package com.example.fashionmanage.service;
 
 import com.example.fashionmanage.entity.Discount;
-import com.example.fashionmanage.dto.DiscountDto;
 import com.example.fashionmanage.repository.DiscountRepository;
+import com.example.fashionmanage.dto.DiscountDto;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ public class DiscountServiceImpl implements DiscountService {
      */
     @Override
     public void deleteByIdDiscount(String id) {
-        discount.deleteByIdDiscount(id);
+        discount.isDelete(id);
     }
 
     /**
@@ -89,6 +89,11 @@ public class DiscountServiceImpl implements DiscountService {
      * @author QuanNV
      */
     @Override
+    public List<Discount> findByNameDiscountBothCustomerType(String name, Integer customerType) {
+        return discount.findByNameDiscountBothCustomerType(name,customerType);
+    }
+
+    @Override
     public List<Discount> findByNameDiscount(String name) {
         return discount.findByNameDiscount(name);
     }
@@ -101,6 +106,11 @@ public class DiscountServiceImpl implements DiscountService {
     @Override
     public boolean checkIdDiscount(String id) {
         return discount.countByDiscountCode(id) > 0;
+    }
+
+    @Override
+    public List<String> listDiscountCode() {
+        return discount.listDiscountCode();
     }
 
     @Override
@@ -118,5 +128,4 @@ public class DiscountServiceImpl implements DiscountService {
     public List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today) {
         return discount.findDiscount(cusTypeId, total, today);
     }
-
 }
