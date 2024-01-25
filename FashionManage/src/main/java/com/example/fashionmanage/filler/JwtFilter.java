@@ -7,15 +7,16 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -32,21 +33,13 @@ public class JwtFilter extends OncePerRequestFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        if (request.getCookies() == null) {
-            chain.doFilter(request, response);
-            return;
-        }
-        // Get authorization header and validate
-        Optional<Cookie> jwtOpt = Arrays.stream(request.getCookies())
-                .filter(cookie -> "jwt".equals(cookie.getName()))
-                .findAny();
-
-        if (jwtOpt.isEmpty()) {
+        final  String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if(StringUtils.isEmpty(header) || !header.startsWith("Bearer ")){
             chain.doFilter(request, response);
             return;
         }
 
-        String token = jwtOpt.get().getValue();
+        String token = header.split(" ")[1].trim();
         UserDetails userDetails = null;
         try {
             Optional<User> appUserOpt = userRepo.findByUsername(jwtUtil.getUsernameFromToken(token));
@@ -68,11 +61,9 @@ public class JwtFilter extends OncePerRequestFilter{
                 userDetails == null ?
                         List.of() : userDetails.getAuthorities()
         );
-
         authentication.setDetails(
                 new WebAuthenticationDetailsSource().buildDetails(request)
         );
-
         // this is where the authentication magic happens and the user is now valid!
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

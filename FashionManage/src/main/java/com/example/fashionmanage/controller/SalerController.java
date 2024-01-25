@@ -17,10 +17,9 @@ import java.util.Optional;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/staff")
-@CrossOrigin("http://localhost:3000")
 public class SalerController {
     @Autowired
     private CustomerService customerService;

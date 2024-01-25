@@ -25,8 +25,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -42,7 +44,6 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         return new UserDetailServiceImp();
     }
-
     /**
      * method :corsConfigurationSource
      * <p>config CORS can allow access to server</p>
@@ -51,14 +52,19 @@ public class SecurityConfig {
      * @author AiPV
      */
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    public CorsConfigurationSource corsConfigurationSource() {
+        final CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH"));
+        configuration.setAllowedHeaders(
+                Arrays.asList("Authorization", "X-Requested-With", "Origin", "Content-Type", "Accept", "ContentType"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+        configuration.setMaxAge(3600L);
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
 
     /**
      * method :securityFilterChain
@@ -72,13 +78,15 @@ public class SecurityConfig {
         http = http.csrf(crf -> crf.disable());
         http = http.sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http = http.exceptionHandling((exc) -> exc.authenticationEntryPoint((req, res, ex) -> {
-            res.sendError(HttpServletResponse.SC_FORBIDDEN, ex.getMessage());
+            System.out.println(ex.getClass());
+            res.sendError(HttpServletResponse.SC_FORBIDDEN,ex.getMessage());
         }));
-        http = http.authorizeHttpRequests((author) -> author.requestMatchers("/api/auth/**").permitAll()
+        http = http.authorizeHttpRequests((author) -> author
+                .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/public/**").permitAll()
-                .requestMatchers("/api/admin").hasRole("ADMIN")
-                .requestMatchers("/api/sale").hasRole("SALE")
-                .requestMatchers("/api/warehouse").hasRole("WAREHOUSE")
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/saler/**").hasRole("SALE")
+                .requestMatchers("/api/warehouse/**").hasRole("WAREHOUSE")
                 .anyRequest().authenticated());
         http = http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
