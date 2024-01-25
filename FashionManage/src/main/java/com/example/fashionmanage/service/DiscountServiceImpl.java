@@ -128,4 +128,5 @@ public class DiscountServiceImpl implements DiscountService {
     public List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today) {
         return discount.findDiscount(cusTypeId, total, today);
     }
+
 }

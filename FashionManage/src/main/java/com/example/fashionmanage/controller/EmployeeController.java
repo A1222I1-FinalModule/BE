@@ -32,17 +32,7 @@ public class EmployeeController {
     private JwtUtil jwtUtil;
     @Autowired
     private UserRepository userRepo;
-    /**
-     * Method : getUserInfo
-     * <p>get Employee Information of current user</p>
-     * @return Employee
-     * @author AiPV
-     */
-    @GetMapping("/info")
-    public ResponseEntity<Employee> getUserInfo(@AuthenticationPrincipal User user) {
-        Employee employee = employeeService.getInfo(user);
-        return ResponseEntity.ok(employee);
-    }
+
 
     @GetMapping("/employee-top")
     public ResponseEntity<List<EmployeeDTO>> getEmployeeSaleTop() {

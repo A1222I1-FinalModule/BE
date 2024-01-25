@@ -1,4 +1,5 @@
 package com.example.fashionmanage.controller;
+import com.example.fashionmanage.entity.Employee;
 import com.example.fashionmanage.entity.Product;
 import com.example.fashionmanage.entity.User;
 import com.example.fashionmanage.service.EmployeeServiceImpl;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/public")
 public class ProductController {
+    @Autowired
+    private EmployeeServiceImpl employeeService;
     @Autowired
     private ProductService productService;
     /**
@@ -45,18 +49,22 @@ public class ProductController {
 
     /**
      * The function help create new product
-     * @param product
+     * @param product1
      * @return
      * author TuyenDV
      */
     @PostMapping("/createInfoProduct")
-    public ResponseEntity<?> saveInfoProduct(@Valid @RequestBody Product product ,BindingResult bindingResult){
-
-        if(bindingResult.hasErrors()){
+    public ResponseEntity<?> saveInfoProduct(@Valid @RequestBody Product product1 ){
+        try {
+            boolean check=productService.checkIdProduct(product1.getProductCode());
+            if(check){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            else{
+                productService.createInfoProduct(product1);
+                return new ResponseEntity<>(HttpStatus.OK);}
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }else {
-            productService.createInfoProduct(product);
-            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
@@ -69,13 +77,21 @@ public class ProductController {
      * @author TuyenDV
      */
     @GetMapping("/findByNameProduct")
-    public ResponseEntity<?> findByNameProduct (@RequestParam(value = "name" ,required = false) String name ){
-        List<Product> products = productService.findByNameProduct(name);
+    public ResponseEntity<?> findByNameProduct( @RequestParam(required = false) String name,
+                                                @RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "5") int size,
+                                                @RequestParam(defaultValue = "name") String sortBy,
+                                                @RequestParam(defaultValue = "asc") String sortOrder) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortOrder), sortBy));
+
+        Page<Product> products = productService.findByProduct(name, pageable);
         if (products == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
 
 
     @GetMapping("/findByProductCodeProduct")
@@ -98,6 +114,16 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-
+    /**
+     * Method : getUserInfo
+     * <p>get Employee Information of current user</p>
+     * @return Employee
+     * @author AiPV
+     */
+    @GetMapping("/info")
+    public ResponseEntity<Employee> getUserInfo(@AuthenticationPrincipal User user) {
+        Employee employee = employeeService.getInfo(user);
+        return ResponseEntity.ok(employee);
+    }
     
 }

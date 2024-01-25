@@ -35,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
     public Optional<Product> findById(String id) {
         return productRepository.findById(id);
     }
+    @Transactional
 
     @Override
     public void save(Product product) {
@@ -100,4 +101,8 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public boolean checkIdProduct(String id) {
+        return productRepository.countByDiscountCode(id)>0;
+    }
 }
