@@ -97,7 +97,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @author BaoDV
      */
     @Modifying
-    @Query(value = "select d.* from discount d where d.condition <= :total and (:today between d.begin_date and d.end_date) and customer_type_id = :cusTypeId", nativeQuery = true)
+    @Query(value = "select d.* from discount d where d.condition <= :total and (:today between d.begin_date and d.end_date) and customer_type_id = :cusTypeId and is_delete = true", nativeQuery = true)
     List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today);
 }
 
