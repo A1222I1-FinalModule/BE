@@ -48,6 +48,9 @@ public class Customer {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
     private CustomerType customerType;
+
+    @Column(name = "is_delete", nullable = false)
+    private boolean isDelete;
 }
 
 
