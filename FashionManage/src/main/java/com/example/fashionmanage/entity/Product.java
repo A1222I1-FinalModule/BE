@@ -40,6 +40,7 @@ public class Product {
     @JoinColumn(name = "product_category_id", nullable = false)
     private ProductCategory productCategory;
 
+
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "size_id", nullable = false)
