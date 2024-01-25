@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.Instant;
 import java.util.Date;
 
 @Getter
@@ -21,7 +20,7 @@ import java.util.Date;
 @Table(name = "discount", schema = "fashionShop")
 public class Discount {
     @Id
-    @Size(max = 255)
+    @Size(max = 10)
     @Column(name = "discount_code", nullable = false)
     private String discountCode;
 
@@ -36,6 +35,11 @@ public class Discount {
     @Column(name = "`condition`")
     private Integer condition;
 
+
+    @Lob
+    @Column(name = "sale")
+    private double sale;
+
     @NotNull
     @Column(name = "begin_date", nullable = false)
     @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -47,9 +51,11 @@ public class Discount {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date endDate;
+
+    @Column(name = "is_delete", nullable = false)
+    private boolean isDelete;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;
-
-
 }

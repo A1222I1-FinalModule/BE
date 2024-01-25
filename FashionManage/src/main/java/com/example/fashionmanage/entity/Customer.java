@@ -1,16 +1,10 @@
-
 package com.example.fashionmanage.entity;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
+import java.sql.Date;
 @Getter
 @Setter
 @Entity
@@ -33,7 +27,7 @@ public class Customer {
 
     @NotNull
     @Column(name = "date_of_birth", nullable = false)
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
 
     @NotNull
     @Lob
@@ -50,13 +44,12 @@ public class Customer {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "is_delete", nullable = false)
+    private boolean isDelete;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "type_id")
-    private CustomerType type;
-
-    @OneToMany(mappedBy = "customer")
-    private Set<Bill> bills = new LinkedHashSet<>();
-
+    private CustomerType customerType;
 }
 
 

@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -29,7 +28,6 @@ public class Notification {
     @NotNull
     @Column(name = "content", nullable = false,columnDefinition = "text")
     private String content;
-
 
     private  int target;
 

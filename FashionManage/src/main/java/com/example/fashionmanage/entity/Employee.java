@@ -1,6 +1,7 @@
 
 package com.example.fashionmanage.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 public class Employee {
     @Id
     @Size(max = 255)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false,unique = true)
     private String id;
 
     @Size(max = 255)
@@ -39,9 +40,9 @@ public class Employee {
     private String phone;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
 }
 

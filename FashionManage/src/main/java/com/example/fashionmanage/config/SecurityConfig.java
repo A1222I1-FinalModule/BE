@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -36,15 +37,17 @@ public class SecurityConfig {
     private UserDetailServiceImp userDetailsService;
     @Autowired
     private JwtFilter jwtFilter;
+
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserDetailServiceImp();
     }
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT","DELETE"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
@@ -52,20 +55,25 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-         http = http.csrf(crf->crf.disable());
-         http = http.sessionManagement((sessionManagement) ->
-        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-               );
-         http = http.exceptionHandling((exc)->exc.authenticationEntryPoint((req,res,ex)->{
-             res.sendError(HttpServletResponse.SC_NOT_FOUND,ex.getMessage());
-         }));
-         http = http.authorizeHttpRequests((author)->author.requestMatchers("/api/auth/**").permitAll()
-                 .requestMatchers("/api/admin").hasRole("ADMIN")
-                 .requestMatchers("/api/sale").hasRole("SALE")
-                 .requestMatchers("/api/warehouse").hasRole("WAREHOUSE")
-                 .anyRequest().authenticated());
-         http = http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        http = http.csrf(crf -> crf.disable());
+        http = http.sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http = http.exceptionHandling((exc) -> exc.authenticationEntryPoint((req, res, ex) -> {
+            res.sendError(HttpServletResponse.SC_FORBIDDEN, ex.getMessage());
+        }));
+        http = http.authorizeHttpRequests((author) -> author.requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/public/**").permitAll()
+                .requestMatchers("/api/admin").hasRole("ADMIN")
+                .requestMatchers("/api/admin/info").hasRole("SALE")
+                .requestMatchers("/api/sale").hasRole("SALE")
+                .requestMatchers("/api/warehouse").hasRole("WAREHOUSE")
+                .anyRequest().authenticated());
+        http = http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
 
     @Bean
@@ -74,17 +82,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
+
     @Bean
     public ProviderManager authManagerBean(HttpSecurity security) throws Exception {
-        return (ProviderManager) security.getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(authenticationProvider()).
-                build();
+        return (ProviderManager) security.getSharedObject(AuthenticationManagerBuilder.class).authenticationProvider(authenticationProvider()).build();
     }
 
 }
