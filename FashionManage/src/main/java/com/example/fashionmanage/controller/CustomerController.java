@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,10 +21,25 @@ public class CustomerController {
     @PostMapping("/insert-customer")
     ResponseEntity<?> saveCustomer(@RequestBody Customer newCustomer) {
         try {
+            boolean isPhoneUnique = customerService.isPhoneUnique(newCustomer.getPhone());
+            boolean isEmailUnique = customerService.isEmailUnique(newCustomer.getEmail());
+            List<String> errorMessages = new ArrayList<>();
+
+            if (!isPhoneUnique) {
+                errorMessages.add("Số điện thoại đã tồn tại.");
+            }
+
+            if (!isEmailUnique) {
+                errorMessages.add("Email đã tồn tại.");
+            }
+
+            if (!errorMessages.isEmpty()) {
+                return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
+            }
+
             customerService.save(newCustomer);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
         }
     }
