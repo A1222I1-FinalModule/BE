@@ -23,8 +23,7 @@ public class Product {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotBlank(message = "Thông tin không được để trống!")
-    @NotNull
+
     @Column(name = "quantity")
     @Min(value = 1,message = "Số lượng phải từ 1 trở lên")
     private Integer quantity;
