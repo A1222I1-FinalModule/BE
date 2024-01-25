@@ -3,16 +3,20 @@ import com.example.fashionmanage.entity.Product;
 import com.example.fashionmanage.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-
-
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/warehouse")
+@RequestMapping("/api/public")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -21,6 +25,7 @@ public class ProductController {
      * @return
      * author TuyenDV
      */
+
 
    @GetMapping("/getListProduct")
    public ResponseEntity<List<Product>> getAllInfoProduct(){
@@ -81,11 +86,25 @@ public class ProductController {
 
 
     @GetMapping("/findByProductCodeProduct")
-    public ResponseEntity<?> findByProductCodeProduct (@RequestParam(value = "product_code" ,required = false) String productCode ){
+    public ResponseEntity<?> findByProductCodeProduct (@RequestParam(value = "product_code" ,required = false) String productCode ) {
         List<Product> products = productService.findByProductCode(productCode);
         if (products == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
+
+    @GetMapping("/findByProductCategories")
+    public ResponseEntity<?> findByProductCategories(@RequestParam(value = "id", required = false) Integer id) {
+
+        List<Product> products = productService.findByProductCategories(id);
+        if (products == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+
+    
 }

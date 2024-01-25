@@ -1,18 +1,10 @@
 
 package com.example.fashionmanage.entity;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
 @Getter
 @Setter
 @Entity
@@ -31,6 +23,8 @@ public class Product {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotBlank(message = "Thông tin không được để trống!")
+    @NotNull
     @Column(name = "quantity")
     @Min(value = 1,message = "Số lượng phải từ 1 trở lên")
     private Integer quantity;
@@ -39,15 +33,13 @@ public class Product {
     @Column(name= "image")
     private String image;
 
-    @Min(value = 1,message = "Gía phải từ 1 VND trở lên")
+    @Min(value = 10000,message = "Gía phải từ 10.000 VND trở lên")
     @Column(name = "price")
     private Double price;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_category_id", nullable = false)
     private ProductCategory productCategory;
-
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -55,8 +47,10 @@ public class Product {
     private com.example.fashionmanage.entity.Size size;
 
 
+
 //    @OneToMany(mappedBy = "productCode")
 //    private Set<ProductSize> productSizes;
+
 
 }
 
