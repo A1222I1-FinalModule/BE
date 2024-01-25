@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/news")
+@RequestMapping("/api")
 public class NewsController {
     @Autowired
     private NewsServiceImpl newsService;
 
-    @GetMapping("/list")
-    public ResponseEntity<List<News>> findAllNews() {
+    @GetMapping("/public/news")
+    public ResponseEntity<List<News>> getAllNews() {
         List<News> newsList = newsService.findAllNews();
         if (newsList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -24,7 +24,18 @@ public class NewsController {
         return new ResponseEntity<>(newsList, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @GetMapping("/public/news/{id}")
+    public  ResponseEntity<News> getNews(@PathVariable Long id) {
+        News news = newsService.findNewsById(id);
+
+        if (news != null) {
+            return new ResponseEntity<>(news, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/admin/news/create")
     public ResponseEntity<?> create(@RequestBody News news) {
         try {
             newsService.createNews(news);

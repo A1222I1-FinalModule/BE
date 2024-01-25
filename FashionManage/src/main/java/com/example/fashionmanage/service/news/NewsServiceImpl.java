@@ -21,4 +21,10 @@ public class NewsServiceImpl implements NewsService {
     public void createNews(News news) {
         newsRepository.createNew(news);
     }
+
+    @Override
+    public News findNewsById(Long id) {
+        return newsRepository.findNewsById(id);
+    }
+
 }

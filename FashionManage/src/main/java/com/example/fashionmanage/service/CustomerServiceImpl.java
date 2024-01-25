@@ -19,7 +19,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
     @Override
     public void deleteByIdCustomer(String id) {
-        customerRepository.deleteByIdCustomer(id);
+        customerRepository.isDelete(id);
     }
 
     @Override
@@ -29,8 +29,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> findByNameCustomer(String name) {
-        return customerRepository.findByNameCustomer(name);
+        return customerRepository.findByNameCustomer(name,name);
     }
+
     //BaoNV
     @Override
     public List<Customer> findAllByNameOrPhoneOrContainingId(String str) {
@@ -48,17 +49,27 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     //QuanND
-
     @Override
     public void save(Customer customer) {
-        customerRepository.save(customer);
+        customerRepository.create(customer);
     }
 
     @Override
     public void update(String cid, Customer customer) {
+        customerRepository.update(cid,customer);
         Customer newCustomer = customerRepository.findById(cid).orElse(null);
         if (newCustomer != null) {
             customerRepository.update(cid, customer);
         }
+    }
+
+    @Override
+    public boolean isPhoneUnique(String phone) {
+        return !customerRepository.existsByPhone(phone);
+    }
+
+    @Override
+    public boolean isEmailUnique(String email) {
+        return !customerRepository.existsByEmail(email);
     }
 }
