@@ -65,6 +65,16 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
     List<Discount> findByNameDiscountBothCustomerType(String name, Integer customerType);
 
     /**
+     * The function help display all data of discount find by customerType
+     *
+     * @param customerType of customer type
+     * @return data of discount find by id
+     * @author QuanNV
+     */
+    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id from discount  where customer_type_id=:customerType", nativeQuery = true)
+    List<Discount> findByDiscountCustomerType(Integer customerType);
+
+    /**
      * The function help display all data of discount find by name
      *
      * @param name of discount

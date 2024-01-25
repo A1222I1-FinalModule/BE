@@ -93,6 +93,18 @@ public class DiscountServiceImpl implements DiscountService {
         return discount.findByNameDiscountBothCustomerType(name,customerType);
     }
 
+    /**
+     * The function help display all data of discount find by name
+     *
+     * @param customerType is code of discount
+     * @return data of discount find by dicount
+     * @author QuanNV
+     */
+    @Override
+    public List<Discount> findByDiscountCustomerType(Integer customerType) {
+        return discount.findByDiscountCustomerType(customerType);
+    }
+
     @Override
     public List<Discount> findByNameDiscount(String name) {
         return discount.findByNameDiscount(name);

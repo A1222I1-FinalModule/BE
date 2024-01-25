@@ -70,6 +70,15 @@ public interface DiscountService {
     List<Discount> findByNameDiscountBothCustomerType(String name,Integer customerType);
 
     /**
+     * The function help display all data of discount find by customerType
+     *
+     * @param customerType of customer type
+     * @return data of discount find by name
+     * @author QuanNV
+     */
+    List<Discount> findByDiscountCustomerType(Integer customerType);
+
+    /**
      * The function help allows to know if the id already exists
      * @param id
      * @author QuanNV

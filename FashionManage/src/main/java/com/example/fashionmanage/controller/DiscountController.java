@@ -116,7 +116,9 @@ public class DiscountController {
         List<Discount>discounts;
         if(customerType==0){
             discounts=discountService.findByNameDiscount(name);
-        }else{
+        }else if(name==null){
+            discounts=discountService.findByDiscountCustomerType(customerType);
+        } else{
            discounts = discountService.findByNameDiscountBothCustomerType(name,customerType);
         }
         if (discounts == null) {
