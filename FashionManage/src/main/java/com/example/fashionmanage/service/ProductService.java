@@ -25,14 +25,23 @@ public interface ProductService {
 
 
     /**
-     * This is the findListInfoProduct(), which is created for reuse by subclasses, Its purpose is to display the product list
+     * This is findByNameProduct(), created to be reused by subclasses, Its purpose is to find the product name
      * @param :N/A
      * @author : TuyenDV
-     * @Return : display list product
+     * @Return :  show list product name searched
      */
     List<Product> findByNameProduct(String name);
 
     List<Product> findAll();
     Optional<Product> findById(String id);
     void save(Product product);
+
+
+    /**
+     * This is findByNameProduct(), created to be reused by subclasses, Its purpose is to find the product productCode
+     * @param :N/A
+     * @author : TuyenDV
+     * @Return : show list product productCode searched
+     */
+    List<Product> findByProductCode(String productCode);
 }

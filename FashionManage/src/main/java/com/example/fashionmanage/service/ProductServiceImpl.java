@@ -42,10 +42,23 @@ public class ProductServiceImpl implements ProductService {
 
 
     /**
+     * The function help display all data of product find by productCode
+     *
+     * @param productCode is code of product
+     * @return product data searched by product code
+     * @author TuyenDV
+     */
+    @Override
+    public List<Product> findByProductCode(String productCode) {
+        return productRepository.findByProductCodeProduct(productCode);
+    }
+
+
+    /**
      * The function help display all data of product find by name
      *
      * @param name is code of product
-     * @return data of product find by product
+     * @return product data searched by product name
      * @author TuyenDV
      */
     @Override

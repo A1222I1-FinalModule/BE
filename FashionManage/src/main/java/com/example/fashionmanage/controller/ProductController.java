@@ -43,10 +43,9 @@ public class ProductController {
      * author TuyenDV
      */
     @PostMapping("/createInfoProduct")
-    public ResponseEntity<?> saveInfoProduct(@RequestBody @Valid Product product , BindingResult bindingResult){
+    public ResponseEntity<?> saveInfoProduct(@Valid @RequestBody Product product ,BindingResult bindingResult){
 //        try {
-//            String idProduct = "H-" + ((int) Math.random() * 1000);
-//            product.setProductCode(idProduct);
+//
 //            productService.createInfoProduct(product);
 //            return new ResponseEntity<>(HttpStatus.OK);
 //        }catch (Exception e){
@@ -74,6 +73,16 @@ public class ProductController {
     @GetMapping("/findByNameProduct")
     public ResponseEntity<?> findByNameProduct (@RequestParam(value = "name" ,required = false) String name ){
         List<Product> products = productService.findByNameProduct(name);
+        if (products == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/findByProductCodeProduct")
+    public ResponseEntity<?> findByProductCodeProduct (@RequestParam(value = "product_code" ,required = false) String productCode ){
+        List<Product> products = productService.findByProductCode(productCode);
         if (products == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

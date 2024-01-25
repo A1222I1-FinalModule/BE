@@ -4,14 +4,13 @@ package com.example.fashionmanage.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -21,24 +20,26 @@ import java.util.Set;
 public class Product {
     @Id
     @Size(max = 255)
+    @Pattern(regexp = "^H[0-9]{3,20}$",message = "Không đúng định dạng")
     @Column(name = "product_code", nullable = false)
     private String productCode;
 
-    @Size(max = 255,message = "Length from 5 to 255")
-    @NotBlank(message = "Information cannot be left blank")
+    @Size(min= 2 , max = 255,message = "Độ dài ký tự phải từ 2 đến 255")
+    @Pattern(regexp = "^[A-ZÁ+]+[a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểìíịỉĩễòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđA-Z0-9 /]{2,255}$",message = "Độ dài ký tự phải từ 2 đến 255 và không chứa ký tự đặc biệt")
+    @NotBlank(message = "Thông tin không được để trống!")
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "quantity")
-    @Min(value = 1,message = "Quantity must be 1 or more")
+    @Min(value = 1,message = "Số lượng phải từ 1 trở lên")
     private Integer quantity;
 
-    @NotBlank(message = "Information cannot be left blank")
+    @NotBlank(message = "Thông tin không được để trống!")
     @Column(name= "image")
     private String image;
 
-    @Min(value = 1,message = "The lowest price must be from 1 VND")
+    @Min(value = 1,message = "Gía phải từ 1 VND trở lên")
     @Column(name = "price")
     private Double price;
 
@@ -55,7 +56,7 @@ public class Product {
 
 
 //    @OneToMany(mappedBy = "productCode")
-//    private Set<ProductSize> productSizes = new LinkedHashSet<>();
+//    private Set<ProductSize> productSizes;
 
 }
 
