@@ -49,19 +49,10 @@ public class ProductController {
      */
     @PostMapping("/createInfoProduct")
     public ResponseEntity<?> saveInfoProduct(@Valid @RequestBody Product product ,BindingResult bindingResult){
-//        try {
-//
-//            productService.createInfoProduct(product);
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        }catch (Exception e){
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
 
         if(bindingResult.hasErrors()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }else {
-//            String idProduct = "H-" + Math.random() * 1000;
-//            product.setProductCode(idProduct);
             productService.createInfoProduct(product);
             return new ResponseEntity<>(HttpStatus.OK);
         }
