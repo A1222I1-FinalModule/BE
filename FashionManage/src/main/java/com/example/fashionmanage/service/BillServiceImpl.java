@@ -7,11 +7,12 @@ import com.example.fashionmanage.entity.Bill;
 import com.example.fashionmanage.repository.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 import java.util.List;
 
 @Service
-public class BillServiceImpl implements BIllService {
+public class BillServiceImpl implements BillService {
     @Autowired
     private BillRepository billRepository;
 
