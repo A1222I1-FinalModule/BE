@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.List;
 
 @Service
-public class BillServiceImpl implements BIllService {
+public class BillServiceImpl implements BillService {
     @Autowired
     private BillRepository billRepository;
 
