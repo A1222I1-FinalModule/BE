@@ -52,7 +52,9 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
      * @Return : data table notification  with id deleted
      */
 
-    @Query(value = "delete from Notification n where n.id = :id ", nativeQuery = true)
+
+    @Modifying
+    @Query(value = "delete from notification n where n.id = :id ", nativeQuery = true)
     void deletebyId(@Param("id") int id);
 
 

@@ -49,7 +49,8 @@ public class NotificationServiceImlp implements  NotificationService{
      */
     @Override
     public void deleteById(Integer id) {
-        notificationRepository.deletebyId(id);
+//        notificationRepository.deletebyId(id);
+        notificationRepository.deleteById(id);
     }
 
     /**
