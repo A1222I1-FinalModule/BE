@@ -13,13 +13,13 @@ public class StastisticalServiceImpl implements StatisticalService {
   private ImportingRepository importingRepository;
 
   @Override
-  public List<Object[]> getStatisticalByMonth(String month) {
-    return importingRepository.getStatisticalByMonth(month);
+  public List<Object[]> getStatisticalByMonth() {
+    return importingRepository.getDailyStatistical();
   }
 
   @Override
-  public List<Object[]> getStatisticalByDate(String date) {
-    return importingRepository.getStatisticalByDate(date);
+  public List<Object[]> getStatisticalByDate() {
+    return importingRepository.getMonthlyStatistical();
   }
 
 }

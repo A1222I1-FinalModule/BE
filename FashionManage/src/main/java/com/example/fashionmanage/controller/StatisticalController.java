@@ -19,14 +19,14 @@ public class StatisticalController {
   @Autowired
   private StatisticalService statisticalService;
 
-  @GetMapping("/statistical/month/{month}")
-  public List<Object[]> getStatisticalByMonth(@PathVariable("month") String month) {
-    return statisticalService.getStatisticalByMonth(month);
+  @GetMapping("/statistical/monthly")
+  public List<Object[]> getStatisticalByMonth() {
+    return statisticalService.getStatisticalByMonth();
   }
 
-  @GetMapping("/statistical/date/{date}")
-  public List<Object[]> getStatisticalByDate(@PathVariable("date") String date){
-    return statisticalService.getStatisticalByDate(date);
+  @GetMapping("/statistical/daily")
+  public List<Object[]> getStatisticalByDate(){
+    return statisticalService.getStatisticalByDate();
   }
 
 }
