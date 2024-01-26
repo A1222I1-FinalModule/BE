@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface BIllService {
+public interface BillService {
   List<Object[]> getAllBill();
 
   List<GetBillDTO> getTop5RecentOrder();
