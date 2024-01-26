@@ -1,6 +1,7 @@
 
 package com.example.fashionmanage.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -39,8 +40,12 @@ public class Employee {
     @Column(name = "phone", nullable = false)
     private String phone;
 
+    @Size(max = 1000)
+    @Column(name = "image")
+    private String image;
+
     @NotNull
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
