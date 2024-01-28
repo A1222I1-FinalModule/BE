@@ -40,7 +40,7 @@ public interface DiscountService {
      * @param discountDto
      * @return author QuanNV
      */
-    void createDiscount(DiscountDto discountDto);
+    void createDiscount(DiscountDto discountDto,int number);
 
     /**
      * the function help update discount by id
@@ -102,4 +102,6 @@ public interface DiscountService {
      */
     List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today);
     Optional<Discount> findById(String id);
+
+    int maxNumber();
 }

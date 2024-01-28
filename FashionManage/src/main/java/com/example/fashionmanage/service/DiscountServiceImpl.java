@@ -63,9 +63,9 @@ public class DiscountServiceImpl implements DiscountService {
      */
     @Transactional
     @Override
-    public void createDiscount(DiscountDto discountDto) {
+    public void createDiscount(DiscountDto discountDto,int number) {
         Discount discount1 = modelMapper.map(discountDto, Discount.class);
-        discount.createDiscount(discount1);
+        discount.createDiscount(discount1,number);
     }
 
     /**
@@ -141,4 +141,8 @@ public class DiscountServiceImpl implements DiscountService {
         return discount.findDiscount(cusTypeId, total, today);
     }
 
+    @Override
+    public int maxNumber() {
+        return discount.maxNumber();
+    }
 }

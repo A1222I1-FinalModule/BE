@@ -17,7 +17,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return list data of discount
      * @author QuanNV
      */
-    @Query(value = "select discount_code , name , reward_point,`condition`,sale,begin_date,end_date,is_Delete,customer_type_id " +
+    @Query(value = "select discount_code , name , reward_point,`condition`,sale,begin_date,end_date,is_Delete,customer_type_id,number " +
             "from discount where is_Delete= 1 ", nativeQuery = true)
     List<Discount> finAllDiscount();
 
@@ -28,7 +28,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return data of discount find by id
      * @author QuanNV
      */
-    @Query(value = "select discount_code , name , reward_point,`condition`,sale,begin_date,end_date,is_Delete,customer_type_id from discount  where discount_code=:id",nativeQuery = true)
+    @Query(value = "select discount_code , name , reward_point,`condition`,sale,begin_date,end_date,is_Delete,customer_type_id,number from discount  where discount_code=:id",nativeQuery = true)
     Discount findByIdDiscount(String id);
 
     /**
@@ -37,10 +37,10 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * author QuanNV
      */
     @Modifying
-    @Query(value = "INSERT INTO fashionShop.discount (discount_code, name, reward_point, `condition`, sale,begin_date,end_date,is_delete,customer_type_id) VALUES (:#{#discount.discountCode}, :#{#discount.name}, :#{#discount.rewardPoint}, :#{#discount.condition},:#{#discount.sale} ,:#{#discount.beginDate},:#{#discount.endDate},:#{#discount.isDelete},:#{#discount.customerType.id})",
+    @Query(value = "INSERT INTO fashionShop.discount (number,discount_code, name, reward_point, `condition`, sale,begin_date,end_date,is_delete,customer_type_id) VALUES (:number + 1,:#{#discount.discountCode}, :#{#discount.name}, :#{#discount.rewardPoint}, :#{#discount.condition},:#{#discount.sale} ,:#{#discount.beginDate},:#{#discount.endDate},:#{#discount.isDelete},:#{#discount.customerType.id})",
             nativeQuery = true)
     @Transactional
-    void createDiscount(@Param("discount") Discount discount);
+    void createDiscount(@Param("discount") Discount discount,@Param("number") int number);
 
     /**
      *the function help update discount by id
@@ -61,7 +61,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return data of discount find by id
      * @author QuanNV
      */
-    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id from discount  where name LIKE %:name% and customer_type_id=:customerType and is_Delete= 1", nativeQuery = true)
+    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id,number from discount  where name LIKE %:name% and customer_type_id=:customerType and is_Delete= 1", nativeQuery = true)
     List<Discount> findByNameDiscountBothCustomerType(String name, Integer customerType);
 
     /**
@@ -71,7 +71,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return data of discount find by id
      * @author QuanNV
      */
-    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id from discount  where customer_type_id=:customerType and is_Delete= 1", nativeQuery = true)
+    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id,number from discount  where customer_type_id=:customerType and is_Delete= 1", nativeQuery = true)
     List<Discount> findByDiscountCustomerType(Integer customerType);
 
     /**
@@ -81,7 +81,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return data of discount find by id
      * @author QuanNV
      */
-    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id from discount  where name LIKE %:name%  and is_Delete= 1", nativeQuery = true)
+    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id,number from discount  where name LIKE %:name%  and is_Delete= 1", nativeQuery = true)
     List<Discount> findByNameDiscount(String name);
 
     /**
@@ -125,5 +125,8 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
     @Modifying
     @Query(value = "select d.* from discount d where d.condition <= :total and (:today between d.begin_date and d.end_date) and customer_type_id = :cusTypeId and is_delete = true", nativeQuery = true)
     List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today);
+
+    @Query(value = "SELECT MAX(number) FROM fashionShop.discount", nativeQuery = true)
+    int maxNumber();
 }
 

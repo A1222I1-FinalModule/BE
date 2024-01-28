@@ -83,7 +83,8 @@ public class DiscountController {
             if(check){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }else{
-            discountService.createDiscount(discountDto);
+            int max=discountService.maxNumber();
+            discountService.createDiscount(discountDto,max);
             return new ResponseEntity<>(HttpStatus.OK);}
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
