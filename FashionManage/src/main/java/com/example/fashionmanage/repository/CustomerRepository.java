@@ -77,6 +77,10 @@ public interface CustomerRepository extends JpaRepository<Customer,String> {
     @Query(value = "update customer set name = :#{#customer.name}, date_of_birth = :#{#customer.dateOfBirth}, address = :#{#customer.address}, gender = :#{#customer.gender}, phone = :#{#customer.phone}, email = :#{#customer.email}, point = :#{#customer.point}, type_id = :#{#customer.customerType.id} " +
             "where id = :cid", nativeQuery = true)
     void update(@Param("cid") String cid, @Param("customer") Customer customer);
+
+
+    boolean existsByPhone(String phone);
+    boolean existsByEmail(String email);
     /**
      *The function help delete all data of customer find by id
      * @param id
@@ -87,4 +91,6 @@ public interface CustomerRepository extends JpaRepository<Customer,String> {
     @Query(value = "update customer set is_delete=false  " +
             " where id=:id", nativeQuery = true)
     int isDelete(@Param("id") String id);
+
+
 }

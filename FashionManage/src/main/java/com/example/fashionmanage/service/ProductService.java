@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface ProductService {
 
     /**
-     *  This is the createInfoProduct(Product product) method, which is created for reuse by subclasses,Its purpose is to add data
+     *  This is the createInfoProduct method, which is created for reuse by subclasses,Its purpose is to add data
      * @param product
      * @author :TuyenDV
      * @Return : if this method success, data will insert in table product , unless data isn't insert table and message error
@@ -53,5 +53,7 @@ public interface ProductService {
     List<Product> findByProductCode(String productCode);
 
     void updateProductQuantity(Product product);
+
+    boolean checkIdProduct(String id);
 
 }

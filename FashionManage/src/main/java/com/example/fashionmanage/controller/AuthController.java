@@ -4,10 +4,14 @@ package com.example.fashionmanage.controller;
 import ch.qos.logback.core.util.Duration;
 import com.example.fashionmanage.dto.AuthCredentialsRequest;
 import com.example.fashionmanage.dto.PasswordChangeRequest;
+import com.example.fashionmanage.dto.TokenRequest;
+import com.example.fashionmanage.entity.Employee;
 import com.example.fashionmanage.entity.User;
+import com.example.fashionmanage.repository.UserRepository;
 import com.example.fashionmanage.service.UserDetailServiceImp;
 import com.example.fashionmanage.util.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -19,9 +23,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -33,14 +38,20 @@ public class AuthController {
     private UserDetailServiceImp userDetailServiceImp;
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private UserRepository userRepo;
     @Value("${cookies.domain}")
     private String domain;
 
     /**
-     * Login response entity.
+     * Method : login
+     * <p>Validate login request</p>
+     * <p>If User Valid create and return JWT Token</p>
+     * <p>Else Return UNAUTHORIZED</p>
      *
      * @param request the request
-     * @return the response entity
+     * @return JWT Token
+     * @author AiPV"
      */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthCredentialsRequest request) {
@@ -49,28 +60,35 @@ public class AuthController {
                     .authenticate(
                             new UsernamePasswordAuthenticationToken(
                                     request.getUsername(), request.getPassword()));
-
+            SecurityContextHolder.getContext().setAuthentication(authenticate);
             User user = (User) authenticate.getPrincipal();
             user.setPassword(null);
 
             String token = jwtUtil.generateToken(user);
-            ResponseCookie cookie = ResponseCookie.from("jwt", token)
-                    .domain(domain)
-                    .path("/")
-                    .maxAge(Duration.buildByDays(365).getMilliseconds())
-                    .build();
-
             return ResponseEntity.ok()
-                    .header(HttpHeaders.SET_COOKIE, cookie.toString())
                     .body(token);
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
+    /**
+     * Method : validateToken
+     * <p>Check JWT token valid</p>
+     *
+     * @param  token
+     * @return Boolean
+     * @author AiPV
+     */
     @GetMapping("/validate")
-    public ResponseEntity<?> validateToken(@CookieValue(name = "jwt") String token,
+    public ResponseEntity<?> validateToken(HttpServletRequest request,
                                            @AuthenticationPrincipal User user) {
+        final  String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if(StringUtils.isEmpty(header) || !header.startsWith("Bearer ")){
+            return ResponseEntity.ok(false);
+        }
+
+        String token = header.split(" ")[1].trim();
         try {
             Boolean isValidToken = jwtUtil.validateToken(token, user);
             return ResponseEntity.ok(isValidToken);
