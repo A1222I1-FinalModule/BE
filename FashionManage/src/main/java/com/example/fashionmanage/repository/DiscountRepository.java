@@ -18,7 +18,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @author QuanNV
      */
     @Query(value = "select discount_code , name , reward_point,`condition`,sale,begin_date,end_date,is_Delete,customer_type_id " +
-            "from discount ", nativeQuery = true)
+            "from discount where is_Delete= 1 ", nativeQuery = true)
     List<Discount> finAllDiscount();
 
     /**
@@ -61,7 +61,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return data of discount find by id
      * @author QuanNV
      */
-    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id from discount  where name LIKE %:name% and customer_type_id=:customerType", nativeQuery = true)
+    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id from discount  where name LIKE %:name% and customer_type_id=:customerType and is_Delete= 1", nativeQuery = true)
     List<Discount> findByNameDiscountBothCustomerType(String name, Integer customerType);
 
     /**
@@ -71,7 +71,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return data of discount find by id
      * @author QuanNV
      */
-    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id from discount  where customer_type_id=:customerType", nativeQuery = true)
+    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id from discount  where customer_type_id=:customerType and is_Delete= 1", nativeQuery = true)
     List<Discount> findByDiscountCustomerType(Integer customerType);
 
     /**
@@ -81,7 +81,7 @@ public interface DiscountRepository extends JpaRepository<Discount, String> {
      * @return data of discount find by id
      * @author QuanNV
      */
-    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id from discount  where name LIKE %:name%", nativeQuery = true)
+    @Query(value = "select discount_code , name , reward_point,sale,`condition`,begin_date,end_date,is_delete,customer_type_id from discount  where name LIKE %:name%  and is_Delete= 1", nativeQuery = true)
     List<Discount> findByNameDiscount(String name);
 
     /**
