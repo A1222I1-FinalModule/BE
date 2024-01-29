@@ -18,6 +18,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/public")
@@ -68,6 +71,22 @@ public class ProductController {
         }
     }
 
+    /**
+     * The function help update quantity product
+     * @param id
+     * @param product
+     * @author : NhanNNB
+     * @return : null
+     */
+    @PostMapping("/update-quantity/{id}")
+    public void updateProductQuantity(@PathVariable String id, @RequestBody Product product) {
+        try {
+            productService.updateProductQuantity(id, product);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
 
     /**
      * The function help product all data of product find by name

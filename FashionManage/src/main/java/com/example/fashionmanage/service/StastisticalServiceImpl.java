@@ -22,4 +22,14 @@ public class StastisticalServiceImpl implements StatisticalService {
     return importingRepository.getMonthlyStatistical();
   }
 
+  @Override
+  public List<Object[]> getDailyStastistical(String date) {
+    return importingRepository.getStatisticalByDate(date);
+  }
+
+  @Override
+  public List<Object[]> getMonthlyStastistical(String month) {
+    return importingRepository.getStatisticalByMonth(month);
+  }
+
 }
