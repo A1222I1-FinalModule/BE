@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @CrossOrigin("*")
 @RestController()
-@RequestMapping({ "/api/saler", "/api/admin", "/api/warehouse" })
+@RequestMapping("/api/public")
 public class StatisticalController {
   @Autowired
   private StatisticalService statisticalService;

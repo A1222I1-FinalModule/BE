@@ -32,7 +32,7 @@ public class BillController {
      */
     @GetMapping({ "/saler/bill", "/warehouse/bill", "/admin/bill" })
     public ResponseEntity<List<Object[]>> getAllBills() {
-        List<Object[]> bills = ((BillService) billService).getAllBill();
+        List<Object[]> bills = billService.getAllBill();
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
