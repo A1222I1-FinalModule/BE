@@ -17,6 +17,7 @@ import java.util.Optional;
 
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api")
 public class NotificationController {
 
@@ -194,5 +195,6 @@ public class NotificationController {
         }
         return  new ResponseEntity<>(notificationList, HttpStatus.OK);
     }
+
 
 }
