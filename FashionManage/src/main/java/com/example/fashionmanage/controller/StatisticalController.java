@@ -22,16 +22,6 @@ public class StatisticalController {
   @Autowired
   private StatisticalService statisticalService;
 
-  @GetMapping("/statistical/monthly")
-  public List<Object[]> getStatisticalByMonth() {
-    return statisticalService.getStatisticalByMonth();
-  }
-
-  @GetMapping("/statistical/daily")
-  public List<Object[]> getStatisticalByDate() {
-    return statisticalService.getStatisticalByDate();
-  }
-
   /**
    * The function help get daily statistical
    * @param date
