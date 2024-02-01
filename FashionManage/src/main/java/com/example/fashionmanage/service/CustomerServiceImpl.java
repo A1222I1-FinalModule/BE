@@ -63,4 +63,20 @@ public class CustomerServiceImpl implements CustomerService {
             customerRepository.update(cid, customer);
         }
     }
+
+
+    @Override
+    public boolean isPhoneUnique(String phone) {
+        return !customerRepository.existsByPhone(phone);
+    }
+
+    @Override
+    public boolean isEmailUnique(String email) {
+        return !customerRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean isIdUnique(String id) {
+        return !customerRepository.existsById(id);
+    }
 }

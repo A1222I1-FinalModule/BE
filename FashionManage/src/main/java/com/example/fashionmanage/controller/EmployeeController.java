@@ -31,10 +31,4 @@ public class EmployeeController {
             return new ResponseEntity<>(employee, HttpStatus.OK);
         }
     }
-
-    @GetMapping("/info")
-    public ResponseEntity<Employee> getUserInfo(@AuthenticationPrincipal User user) {
-        Employee employee = employeeService.getInfo(user);
-        return ResponseEntity.ok(employee);
-    }
 }

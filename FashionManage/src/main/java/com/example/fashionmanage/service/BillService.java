@@ -11,7 +11,7 @@ import com.example.fashionmanage.dto.OrderGrowthDTO;
 import com.example.fashionmanage.entity.Bill;
 
 @Service
-public interface BIllService {
+public interface BillService {
   List<Object[]> getAllBill();
 
   List<GetBillDTO> getTop5RecentOrder();

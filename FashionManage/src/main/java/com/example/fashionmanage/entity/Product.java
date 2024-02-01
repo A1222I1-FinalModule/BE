@@ -17,16 +17,13 @@ public class Product {
     private String productCode;
 
     @Size(min= 2 , max = 255,message = "Độ dài ký tự phải từ 2 đến 255")
-    @Pattern(regexp = "^[A-ZÁ+]+[a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểìíịỉĩễòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđA-Z0-9 /]{2,255}$",message = "Độ dài ký tự phải từ 2 đến 255 và không chứa ký tự đặc biệt")
     @NotBlank(message = "Thông tin không được để trống!")
-    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotBlank(message = "Thông tin không được để trống!")
     @NotNull
     @Column(name = "quantity")
-    @Min(value = 1,message = "Số lượng phải từ 1 trở lên")
+    @Min(value = 0,message = "Số lượng phải từ 0 trở lên")
     private Integer quantity;
 
     @NotBlank(message = "Thông tin không được để trống!")

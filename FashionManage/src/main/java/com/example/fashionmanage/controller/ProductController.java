@@ -1,5 +1,8 @@
 package com.example.fashionmanage.controller;
+import com.example.fashionmanage.entity.Employee;
 import com.example.fashionmanage.entity.Product;
+import com.example.fashionmanage.entity.User;
+import com.example.fashionmanage.service.EmployeeServiceImpl;
 import com.example.fashionmanage.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +24,8 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private EmployeeServiceImpl employeeService;
     /**
      * The function help list product
      * @return
@@ -106,5 +112,11 @@ public class ProductController {
     }
 
 
+
+    @GetMapping("/info")
+    public ResponseEntity<Employee> getUserInfo(@AuthenticationPrincipal User user) {
+        Employee employee = employeeService.getInfo(user);
+        return ResponseEntity.ok(employee);
+    }
     
 }
