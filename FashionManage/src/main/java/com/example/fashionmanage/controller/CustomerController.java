@@ -23,14 +23,20 @@ public class CustomerController {
         try {
             boolean isPhoneUnique = customerService.isPhoneUnique(newCustomer.getPhone());
             boolean isEmailUnique = customerService.isEmailUnique(newCustomer.getEmail());
+            boolean isIdUnique = customerService.isIdUnique(newCustomer.getId());
+
             List<String> errorMessages = new ArrayList<>();
 
             if (!isPhoneUnique) {
-                errorMessages.add("Số điện thoại đã tồn tại.");
+                errorMessages.add("Số điện thoại đã tồn tại");
             }
 
             if (!isEmailUnique) {
-                errorMessages.add("Email đã tồn tại.");
+                errorMessages.add("Email đã tồn tại");
+            }
+
+            if (!isIdUnique) {
+                errorMessages.add("Id đã tồn tại");
             }
 
             if (!errorMessages.isEmpty()) {

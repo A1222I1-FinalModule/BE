@@ -50,6 +50,7 @@ public interface CustomerService {
 
     boolean isPhoneUnique(String phone);
     boolean isEmailUnique(String phone);
+    boolean isIdUnique(String id);
 
     //BaoNV
     List<Customer> findAllByNameOrPhoneOrContainingId(String str);

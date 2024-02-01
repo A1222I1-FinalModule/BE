@@ -81,6 +81,7 @@ public interface CustomerRepository extends JpaRepository<Customer,String> {
 
     boolean existsByPhone(String phone);
     boolean existsByEmail(String email);
+    boolean existsById(String id);
     /**
      *The function help delete all data of customer find by id
      * @param id

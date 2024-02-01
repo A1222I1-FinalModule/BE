@@ -72,4 +72,9 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean isEmailUnique(String email) {
         return !customerRepository.existsByEmail(email);
     }
+
+    @Override
+    public boolean isIdUnique(String id) {
+        return !customerRepository.existsById(id);
+    }
 }
