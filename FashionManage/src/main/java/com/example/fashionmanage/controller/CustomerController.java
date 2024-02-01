@@ -54,22 +54,6 @@ public class CustomerController {
     ResponseEntity<?> updateCustomer(@PathVariable String id,
                                      @RequestBody Customer newCustomer) {
         try {
-            boolean isPhoneUnique = customerService.isPhoneUnique(newCustomer.getPhone());
-            boolean isEmailUnique = customerService.isEmailUnique(newCustomer.getEmail());
-            List<String> errorMessages = new ArrayList<>();
-
-            if (!isPhoneUnique) {
-                errorMessages.add("Số điện thoại đã tồn tại.");
-            }
-
-            if (!isEmailUnique) {
-                errorMessages.add("Email đã tồn tại.");
-            }
-
-            if (!errorMessages.isEmpty()) {
-                return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
-            }
-
             customerService.update(id, newCustomer);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
