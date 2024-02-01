@@ -92,6 +92,16 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    @GetMapping("/findByNameInfoProduct")
+    public ResponseEntity<?> findByNameInfoProduct (@RequestParam(value = "name" ,required = false) String name ){
+        List<Product> products = productService.findByNameProduct(name);
+        if (products == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+
 
 
     @GetMapping("/findByProductCodeProduct")
