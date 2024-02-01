@@ -4,7 +4,7 @@ package com.example.fashionmanage.controller;
 import com.example.fashionmanage.dto.CustomerGrowth;
 import com.example.fashionmanage.dto.GetBillDTO;
 import com.example.fashionmanage.dto.OrderGrowthDTO;
-import com.example.fashionmanage.service.BIllService;
+import com.example.fashionmanage.service.BillService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class BillController {
     @Autowired
-    private BIllService billService;
+    private BillService billService;
 
     /**
      * Get the list of bills by the bill service for warehouse.
@@ -33,7 +32,7 @@ public class BillController {
      */
     @GetMapping({ "/saler/bill", "/warehouse/bill", "/admin/bill" })
     public ResponseEntity<List<Object[]>> getAllBills() {
-        List<Object[]> bills = ((BIllService) billService).getAllBill();
+        List<Object[]> bills = ((BillService) billService).getAllBill();
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
@@ -72,7 +71,7 @@ public class BillController {
      */
     @GetMapping({ "/saler/monthly/revenue", "/warehouse/monthly/revenue", "/admin/monthly/revenue" })
     public ResponseEntity<Double> getMonthlyRevenue() {
-        Double monthRevenue = billService.calculateRevenueByWeek();
+        Double monthRevenue = billService.calculateRevenueByMonth();
         return new ResponseEntity<>(monthRevenue, HttpStatus.OK);
     }
 

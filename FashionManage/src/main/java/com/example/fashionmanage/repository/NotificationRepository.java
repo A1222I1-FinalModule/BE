@@ -23,8 +23,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
      * @Param : N/A
      * @Return : This method will display all the records in the Notifications table
      */
-
-    @Query(value = "SELECT * FROM notification  ",nativeQuery = true)
+    @Query(value = "SELECT * FROM notification  order by  start_date desc ",nativeQuery = true)
 
     List<Notification> findAll();
 
@@ -39,10 +38,6 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
      * @author: TamHP
      * @Return : if this method success, data will insert in table notification , unless data isn't insert table and message error
      */
-
-    @Query(value = "insert into notification (content,start_date,status,target) values (:content,:start_date,:status,:target)", nativeQuery = true)
-    void Save(@Param("content") String content, @Param("start_date") Date startDate, @Param("status") Boolean status, @Param("target") Integer target);
-
 
     @Modifying
     @Transactional
@@ -62,21 +57,11 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
 
 
     /**
-     * this method is findById, It will return data equivalent to the id that exists, otherwise it will show that no id was found
-     *
-    @Modifying
-    @Transactional
-    @Query(value = "delete from notification n where n.id = :id ",nativeQuery = true)
-    void deletebyId(@Param("id")int id);
-
-
-    /**
      * this method is findById(), It will return data equivalent to the id that exists, otherwise it will show that no id was found
      * @param id
      * @return : data notification witd id selected
      * @author: TamHP
      */
-
     @Query(value = "select *  from notification n where n.id = :id",nativeQuery = true)
     Notification findById(@Param("id")int id);
 
