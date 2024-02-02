@@ -47,7 +47,6 @@ public interface CustomerService {
     void save(Customer customer);
 
     void update(String cid, Customer customer);
-
     boolean isPhoneUnique(String phone);
     boolean isEmailUnique(String phone);
 

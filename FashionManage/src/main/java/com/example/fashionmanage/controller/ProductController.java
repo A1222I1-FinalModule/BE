@@ -29,6 +29,8 @@ public class ProductController {
     private EmployeeServiceImpl employeeService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private EmployeeServiceImpl employeeService;
     /**
      * The function help list product
      * @return

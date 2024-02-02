@@ -21,9 +21,8 @@ public class Product {
     @Column(name = "name", nullable = false)
     private String name;
 
-
     @Column(name = "quantity")
-    @Min(value = 1,message = "Số lượng phải từ 1 trở lên")
+    @Min(value = 0,message = "Số lượng phải từ 0 trở lên")
     private Integer quantity;
 
     @NotBlank(message = "Thông tin không được để trống!")

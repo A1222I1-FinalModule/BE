@@ -44,6 +44,7 @@ public class SalerController {
      */
     @PostMapping("/customer")
     public ResponseEntity<List<Customer>> findAllByNameOrPhoneContainingOrId(@RequestParam(name = "searchStr", required = false, defaultValue = "") String searchStr) {
+        
         List<Customer> searchList = customerService.findAllByNameOrPhoneOrContainingId(searchStr);
         if (searchList == null || searchList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -64,7 +65,7 @@ public class SalerController {
         if (customerOptional.isPresent()) {
             //check is product available
             for (ProductBill productBill : billDto.getProductBills()) {
-                String productId = productBill.getProductCode();
+                String productId = productBill.getProductCode().toUpperCase();
                 int requestQuantity = productBill.getQuantity();
 
                 Optional<Product> productOptional = productService.findById(productId);
@@ -107,7 +108,7 @@ public class SalerController {
             bIllService.save(newBill);
             //add bill detail
             for (ProductBill productBill : billDto.getProductBills()) {
-                String productId = productBill.getProductCode();
+                String productId = productBill.getProductCode().toUpperCase();
                 int requestQuantity = productBill.getQuantity();
                 Product product = productService.findById(productId).orElseThrow();
 
@@ -195,15 +196,15 @@ public class SalerController {
     @PostMapping("/bill/product")
     public ResponseEntity<?> addProductBill(@RequestBody ProductBill productBill) {
         if (productBill.getQuantity() <= 0) {
-            return new ResponseEntity<>("Quantity must be more than 0", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Quantity must be more than 0", HttpStatus.NO_CONTENT);
         }
-        Optional<Product> productOptional = productService.findById(productBill.getProductCode());
+        Optional<Product> productOptional = productService.findById(productBill.getProductCode().toUpperCase());
         if (productOptional.isPresent()) {
             Product product = productOptional.get();
             int availableQuantity = product.getQuantity();
             int orderQuantity = productBill.getQuantity();
             if (availableQuantity < orderQuantity) {
-                return new ResponseEntity<>("Insufficient stock for product with ID: " + productBill.getProductCode(), HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(availableQuantity, HttpStatus.BAD_REQUEST);
             }
             product.setQuantity(orderQuantity);
             return new ResponseEntity<>(product, HttpStatus.OK);

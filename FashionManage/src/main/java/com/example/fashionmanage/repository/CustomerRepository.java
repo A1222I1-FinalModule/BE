@@ -78,7 +78,6 @@ public interface CustomerRepository extends JpaRepository<Customer,String> {
             "where id = :cid", nativeQuery = true)
     void update(@Param("cid") String cid, @Param("customer") Customer customer);
 
-
     boolean existsByPhone(String phone);
     boolean existsByEmail(String email);
     /**
