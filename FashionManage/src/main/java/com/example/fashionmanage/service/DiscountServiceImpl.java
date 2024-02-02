@@ -63,9 +63,9 @@ public class DiscountServiceImpl implements DiscountService {
      */
     @Transactional
     @Override
-    public void createDiscount(DiscountDto discountDto) {
+    public void createDiscount(DiscountDto discountDto,int number) {
         Discount discount1 = modelMapper.map(discountDto, Discount.class);
-        discount.createDiscount(discount1);
+        discount.createDiscount(discount1,number);
     }
 
     /**
@@ -91,6 +91,18 @@ public class DiscountServiceImpl implements DiscountService {
     @Override
     public List<Discount> findByNameDiscountBothCustomerType(String name, Integer customerType) {
         return discount.findByNameDiscountBothCustomerType(name,customerType);
+    }
+
+    /**
+     * The function help display all data of discount find by name
+     *
+     * @param customerType is code of discount
+     * @return data of discount find by dicount
+     * @author QuanNV
+     */
+    @Override
+    public List<Discount> findByDiscountCustomerType(Integer customerType) {
+        return discount.findByDiscountCustomerType(customerType);
     }
 
     @Override
@@ -129,4 +141,8 @@ public class DiscountServiceImpl implements DiscountService {
         return discount.findDiscount(cusTypeId, total, today);
     }
 
+    @Override
+    public int maxNumber() {
+        return discount.maxNumber();
+    }
 }

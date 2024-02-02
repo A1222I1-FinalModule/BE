@@ -58,4 +58,7 @@ public class Discount {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;
+
+    @Column(name = "number")
+    private int number;
 }
