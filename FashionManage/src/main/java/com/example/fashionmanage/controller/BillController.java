@@ -32,7 +32,7 @@ public class BillController {
      */
     @GetMapping({ "/saler/bill", "/warehouse/bill", "/admin/bill" })
     public ResponseEntity<List<Object[]>> getAllBills() {
-        List<Object[]> bills = ((BillService) billService).getAllBill();
+        List<Object[]> bills = billService.getAllBill();
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
@@ -71,7 +71,7 @@ public class BillController {
      */
     @GetMapping({ "/saler/monthly/revenue", "/warehouse/monthly/revenue", "/admin/monthly/revenue" })
     public ResponseEntity<Double> getMonthlyRevenue() {
-        Double monthRevenue = billService.calculateRevenueByWeek();
+        Double monthRevenue = billService.calculateRevenueByMonth();
         return new ResponseEntity<>(monthRevenue, HttpStatus.OK);
     }
 

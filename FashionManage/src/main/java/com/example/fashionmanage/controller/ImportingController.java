@@ -16,28 +16,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @CrossOrigin("*")
 @RestController()
-@RequestMapping("/api")
+@RequestMapping("/api/public")
 public class ImportingController {
   @Autowired
   private ImportingService importingService;
 
-  @GetMapping({ "/admin/importing", "/warehouse/importing", "/saler/importing" })
+  @GetMapping("importing")
   public List<Importing> getImportings() {
     return importingService.getAllImporting();
   }
 
-  @GetMapping({ "/admin/importing/date", "/warehouse/importing/date", "/saler/importing/date" })
+  @GetMapping("importing/daily")
   public List<Importing> getImportingsByDate() {
     return importingService.getImportingByDate();
   }
 
-  @GetMapping({ "/admin/importing/month", "/warehouse/importing/month", "/saler/importing/month" })
+  @GetMapping("importing/monthly")
   public List<Importing> getImportingsByMonth() {
     return importingService.getImportingByMonth();
   }
 
-  @GetMapping({ "admin/importing/maxId", "warehouse/importing/maxId" })
+  @GetMapping( "/importing/maxId")
   public Integer getCurrentMaxId() {
     return importingService.getCurrentMaxId();
   }
+  @PostMapping("/importing")
+    public void createImporting(@RequestBody Importing importing) {
+        importingService.saveImporting(importing);
+    }
 }

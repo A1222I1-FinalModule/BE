@@ -7,13 +7,20 @@ import java.util.Optional;
 public interface ProductService {
 
     /**
-     *  This is the createInfoProduct(Product product) method, which is created for reuse by subclasses,Its purpose is to add data
+     *  This is the createInfoProduct method, which is created for reuse by subclasses,Its purpose is to add data
      * @param product
      * @author :TuyenDV
      * @Return : if this method success, data will insert in table product , unless data isn't insert table and message error
      */
     void createInfoProduct(Product product);
 
+    /**
+     * This is the updateInfoProduct method, its purpose is to update quantity data
+     * @param product
+     * @author : NhanNNB
+     * @return : if this method success, data will update in table product , unless data isn't update table and message error
+     */
+    void updateProductQuantity(String id, Product product);
 
     /**
      * This is the findListInfoProduct(), which is created for reuse by subclasses, Its purpose is to display the product list
@@ -52,6 +59,6 @@ public interface ProductService {
      */
     List<Product> findByProductCode(String productCode);
 
-    void updateProductQuantity(Product product);
+    boolean checkIdProduct(String id);
 
 }

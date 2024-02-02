@@ -83,7 +83,8 @@ public class DiscountController {
             if(check){
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }else{
-            discountService.createDiscount(discountDto);
+            int max=discountService.maxNumber();
+            discountService.createDiscount(discountDto,max);
             return new ResponseEntity<>(HttpStatus.OK);}
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -116,7 +117,9 @@ public class DiscountController {
         List<Discount>discounts;
         if(customerType==0){
             discounts=discountService.findByNameDiscount(name);
-        }else{
+        }else if(name==null){
+            discounts=discountService.findByDiscountCustomerType(customerType);
+        } else{
            discounts = discountService.findByNameDiscountBothCustomerType(name,customerType);
         }
         if (discounts == null) {

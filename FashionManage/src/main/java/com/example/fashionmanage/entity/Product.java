@@ -21,7 +21,6 @@ public class Product {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotNull
     @Column(name = "quantity")
     @Min(value = 0,message = "Số lượng phải từ 0 trở lên")
     private Integer quantity;
@@ -37,6 +36,7 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_category_id", nullable = false)
     private ProductCategory productCategory;
+
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

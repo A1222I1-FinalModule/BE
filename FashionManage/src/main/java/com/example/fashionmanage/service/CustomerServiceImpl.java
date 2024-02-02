@@ -49,10 +49,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     //QuanND
-
     @Override
     public void save(Customer customer) {
-        customerRepository.save(customer);
+        customerRepository.create(customer);
     }
 
     @Override
@@ -64,7 +63,6 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-
     @Override
     public boolean isPhoneUnique(String phone) {
         return !customerRepository.existsByPhone(phone);
@@ -73,10 +71,5 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean isEmailUnique(String email) {
         return !customerRepository.existsByEmail(email);
-    }
-
-    @Override
-    public boolean isIdUnique(String id) {
-        return !customerRepository.existsById(id);
     }
 }

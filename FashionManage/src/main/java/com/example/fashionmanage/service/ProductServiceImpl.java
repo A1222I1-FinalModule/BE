@@ -35,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
     public Optional<Product> findById(String id) {
         return productRepository.findById(id);
     }
+    @Transactional
 
     @Override
     public void save(Product product) {
@@ -90,8 +91,17 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findByProductCategories(Integer id) {
         return productRepository.findByProductCategory(id);
     }
-    public void updateProductQuantity(Product product) {
-        Optional<Product> fromDB = productRepository.findById(product.getProductCode());
+
+    /**
+     * This is method overrride by interface ProductService,It is used to update  info product object
+     * @param id
+     * @param product
+     * @author: NhanNNB
+     * @return : if success , object will update not messager error
+     */
+    @Override
+    public void updateProductQuantity(String id, Product product) {
+        Optional<Product> fromDB = productRepository.findById(id);
         if (!fromDB.isPresent()) {
             throw new NullPointerException("Product is null");
         } else {
@@ -100,4 +110,8 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public boolean checkIdProduct(String id) {
+        return productRepository.countByDiscountCode(id)>0;
+    }
 }

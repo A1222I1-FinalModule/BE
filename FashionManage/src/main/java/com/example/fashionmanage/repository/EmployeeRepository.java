@@ -25,9 +25,15 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
             "GROUP BY e.id, e.name " +
             "ORDER BY totalSales DESC LIMIT 5", nativeQuery = true)
     List<EmployeeDTO> findAllEmployeeSaleTop();
-
-    @Query(value = "SELECT e.id,e.address,e.date_of_birth,e.name,e.phone,e.user_id FROM employee e WHERE e.user_id = :id", nativeQuery = true)
-    Employee findByUser(@Param("id") Integer id);
+    /**
+     * Method : findByUser
+     * <p>Return Employee from user id</p>
+     * @param id
+     * @return Employee
+     * @author AiPV
+     */
+    @Query(value = "SELECT e.id,e.address,e.date_of_birth,e.name,e.phone,e.image,e.user_id FROM employee e WHERE e.user_id = :id", nativeQuery = true)
+    Employee findByUser(@Param("id")Integer id);
 
     /**
      * The function help get employee code base on user id

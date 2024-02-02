@@ -40,7 +40,7 @@ public interface DiscountService {
      * @param discountDto
      * @return author QuanNV
      */
-    void createDiscount(DiscountDto discountDto);
+    void createDiscount(DiscountDto discountDto,int number);
 
     /**
      * the function help update discount by id
@@ -70,6 +70,15 @@ public interface DiscountService {
     List<Discount> findByNameDiscountBothCustomerType(String name,Integer customerType);
 
     /**
+     * The function help display all data of discount find by customerType
+     *
+     * @param customerType of customer type
+     * @return data of discount find by name
+     * @author QuanNV
+     */
+    List<Discount> findByDiscountCustomerType(Integer customerType);
+
+    /**
      * The function help allows to know if the id already exists
      * @param id
      * @author QuanNV
@@ -93,4 +102,6 @@ public interface DiscountService {
      */
     List<Discount> findDiscount(Integer cusTypeId, Integer total, Date today);
     Optional<Discount> findById(String id);
+
+    int maxNumber();
 }

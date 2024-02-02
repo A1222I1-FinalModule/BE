@@ -49,9 +49,8 @@ public interface CustomerService {
     void update(String cid, Customer customer);
     boolean isPhoneUnique(String phone);
     boolean isEmailUnique(String phone);
-    boolean isIdUnique(String id);
 
-    //BaoDV
+    //BaoNV
     List<Customer> findAllByNameOrPhoneOrContainingId(String str);
 
     Optional<Customer> findById(String id);
