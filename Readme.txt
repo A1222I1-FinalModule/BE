@@ -1,3 +1,37 @@
+# Clothing Website 
+
+
+## OVERVIEW
+
+- According to the documentation provided by SRS, we have applied ReactJs to create product interfaces and process APIs from the server. This project helps us understand more about ReactJs and understand the related libraries in ReactJs.
+
+## TIMELINE
+
+- Estimate time: **7 days (2024/01/05 - 2024/01/12)**
+- Actual time: **9 days (2024/01/05 - 2024/01/14)**
+
+## TEAM SIZE
+
+- 9 developer:
+
+-[Bui Minh Than]
+-[Phan Van Ai]
+-[Ho Phuc Tam]
+-[Dang Van Tuyen]
+-[Duong Van Bao]
+-[Nguyen Ngoc Bao Nhan]
+-[Nguyen Van Quan]
+-[Nguyen Dinh Quan]
+-[Nguyen Thanh Truong]
+
+## TARGETS
+
+
+
+
+
+
+
 <<<<<<< HEAD
 Dương Văn Bảo
 =======
